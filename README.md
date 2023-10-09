@@ -11,6 +11,12 @@ $ git clone https://github.com/KorRyu3/TriPal
 ### 2. 仮想環境の作成
 ```
 $ python3 -m venv .venv
+
+# 仮想環境に入る場合
+$ source .venv/bin/activate
+
+# 仮想環境を抜ける場合
+$ deactivate
 ```
 
 ### 3. パッケージのインストール
