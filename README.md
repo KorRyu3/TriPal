@@ -6,7 +6,8 @@
 ### 1. リポジトリのクローン
 ```
 git clone https://github.com/KorRyu3/TriPal
-
+```
 ### 2. パッケージのインストール
 ```
 pip install -r requirements.txt
+```
