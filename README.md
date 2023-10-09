@@ -5,9 +5,15 @@
 ## 環境構築
 ### 1. リポジトリのクローン
 ```
-git clone https://github.com/KorRyu3/TriPal
+$ git clone https://github.com/KorRyu3/TriPal
 ```
-### 2. パッケージのインストール
+
+### 2. 仮想環境の作成
 ```
-pip install -r requirements.txt
+$ python3 -m venv .venv
+```
+
+### 3. パッケージのインストール
+```
+$ pip install -r requirements.txt
 ```
