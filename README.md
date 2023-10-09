@@ -17,3 +17,10 @@ $ python3 -m venv .venv
 ```
 $ pip install -r requirements.txt
 ```
+
+---
+## ルール
+```
+新しいファイルを作る場合は、空のファイルを最初にプッシュ
+複数のファイルをGithubにアップロードする場合は1つずつコミット
+```
