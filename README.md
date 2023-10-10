@@ -42,7 +42,8 @@ git checkout ブランチ名
 <br>
 
 
-- "git add" は変更を加えたら逐一、"git commit" は作業の区切り目の小さな単位で行う
+- "git add" は変更を加えたら逐一、"git commit" は作業の区切り目の小さな単位で行う  
+[**Gitのコミットメッセージの書き方 - Qiita**](https://qiita.com/itosho/items/9565c6ad2ffc24c09364#%E9%80%9A%E5%B8%B8%E7%89%88)  
 - "git push" は出来るだけ積極的に
 - "pull request" は大きな単位の編集が完了したら行う  
 <br>
