@@ -59,11 +59,17 @@ git checkout ブランチ名
 <details><summary><h3>例</h3></summary>
 hoge.pyとhoge.htmlを編集し、両方commitしたい場合
 
-git add hoge.py  
-git commit -m "hoge.pyについてのコメント"  
-git push  
+#### hoge.py
+```
+git add hoge.py
+git commit -m "hoge.pyについてのコメント"
+git push
+```  
 
+#### hoge.html
+```
 git add hoge.html  
 git commit -m "hoge.htmlについてのコメント"  
-git push  
+git push
+```
 </details>
