@@ -24,6 +24,11 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
+### 4. 環境変数について
+環境変数ファイルには、Azure OpenAIのAPI-KEYなどの情報が入っているため、GitHub上には上げていません。  
+プログラムを動かす際は、管理者から直接ファイルを
+受け取ってください。
+また、受け取ったファイルは、`Web-site/`直下に置いてください。
 
 ## Git/GitHubでのルール
 
