@@ -2,6 +2,9 @@
 .venv/
 .DS_Store
 
+*/.env
+.env
+
 *.pyc
 __pychache__/
 
