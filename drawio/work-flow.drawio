@@ -1,406 +1,406 @@
-<mxfile host="65bd71144e" pages="3">
-    <diagram name="計画提案(音声)" id="cCEmumAnZUsR_eWoqHt_">
-        <mxGraphModel dx="910" dy="952" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-            <root>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-0"/>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-1" parent="_dDCrjcuB5I1F5ZivIcx-0"/>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="230" y="235" width="1220" height="700" as="geometry"/>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-5" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;glass=0;labelBorderColor=default;fontSize=20;fontColor=default;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="390" y="445" width="220" height="270" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-3" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="630" y="365" width="440" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1130" y="365" width="250" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-5" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-10" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-6" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-21" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-7" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-14" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-8" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="_dDCrjcuB5I1F5ZivIcx-7" vertex="1" connectable="0">
-                    <mxGeometry x="-0.3703" relative="1" as="geometry">
-                        <mxPoint y="13" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-9" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-10" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1165" y="415" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-11" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-34" target="_dDCrjcuB5I1F5ZivIcx-9" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points"/>
-                        <mxPoint x="860" y="340.7800000000002" as="sourcePoint"/>
-                        <mxPoint x="860" y="395" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-12" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-14" target="_dDCrjcuB5I1F5ZivIcx-16" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-13" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-14" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="760" y="635" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="943" y="635"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-14" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="888" y="540" width="220" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-15" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1165" y="695" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-16" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1165" y="530" width="190" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-17" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="680" y="535" width="160" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-18" value="計画提案(音声)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1130" y="295" width="250" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-21" target="_dDCrjcuB5I1F5ZivIcx-15" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-21" target="_dDCrjcuB5I1F5ZivIcx-24" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="860" y="825" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-21" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-22" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-24" target="_dDCrjcuB5I1F5ZivIcx-25" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1120" y="845" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-23" style="edgeStyle=none;html=1;fontSize=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-24" target="FfdtrfkBHYAv-GYH5gaA-1" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="570" y="845" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="553" y="845"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-24" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-25" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1080" y="820" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-3" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-26" target="FfdtrfkBHYAv-GYH5gaA-0" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="505" y="309"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-26" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-27" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-28" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="640" y="365" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-29" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-30" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-32" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="FfdtrfkBHYAv-GYH5gaA-0" target="_dDCrjcuB5I1F5ZivIcx-34" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="553" y="310"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-33" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry"/>
-                </mxCell>
-                <mxCell id="_dDCrjcuB5I1F5ZivIcx-34" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="780" y="285" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-0" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;Speech-to-Text&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="410" y="485" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-2" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="FfdtrfkBHYAv-GYH5gaA-1" target="_dDCrjcuB5I1F5ZivIcx-27" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="505" y="844"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-1" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;Text-to-Speech&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="410" y="635" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="FfdtrfkBHYAv-GYH5gaA-8" value="Azure AI Speech" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
-                    <mxGeometry x="390" y="560" width="220" height="30" as="geometry"/>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
-    <diagram name="計画提案" id="5vDMvCE3E0zF0jx68hXI">
-        <mxGraphModel dx="910" dy="952" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-            <root>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-0"/>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-1" parent="kQgkRItSt9Re5R0VfFln-0"/>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="230" y="235" width="1220" height="700" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="630" y="365" width="440" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-5" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1130" y="365" width="250" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-6" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-11" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-7" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-22" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-8" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-15" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-9" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="kQgkRItSt9Re5R0VfFln-8" vertex="1" connectable="0">
-                    <mxGeometry x="-0.3703" relative="1" as="geometry">
-                        <mxPoint y="13" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-10" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-11" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1165" y="415" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-12" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-35" target="kQgkRItSt9Re5R0VfFln-10" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points"/>
-                        <mxPoint x="860" y="340.7800000000002" as="sourcePoint"/>
-                        <mxPoint x="860" y="395" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-13" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-15" target="kQgkRItSt9Re5R0VfFln-17" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-14" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-15" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="760" y="635" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="943" y="635"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-15" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="888" y="540" width="220" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-16" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1165" y="695" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-17" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1165" y="530" width="190" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-18" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="680" y="535" width="160" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-19" value="計画提案" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1130" y="295" width="250" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-20" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-22" target="kQgkRItSt9Re5R0VfFln-16" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-21" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-22" target="kQgkRItSt9Re5R0VfFln-25" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="860" y="825" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-22" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-23" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-25" target="kQgkRItSt9Re5R0VfFln-26" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1120" y="845" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-25" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-26" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1080" y="820" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-28" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-29" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-30" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="640" y="365" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-31" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-32" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-33" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-28" target="kQgkRItSt9Re5R0VfFln-35" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="552.5" y="485" as="sourcePoint"/>
-                        <Array as="points"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-34" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-35" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
-                    <mxGeometry x="780" y="285" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="kQgkRItSt9Re5R0VfFln-37" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-25" target="kQgkRItSt9Re5R0VfFln-29" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points"/>
-                        <mxPoint x="505" y="675" as="sourcePoint"/>
-                    </mxGeometry>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
-    <diagram name="予約" id="emeD-xH0rabRUpP9thuH">
-        <mxGraphModel dx="851" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-            <root>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-0"/>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-1" parent="vxVyeqy7I3OAnm5J7iQC-0"/>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="230" y="235" width="1220" height="700" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-3" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="630" y="365" width="440" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1130" y="365" width="250" height="430" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-5" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-10">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-6" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-21">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-7" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-14">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-8" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="vxVyeqy7I3OAnm5J7iQC-7">
-                    <mxGeometry x="-0.3703" relative="1" as="geometry">
-                        <mxPoint y="13" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-9" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-10" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1165" y="415" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-11" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-32" target="vxVyeqy7I3OAnm5J7iQC-9">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points"/>
-                        <mxPoint x="860" y="340.7800000000002" as="sourcePoint"/>
-                        <mxPoint x="860" y="395" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-12" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-14" target="vxVyeqy7I3OAnm5J7iQC-16">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-13" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-14">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="760" y="635" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="943" y="635"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-14" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="888" y="540" width="220" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-15" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1165" y="695" width="190" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-16" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1165" y="530" width="190" height="70" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-17" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="680" y="535" width="160" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-18" value="予約" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1130" y="295" width="250" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-21" target="vxVyeqy7I3OAnm5J7iQC-15">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-21" target="vxVyeqy7I3OAnm5J7iQC-23">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="860" y="825" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-21" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-22" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-23" target="vxVyeqy7I3OAnm5J7iQC-24">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1120" y="845" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-23" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-24" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1080" y="820" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-25" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-26" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-27" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="640" y="365" width="140" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-28" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-29" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-30" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-25" target="vxVyeqy7I3OAnm5J7iQC-32">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="552.5" y="485" as="sourcePoint"/>
-                        <Array as="points"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-31" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-32" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
-                    <mxGeometry x="780" y="285" width="180" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="vxVyeqy7I3OAnm5J7iQC-33" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-23" target="vxVyeqy7I3OAnm5J7iQC-26">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points"/>
-                        <mxPoint x="505" y="675" as="sourcePoint"/>
-                    </mxGeometry>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
+<mxfile host="app.diagrams.net" modified="2023-10-15T08:56:24.366Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.54" version="22.0.4" etag="kZD7LfpChRG7VUCXClXj" type="device" pages="3">
+  <diagram name="計画提案(音声)" id="cCEmumAnZUsR_eWoqHt_">
+    <mxGraphModel dx="1135" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-0" />
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-1" parent="_dDCrjcuB5I1F5ZivIcx-0" />
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="230" y="235" width="1220" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-5" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;glass=0;labelBorderColor=default;fontSize=20;fontColor=default;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="390" y="445" width="220" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-3" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="630" y="365" width="440" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1130" y="365" width="250" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-5" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-6" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-21" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-7" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-9" target="_dDCrjcuB5I1F5ZivIcx-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-8" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="_dDCrjcuB5I1F5ZivIcx-7" vertex="1" connectable="0">
+          <mxGeometry x="-0.3703" relative="1" as="geometry">
+            <mxPoint y="13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-9" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-10" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1165" y="415" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-11" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-34" target="_dDCrjcuB5I1F5ZivIcx-9" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="860" y="340.7800000000002" as="sourcePoint" />
+            <mxPoint x="860" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-12" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-14" target="_dDCrjcuB5I1F5ZivIcx-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-13" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="635" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="943" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-14" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="888" y="540" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-15" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1165" y="695" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-16" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1165" y="530" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-17" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="680" y="535" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-18" value="計画提案(音声)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1130" y="295" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-21" target="_dDCrjcuB5I1F5ZivIcx-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-21" target="_dDCrjcuB5I1F5ZivIcx-24" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="825" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-21" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-22" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-24" target="_dDCrjcuB5I1F5ZivIcx-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="845" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-23" style="edgeStyle=none;html=1;fontSize=1;entryX=0.781;entryY=1.043;entryDx=0;entryDy=0;entryPerimeter=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-24" target="FfdtrfkBHYAv-GYH5gaA-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="845" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="553" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-24" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-25" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1080" y="820" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-3" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="_dDCrjcuB5I1F5ZivIcx-26" target="FfdtrfkBHYAv-GYH5gaA-0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="309" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-26" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-27" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-28" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="640" y="365" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-29" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-30" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-32" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="FfdtrfkBHYAv-GYH5gaA-0" target="_dDCrjcuB5I1F5ZivIcx-34" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="548" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-33" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry" />
+        </mxCell>
+        <mxCell id="_dDCrjcuB5I1F5ZivIcx-34" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="780" y="285" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-0" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;Speech-to-Text&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="405" y="485" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-2" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;" parent="_dDCrjcuB5I1F5ZivIcx-1" source="FfdtrfkBHYAv-GYH5gaA-1" target="_dDCrjcuB5I1F5ZivIcx-27" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="844" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-1" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;Text-to-Speech&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="405" y="635" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FfdtrfkBHYAv-GYH5gaA-8" value="Azure AI Speech" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="_dDCrjcuB5I1F5ZivIcx-1" vertex="1">
+          <mxGeometry x="390" y="560" width="220" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="計画提案" id="5vDMvCE3E0zF0jx68hXI">
+    <mxGraphModel dx="851" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-0" />
+        <mxCell id="kQgkRItSt9Re5R0VfFln-1" parent="kQgkRItSt9Re5R0VfFln-0" />
+        <mxCell id="kQgkRItSt9Re5R0VfFln-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="230" y="235" width="1220" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="630" y="365" width="440" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-5" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1130" y="365" width="250" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-6" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-7" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-8" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-10" target="kQgkRItSt9Re5R0VfFln-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-9" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" parent="kQgkRItSt9Re5R0VfFln-8" vertex="1" connectable="0">
+          <mxGeometry x="-0.3703" relative="1" as="geometry">
+            <mxPoint y="13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-10" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-11" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1165" y="415" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-12" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-35" target="kQgkRItSt9Re5R0VfFln-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="860" y="340.7800000000002" as="sourcePoint" />
+            <mxPoint x="860" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-13" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-15" target="kQgkRItSt9Re5R0VfFln-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-14" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-15" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="635" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="943" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-15" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="888" y="540" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-16" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1165" y="695" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-17" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1165" y="530" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-18" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="680" y="535" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-19" value="計画提案" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1130" y="295" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-20" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-22" target="kQgkRItSt9Re5R0VfFln-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-21" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-22" target="kQgkRItSt9Re5R0VfFln-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="825" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-22" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-23" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-25" target="kQgkRItSt9Re5R0VfFln-26" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="845" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-25" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-26" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1080" y="820" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-28" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-29" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-30" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="640" y="365" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-31" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-32" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-33" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-28" target="kQgkRItSt9Re5R0VfFln-35" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="552.5" y="485" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-34" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-35" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" parent="kQgkRItSt9Re5R0VfFln-1" vertex="1">
+          <mxGeometry x="780" y="285" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kQgkRItSt9Re5R0VfFln-37" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="kQgkRItSt9Re5R0VfFln-1" source="kQgkRItSt9Re5R0VfFln-25" target="kQgkRItSt9Re5R0VfFln-29" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="505" y="675" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="予約" id="emeD-xH0rabRUpP9thuH">
+    <mxGraphModel dx="851" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-0" />
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-1" parent="vxVyeqy7I3OAnm5J7iQC-0" />
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-2" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#666666;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;connectable=1;fillColor=#f5f5f5;fontColor=#333333;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="230" y="235" width="1220" height="700" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-3" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="630" y="365" width="440" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-4" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1130" y="365" width="250" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-5" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=17;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-6" style="edgeStyle=none;html=1;entryX=0.1;entryY=-0.065;entryDx=0;entryDy=0;fontSize=16;exitX=0.1;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-7" style="edgeStyle=none;html=1;exitX=0.817;exitY=1.014;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=16;exitPerimeter=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-9" target="vxVyeqy7I3OAnm5J7iQC-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-8" value="クエリ生成" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="vxVyeqy7I3OAnm5J7iQC-7">
+          <mxGeometry x="-0.3703" relative="1" as="geometry">
+            <mxPoint y="13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-9" value="&lt;font style=&quot;font-size: 26px;&quot;&gt;意図判断&lt;br style=&quot;font-size: 26px;&quot;&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=26;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="732.5" y="405" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-10" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1165" y="415" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-11" style="edgeStyle=none;html=1;fontSize=14;exitX=0.454;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-32" target="vxVyeqy7I3OAnm5J7iQC-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="860" y="340.7800000000002" as="sourcePoint" />
+            <mxPoint x="860" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-12" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=22;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-14" target="vxVyeqy7I3OAnm5J7iQC-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-13" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontSize=16;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="635" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="943" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-14" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;外部サービスへの検索&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="888" y="540" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-15" value="&lt;p style=&quot;line-height: 10%; font-size: 22px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;background-color: initial; font-size: 22px;&quot;&gt;OpenAI&lt;/span&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1165" y="695" width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-16" value="&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;Azure&amp;nbsp;&lt;span style=&quot;border-color: var(--border-color); background-color: initial; font-size: 20px;&quot;&gt;OpenAI&lt;/span&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 10%; font-size: 20px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 20px;&quot;&gt;Function calling&lt;/span&gt;&lt;br style=&quot;font-size: 20px;&quot;&gt;&lt;/p&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1165" y="530" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-17" value="旅行情報&lt;br&gt;チャット履歴" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="680" y="535" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-18" value="予約" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1130" y="295" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-19" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=1;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-21" target="vxVyeqy7I3OAnm5J7iQC-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-20" style="edgeStyle=none;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=1;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-21" target="vxVyeqy7I3OAnm5J7iQC-23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="825" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-21" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;情報の文章化&lt;br&gt;旅行計画の提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="732.5" y="685" width="257.5" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-22" style="edgeStyle=none;html=1;fontSize=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-23" target="vxVyeqy7I3OAnm5J7iQC-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1120" y="845" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-23" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;生成されたプラン提案&lt;br&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=22;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="732.5" y="825" width="257.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-24" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1080" y="820" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-25" value="Input" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="370" y="283.75" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-26" value="Output" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="370" y="816.25" width="80" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-27" value="Web LLM App" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="640" y="365" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-28" value="Connections" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;labelBorderColor=none;fontSize=18;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="1147.5" y="365" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-29" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;client&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#080808;perimeterSpacing=0;fontSize=22;shadow=1;fontStyle=1" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="300" y="273.75" width="70" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-30" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=16;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-25" target="vxVyeqy7I3OAnm5J7iQC-32">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="552.5" y="485" as="sourcePoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-31" value="&lt;u&gt;旅行情報&lt;/u&gt;&lt;br&gt;(予算・期間・&lt;br&gt;目的地・その他)" style="rounded=1;whiteSpace=wrap;fontSize=16;html=1;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="550" y="272.5" width="140" height="72.5" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-32" value="LangChain Memory&lt;br style=&quot;font-size: 16px;&quot;&gt;(チャット履歴)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="vxVyeqy7I3OAnm5J7iQC-1">
+          <mxGeometry x="780" y="285" width="180" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vxVyeqy7I3OAnm5J7iQC-33" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=20;fontColor=default;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="vxVyeqy7I3OAnm5J7iQC-1" source="vxVyeqy7I3OAnm5J7iQC-23" target="vxVyeqy7I3OAnm5J7iQC-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="505" y="675" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
 </mxfile>
