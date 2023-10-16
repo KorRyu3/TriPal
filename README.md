@@ -24,6 +24,11 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
+### 4. 環境変数について
+環境変数ファイルには、Azure OpenAIのAPI-KEYなどの情報が入っているため、GitHub上には上げていません。  
+プログラムを動かす際は、管理者から直接ファイルを
+受け取ってください。
+また、受け取ったファイルは、`Web-site/`直下に置いてください。
 
 ## Git/GitHubでのルール
 
@@ -54,11 +59,17 @@ git checkout ブランチ名
 <details><summary><h3>例</h3></summary>
 hoge.pyとhoge.htmlを編集し、両方commitしたい場合
 
-git add hoge.py  
-git commit -m "hoge.pyについてのコメント"  
-git push  
+#### hoge.py
+```
+git add hoge.py
+git commit -m "hoge.pyについてのコメント"
+git push
+```  
 
+#### hoge.html
+```
 git add hoge.html  
 git commit -m "hoge.htmlについてのコメント"  
-git push  
+git push
+```
 </details>
