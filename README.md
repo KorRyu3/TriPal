@@ -21,7 +21,7 @@ $ deactivate
 
 ### 3. パッケージのインストール
 ```
-$ pip install -r requirements.txt
+(.venv) $ pip install -r requirements.txt
 ```
 
 ### 4. 環境変数について
