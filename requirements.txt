@@ -1,5 +1,6 @@
 
-flask
-openai
-langchain
 
+Flask==3.0.0
+openai==0.28.1
+langchain==0.0.319
+python-dotenv==1.0.0
