@@ -77,6 +77,6 @@ class TriPalGPT:
     # ユーザーからの入力を取得する
     def get_response(self, user_chat):
         # memory_responseメソッドを呼び出して、応答を取得する
-        self.ai_response = self.memory_response(user_chat)
-        return self.ai_response
+        ai_response = self.memory_response(user_chat)
+        return ai_response
 
