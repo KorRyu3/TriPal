@@ -8,3 +8,6 @@ __pychache__/
 .ipynb_checkpoints/
 
 instance/
+
+Web-site/backend/.env
+Web-site/backend/tests/
