@@ -44,5 +44,18 @@ class TriPalGPT:
         # メモリーの初期化
         self.memory = ConversationBufferMemory(memory_key="history", return_messages=True)
 
+    # Chainの作成
+    def create_chain(self):
+            
+        # LangChainのLCELを利用して、Chainを作成する
+        history = self.memory.load_memory_variables
+        # itemgetter("history") は、memory.load_memory_variablesの戻り値の中から、historyの値を取り出す
+        # 詳細は"https://python.langchain.com/docs/expression_language/cookbook/memory"を参照
+        chain = RunnablePassthrough.assign(
+            history=RunnableLambda(history) | itemgetter("history")
+        ) | self.prompt | self.model
+
+        return chain
+
 
 
