@@ -66,6 +66,9 @@ class TriPalGPT:
 
         # ユーザーからの入力を取得する
         inputs = {"input": user_res}
+
+        print("user_res: ", user_res)
+
         # 履歴を元に、Chainを実行する
         res = chain.invoke(input=inputs)
         # 履歴を保存する
@@ -75,8 +78,12 @@ class TriPalGPT:
 
 
     # ユーザーからの入力を取得する
-    def get_response(self, user_chat):
+    def get_response(self, user_inp):
+        print("user_inp: ", user_inp)
         # memory_responseメソッドを呼び出して、応答を取得する
-        ai_response = self.memory_response(user_chat)
-        return ai_response
+        ai_res = self.memory_response(user_res=user_inp)
+
+        print(self.memory.load_memory_variables(inputs={}))
+
+        return ai_res
 
