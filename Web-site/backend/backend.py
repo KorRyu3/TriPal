@@ -58,4 +58,25 @@ class TriPalGPT:
         return chain
 
 
+    # 履歴を保存する
+    def memory_response(self, user_res):
+
+        # Chainの作成
+        chain = self.create_chain()
+
+        # ユーザーからの入力を取得する
+        inputs = {"input": user_res}
+        # 履歴を元に、Chainを実行する
+        res = chain.invoke(input=inputs)
+        # 履歴を保存する
+        self.memory.save_context(inputs, {"output": res.content})
+
+        return res.content
+
+
+    # ユーザーからの入力を取得する
+    def get_response(self, user_chat):
+        # memory_responseメソッドを呼び出して、応答を取得する
+        self.ai_response = self.memory_response(user_chat)
+        return self.ai_response
 
