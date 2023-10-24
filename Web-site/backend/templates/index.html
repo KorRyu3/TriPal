@@ -20,12 +20,11 @@
         chatForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const message = userChat.value;
+            const formData = new FormData(chatForm);
+
             userChat.value = '';
             addMessage('You', message);
 
-            const formData = new FormData(chatForm);
-
-            console.log(formData);
             
             fetch('/chat', {
                 method: 'POST',
@@ -44,6 +43,8 @@
         function addMessage(sender, message) {
             const messageElement = document.createElement('div');
             messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            if (sender == 'TriPalGPT')
+                messageElement.innerHTML += '<br>';
             chatLog.appendChild(messageElement);
         }
     </script>
