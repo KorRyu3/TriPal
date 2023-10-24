@@ -32,11 +32,11 @@ class TriPalGPT:
         )
 
         # プロンプトの初期化
-        self.system_prompt = """
+        system_prompt = """
             あなたは、ユーザーの質問に答えるAIアシスタントです。
         """
         self.prompt = ChatPromptTemplate.from_messages([
-            ("system", self.system_prompt),
+            ("system", system_prompt),
             MessagesPlaceholder(variable_name="history"),
             ("human", "{input}")
         ])
