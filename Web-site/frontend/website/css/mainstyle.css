@@ -16,15 +16,6 @@ p {
   font-size: 1.3rem; /* 16 * 1.3 */
 }
 
-img {
-  max-width: 100%;
-}
-
-li {
-  list-style: none;
-  font-size: 1.2rem;
-}
-
 .site-title {
   font-family: "Pacifico", cursive;
   font-weight: 600;
@@ -50,7 +41,7 @@ li {
   ここで充てた高さと横幅がそのままスタイルになる仕組み */
 
   height: 600px; /*ここはご自由に*/
-  width: 100%; /*ここはご自由に*/
+  margin: 0 4%;
 }
 /* チャットの外側部分① */
 #bms_messages_container {
@@ -59,37 +50,13 @@ li {
   background-color: #eee;
 }
 
-/* ヘッダー部分② */
-#bms_chat_header {
-  padding: 6px; /*隙間調整*/
-  font-size: 16px;
-  height: 34px;
-  background: #ddd;
-  border: 1px solid #ccc;
-}
-/* ステータスマークとユーザー名 */
-#bms_chat_user_status {
-  float: left; /* bms_chat_headerに対して左寄せ */
-}
-/* ステータスマーク */
-#bms_status_icon {
-  float: left; /* bms_chat_user_statusに対して左寄せ */
-  line-height: 2em; /*高さ調整*/
-}
-/* ユーザー名 */
-#bms_chat_user_name {
-  float: left; /* bms_chat_user_statusに対して左寄せ */
-  line-height: 2em; /*高さ調整*/
-  padding-left: 8px;
-}
-
 /* タイムライン部分③ */
 #bms_messages {
   overflow: auto; /* スクロールを効かせつつ、メッセージがタイムラインの外に出ないようにする */
   height: 100%; /*テキストエリアが下に張り付く様にする*/
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
-  background-color: #eee;
+  background-color: #b4cce2;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2) inset; /*ヘッダーの下に影を入れる*/
 }
 /*
@@ -101,10 +68,14 @@ li {
   font-size: 16px;
 }
 /*
-      *追加
-      */
+  *追加
+  */
 .bms_message_content {
   padding: 20px; /*文字や画像（コンテンツ）の外側に隙間を入れる*/
+}
+
+.bms_message_text {
+  font-family: 'Noto Sans JP', sans-serif;
 }
 
 /* メッセージ１（左側） */
@@ -118,8 +89,7 @@ li {
 .bms_left .bms_message_box {
   color: #333; /*テキストを黒にする*/
   background: #fff;
-  border: 2px solid #13178e;
-  border-radius: 30px 30px 30px 0px; /*左下だけ尖らせて吹き出し感を出す*/
+  border-radius: 30px 30px 30px 30px; /*左下だけ尖らせて吹き出し感を出す*/
   margin-right: 50px; /*左側の発言だとわかる様に、吹き出し右側に隙間を入れる*/
 }
 
@@ -133,10 +103,8 @@ li {
       */
 .bms_right .bms_message_box {
   color: #fff; /*テキストを白にする*/
-  background: #13178e;
-  border: 2px solid #13178e;
-  border-radius: 30px 30px 0px 30px; /*右下だけ尖らせて吹き出し感を出す*/
-  margin-left: 50px; /*右側の発言だとわかる様に、吹き出し左側に隙間を入れる*/
+  background: #47abd6;
+  border-radius: 30px 30px 30px 30px; /*右下だけ尖らせて吹き出し感を出す*/
 }
 
 /* メッセージ全般のスタイル */
@@ -197,6 +165,6 @@ li {
   box-sizing: border-box; /*paddingとborderの要素の高さと幅の影響をなくす（要素に高さと幅を含める）*/
 }
 #bms_send_btn:hover {
-  background: #13178e; /*マウスポインタを当てた時にアクティブな色になる*/
+  background: #64a0d8; /*マウスポインタを当てた時にアクティブな色になる*/
   cursor: pointer; /*マウスポインタを当てた時に、カーソルが指の形になる*/
 }
