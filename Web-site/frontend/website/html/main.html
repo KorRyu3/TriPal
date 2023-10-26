@@ -2,18 +2,64 @@
 <html lang="ja">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <!-- reset.css modern-css-reset -->
-    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-    <link rel="stylesheet" href="../css/mainstyle.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TriPalの説明" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <!-- reset.css ress -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
+    <link rel="stylesheet" href="../css/mainstyle.css" />
     <title>TriPal</title>
 </head>
 
 <body>
-    <header class="main_page-header">
-        <title>TriPal</title>
+    <!-- Header -->
+    <header id="header">
+        <h1 class="site-title">
+            <a href="#"> TriPal </a>
+        </h1>
     </header>
+
+    <!-- メイン画面 -->
+    <!-- 自分やユーザーの情報 -->
+    <div id="your_container">
+
+        <!-- チャットの外側部分① -->
+        <div id="bms_messages_container">
+
+            <!-- タイムライン部分③ -->
+            <div id="bms_messages">
+
+                <!--メッセージ１（左側）-->
+                <div class="bms_message bms_left">
+                    <div class="bms_message_box">
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">東京から京都への旅行プランを提案します。予算は20,000円以内で、以下のプランをご検討ください。</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+
+                <!--メッセージ２（右側）-->
+                <div class="bms_message bms_right">
+                    <div class="bms_message_box">
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">その周辺のお店を提案してください</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+            </div>
+
+            <!-- テキストボックス、送信ボタン④ -->
+            <div id="bms_send">
+                <textarea id="bms_send_message"></textarea>
+                <div id="bms_send_btn">送信</div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
