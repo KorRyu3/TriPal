@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from backend import TriPalGPT
+from tripalgpt import TriPalGPT
 
 app = Flask(__name__)
 tripal_gpt = TriPalGPT()
