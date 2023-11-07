@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+.wrapper{
+  background: #fff;
+  width: 750px;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+              0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+:is(.chat-box)::-webkit-scrollbar{
+  width: 0px;
+}
+
+/* Chat Area CSS Code */
+.chat-area header{
+  display: flex;
+  justify-content: center;
+  padding: 18px 30px;
+}
+.chat-area header h1{
+  padding: 0px 5px;
+  font-family: 'Pacifico', cursive;
+}
+.chat-box{
+  height: 500px;
+  overflow-y: auto;
+  background: #f7f7f7;
+  padding: 10px 30px 20px 30px;
+  box-shadow: inset 0 32px 32px -32px rgb(0 0 0 / 5%),
+              inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
+}
+.chat-box .chat{
+  margin: 15px 0;
+}
+.chat-box .chat p{
+  word-wrap: break-word;
+  padding: 8px 16px;
+  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
+              0 16px 16px -16px rgb(0 0 0 / 10%);
+}
+.chat-box .outgoing{
+  display: flex;
+}
+.outgoing .details{
+  margin-left: auto;
+  max-width: calc(100% - 130px);
+}
+.outgoing .details p{
+  background: #333;
+  color: #fff;
+  border-radius: 18px;
+}
+.chat-box .incoming{
+  display: flex;
+  align-items: flex-end;
+}
+.incoming .details{
+  margin-right: auto;
+  max-width: calc(100% - 130px);
+}
+.incoming .details p{
+  background: #fff;
+  color: #333;
+  border-radius: 18px;
+}
+.chat-area .typing-area{
+  padding: 18px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+/* Typing Area CSS Code */
+.typing-area input{
+  height: 45px;
+  width: calc(100% - 58px);
+  font-size: 17px;
+  border: 1px solid #ccc;
+  padding: 0 13px;
+  border-radius: 5px;
+  outline: none;
+}
+.typing-area button{
+  width: 55px;
+  border: none;
+  outline: none;
+  background: #333;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+.typing-area button i{
+  display: flex;
+  justify-content: center;
+}
