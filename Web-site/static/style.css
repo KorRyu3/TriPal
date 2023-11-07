@@ -32,9 +32,10 @@ body{
 .chat-area header{
   display: flex;
   justify-content: center;
-  padding: 18px 30px;
+  padding: 16px 30px;
 }
 .chat-area header h1{
+  font-size: 28px;
   padding: 0px 5px;
   font-family: 'Pacifico', cursive;
 }
