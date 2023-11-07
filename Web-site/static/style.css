@@ -32,10 +32,10 @@ body{
 .chat-area header{
   display: flex;
   justify-content: center;
-  padding: 18px 32px;
+  padding: 18px 30px;
 }
 .chat-area header h1{
-  font-size: 26px;
+  padding: 0px 5px;
   font-family: 'Pacifico', cursive;
 }
 .chat-box{
@@ -76,12 +76,12 @@ body{
   max-width: calc(100% - 130px);
 }
 .incoming .details p{
-  color: #333;
   background: #fff;
+  color: #333;
   border-radius: 18px;
 }
 .chat-area .typing-area{
-  padding: 18px 32px;
+  padding: 18px 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -101,7 +101,11 @@ body{
   outline: none;
   background: #333;
   color: #fff;
-  font-size: 19px;
+  font-size: 24px;
   cursor: pointer;
   border-radius: 0 5px 5px 0;
+}
+.typing-area button i{
+  display: flex;
+  justify-content: center;
 }
