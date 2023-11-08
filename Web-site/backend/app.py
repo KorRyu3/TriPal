@@ -15,7 +15,7 @@ def chat():
     user_chat = request.form.get('user_chat')
 
     # チャットボットにユーザーの入力を渡して、応答を取得する
-    res = tripal_gpt.get_response(input_=user_chat)
+    res = tripal_gpt.get_response(user_input=user_chat)
     # 応答をJSON形式に変換する
     res_json = jsonify({'response': res})
 
