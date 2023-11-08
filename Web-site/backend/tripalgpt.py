@@ -157,10 +157,10 @@ class TriPalGPT:
         ])
 
         # メモリーの初期化
-        self.memory = ConversationBufferMemory(memory_key="history", return_messages=True)
+        self._memory = ConversationBufferMemory(memory_key="history", return_messages=True)
 
         # function callingで利用するツールの初期化
-        self.tools = [
+        self._tools = [
             Tool(
                 name="Computing_Squares",
                 func=square,
@@ -169,13 +169,13 @@ class TriPalGPT:
         ]
 
     
-    def _cre_agent_exe(self):
+    def _cre_agent_exe(self) -> AgentExecutor:
         
         # LangChainのLCELを利用して、Chainを作成する
-        history = self.memory.load_memory_variables
+        history = self._memory.load_memory_variables
 
         # Toolで定義した関数を、Function callingで利用できるように変換する
-        model_with_tools = self._model.bind(functions=[format_tool_to_openai_function(t) for t in self.tools])
+        model_with_tools = self._model.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
 
         agent = {
             
@@ -190,12 +190,12 @@ class TriPalGPT:
         ) | self._prompt | model_with_tools | OpenAIFunctionsAgentOutputParser()
 
         # agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
-        agent_executor = AgentExecutor(agent=agent, tools=self.tools, verbose=True)
+        agent_executor = AgentExecutor(agent=agent, tools=self._tools, verbose=True)
 
 
         return agent_executor
 
-    def _html_cre(self, user_input):
+    def _html_cre(self, user_input: str) -> str: 
 
         # HTMLのChainの作成
         html_chain = self._html_prompt | self._model
@@ -223,7 +223,7 @@ class TriPalGPT:
         res = chain.invoke(input=user_input)
         output = res["output"]
         # 履歴を保存する
-        self.memory.save_context(user_input, {"output": output})
+        self._memory.save_context(user_input, {"output": output})
 
         print(output)
 
