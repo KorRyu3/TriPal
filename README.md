@@ -39,6 +39,35 @@ $ deactivate
 受け取ってください。
 また、受け取ったファイルは、`Web-site/backend/`直下に置いてください。
 
+## ファイル構成(将来的)
+```bash
+TriPal
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── .venv
+│   └── ...
+├── drawio
+│   ├── architecture.drawio
+│   ├── first_design.drawio
+│   └── work-flow.drawio
+└── Web-site
+    ├── .env
+    ├── app.py
+    ├── tripalgpt.py
+    ├── functools.py
+    ├── templates
+    │   └── index.html
+    └── static
+        ├── css
+        │   └── style.css
+        ├── img
+        │   └── favicon.ico
+        └── js
+            └── index.js
+```
+
+
 ## Git/GitHubでのルール
 
 
