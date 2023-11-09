@@ -17,24 +17,17 @@ from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import Tool
 from langchain.agents import AgentExecutor
 
+# function callingで使用する関数の例
+def square(x: float) -> float:
+    return x * x
 
-# Function Callingで利用する関数
-# 入力の二乗を返す関数
-def square(x):
-    x = int(x)
-    return x ** 2
-
-
-
-tool = [
-    Tool(
-        name='my_tool', 
-        func=my_tool_func,
-        description='ツールの説明',
-        args_schema=MyToolInputSchema
-    ),
-]
-
+tool = Tool(
+    name='Tourist_Information', 
+    func=suggested_sightseeing_spots,
+    # 都道府県、地名、観光スポット、レストラン、ホテルのいずれかを入力すると、その場所の情報や観光情報が返ってくる。
+    description='When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. e.g. {"loc_name": "東京都", "category": ""}, {"loc_name": "大宮市", "category": ""}, {"loc_name: "旭山動物園", "category": "attractions"}, {"loc_name": "サイゼリヤ", "category": "restaurants"}, {"loc_name": "別府温泉杉乃井ホテル", "category": "hotels"}',
+    args_schema=TravelProposalSchema
+),
 
 
 class TriPalGPT:
@@ -72,7 +65,7 @@ class TriPalGPT:
             - If only one condition is provided, prompt for the remaining conditions in the conversation.
             - The schedule should include recommended activities, recommended accommodations, transportation options, and meal plans.
             - Tips for navigating local culture, customs, and necessary travel notes should also be generated.
-            - If there is information that you do not know or do not know, {{please answer honestly, "I don't know."}} Or, use function calling to answer the question.
+            - If there is information that you do not know or do not know, {{please answer honestly, "I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
             - {{Output language is Japanese}}.
             - {{Output format is Markdown}}.
         """
@@ -162,13 +155,13 @@ class TriPalGPT:
         # function callingで利用するツールの初期化
         self._tools = [
             Tool(
-                name="Computing_Squares",
+                name='square', 
                 func=square,
-                description="二乗の計算をする際に使います。入力は整数のみです。e.g. 2",
+                description='二乗の計算をする。入力は整数/小数どちらでも良い。e.g. 2, 4.5',
             ),
         ]
 
-    
+    # AgentExecutorの作成
     def _cre_agent_exe(self) -> AgentExecutor:
         
         # LangChainのLCELを利用して、Chainを作成する
@@ -211,7 +204,7 @@ class TriPalGPT:
 
 
     # 履歴を保存する
-    def _memory_response(self, user_input):
+    def _memory_response(self, user_input: str) -> str:
 
         # Chainの作成
         chain = self._cre_agent_exe()
@@ -232,7 +225,7 @@ class TriPalGPT:
 
 
     # ユーザーからの入力を取得する
-    def get_response(self, user_input):
+    def get_response(self, user_input: str) -> str:
         # memory_responseメソッドを呼び出して、応答を取得する
         output = self._memory_response(user_input=user_input)
 
