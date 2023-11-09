@@ -62,11 +62,11 @@ body{
 .outgoing .details{
   margin-left: auto;
   max-width: calc(100% - 130px);
+  border-radius: 18px;
 }
 .outgoing .details p{
   background: #333;
   color: #fff;
-  border-radius: 18px;
 }
 .chat-box .incoming{
   display: flex;
@@ -75,11 +75,11 @@ body{
 .incoming .details{
   margin-right: auto;
   max-width: calc(100% - 130px);
+  border-radius: 18px;
 }
 .incoming .details p{
   background: #fff;
   color: #333;
-  border-radius: 18px;
 }
 .chat-area #typing-area{
   padding: 18px 30px;
