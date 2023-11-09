@@ -81,13 +81,13 @@ body{
   color: #333;
   border-radius: 18px;
 }
-.chat-area .typing-area{
+.chat-area #typing-area{
   padding: 18px 30px;
   display: flex;
   justify-content: space-between;
 }
 /* Typing Area CSS Code */
-.typing-area input{
+#typing-area input{
   height: 45px;
   width: calc(100% - 58px);
   font-size: 17px;
@@ -96,7 +96,7 @@ body{
   border-radius: 5px;
   outline: none;
 }
-.typing-area button{
+#typing-area button{
   width: 55px;
   border: none;
   outline: none;
@@ -106,7 +106,7 @@ body{
   cursor: pointer;
   border-radius: 0 5px 5px 0;
 }
-.typing-area button i{
+#typing-area button i{
   display: flex;
   justify-content: center;
 }
