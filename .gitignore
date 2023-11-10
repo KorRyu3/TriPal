@@ -1,12 +1,14 @@
+.cursorignore
 
 .venv/
 .DS_Store
+desktop.ini
 
 */.env
 .env
 
 *.pyc
-__pychache__/
+Web-site/backend/__pycache__/
 
 .ipynb_checkpoints/
 

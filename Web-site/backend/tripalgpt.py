@@ -52,6 +52,13 @@ class TriPalGPT:
             model_version="0613"
         )
 
+        self._model_16k = AzureChatOpenAI(
+            deployment_name = "TriPalGPT-16k",
+            model_name="gpt-35-turbo-16k",
+            temperature=1.0,
+            model_version="0613"
+        )
+
         
         # プロンプトの初期化
         system_prompt = """
@@ -168,7 +175,7 @@ class TriPalGPT:
         history = self._memory.load_memory_variables
 
         # Toolで定義した関数を、Function callingで利用できるように変換する
-        model_with_tools = self._model.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
+        model_with_tools = self._model_16k.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
 
         agent = {
             
