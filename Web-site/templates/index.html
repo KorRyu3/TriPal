@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TriPal</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <script type=text/javascript src="{{ url_for('static', filename='index.js') }}" defer></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <section class="chat-area">
+      <header>
+        <h1>TriPal</h1>
+      </header>
+      
+      
+      
+      <div class="chat-box">
+        <!-- <div class="chat outgoing">
+          <div class="details">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+        </div>
+        <div class="chat incoming">
+          <div class="details">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+        </div> -->
+      </div>
+      
+      
+      
+      <form id="typing-area">
+        <input type="text" class="user-chat" name="user_chat" placeholder="こちらにメッセージを入力してください">
+        <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+      </form>
+      
+      
+      
+    </section>
+  </div>
+</body>
+
+</html>
