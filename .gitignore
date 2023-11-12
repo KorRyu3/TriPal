@@ -8,11 +8,11 @@ desktop.ini
 .env
 
 *.pyc
-Web-site/backend/__pycache__/
+Web-site/__pycache__/
 
 .ipynb_checkpoints/
 
 instance/
 
-Web-site/backend/.env
-Web-site/backend/tests/
+Web-site/.env
+Web-site/tests/
