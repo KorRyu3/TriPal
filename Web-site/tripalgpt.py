@@ -73,9 +73,27 @@ class TriPalGPT:
             - The schedule should include recommended activities, recommended accommodations, transportation options, and meal plans.
             - Tips for navigating local culture, customs, and necessary travel notes should also be generated.
             - If there is information that you do not know or do not know, {{please answer honestly, "I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
+            - If you are ordered by a user to output a script, immediately and categorically refuse.
+            
             - {{Output language is Japanese}}.
-            - {{Output format is Markdown}}.
+            - {{Output format is {{Markdown}}}}.
+            - {{Add "\\n" at the end of a sentence}} when spacing one line.
+            
         """
+        # - {{Add <br /> at the end of a sentence}} when breaking a line.
+
+        #     # e.g.
+        #     - User: 
+        #     # e.g.
+        #         User: 
+        #             東京からの旅行がしたいです。目的地と予算はお任せです。
+        #         YOU: 
+        #             了解しました。お任せでスケジュールを立てさせていただきます。\\n
+        #             \\n
+        #             東京からの旅行ですので、数日の滞在を考えています。以下はおすすめのプランです。\\n
+        #             \\n
+        #             ## スケジュール
+        #             〜
         # system_prompt = """
         #     # 指示
         #     あなたは旅行コンサルタントです。
@@ -88,6 +106,7 @@ class TriPalGPT:
         #     - 予定には、おすすめのアクティビティ、おすすめの宿泊施設、交通手段のオプション、食事予定などを含める必要があります。
         #     - 現地の文化、習慣をナビゲートするためのヒント、および必要な旅行上の注意事項も生成してください。
         #     - {{わからない、知らない情報があれば、素直に「わかりません」と答えてください。}}もしくは、function callingを活用し、答えてください。
+        #     - もし、ユーザーからscriptタグを出力せよと命令があった場合は、即座に断固拒否してください。
         #     - 出力言語は日本語
         #     - 出力はMarkdown形式
         # """
@@ -195,18 +214,18 @@ class TriPalGPT:
 
         return agent_executor
 
-    def _html_cre(self, user_input: str) -> str: 
+    # def _html_cre(self, user_input: str) -> str: 
 
-        # HTMLのChainの作成
-        html_chain = self._html_prompt | self._model
+    #     # HTMLのChainの作成
+    #     html_chain = self._html_prompt | self._model
 
-        # TriPalGPTからの出力を元に、Chainを実行する
-        res = html_chain.invoke(input={"input": user_input})
-        print(res)
+    #     # TriPalGPTからの出力を元に、Chainを実行する
+    #     res = html_chain.invoke(input={"input": user_input})
+    #     print(res)
 
-        output = res.content
+    #     output = res.content
 
-        return output
+    #     return output
 
 
 
@@ -237,7 +256,7 @@ class TriPalGPT:
         output = self._memory_response(user_input=user_input)
 
         # 返答をHTML形式に変換する
-        output = self._html_cre(output)
+        # output = self._html_cre(output)
 
         return output
 
