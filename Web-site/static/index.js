@@ -49,7 +49,6 @@ function addMessage(sender, message) {
     const gptP = document.createElement('p');
     gptP.innerHTML = `${message}`;
     chatDetailsElement.appendChild(gptP);
-
   }
 
   chatIOElement.appendChild(chatDetailsElement);
