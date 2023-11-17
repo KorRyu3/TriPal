@@ -2,14 +2,15 @@ from flask import Flask, render_template, request, jsonify
 from tripalgpt import TriPalGPT
 
 app = Flask(__name__)
-tripal_gpt = TriPalGPT()
 
 @app.route('/')
 def index():
+    global tripal_gpt
+    tripal_gpt = TriPalGPT()
     return render_template('index.html')
 
 
-@app.route('/chat', methods=['POST'])
+@app.post('/chat')
 def chat():
     # FormDataの中身を取り出す
     user_chat = request.form.get('user_chat')
@@ -20,6 +21,8 @@ def chat():
     res_json = jsonify({'response': res})
 
     return res_json
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

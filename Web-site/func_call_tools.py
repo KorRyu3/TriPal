@@ -68,7 +68,7 @@ def suggested_sightseeing_spots(**kwargs: dict) -> str:
     else:
         id_param += "&searchQuery=" + loc_name
 
-    if category is not "":
+    if category != "":
         id_param += "&category=" + category
 
     id_param += "&language=" + language
