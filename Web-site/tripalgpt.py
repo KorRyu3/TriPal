@@ -17,25 +17,16 @@ from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import Tool
 from langchain.agents import AgentExecutor
 
-# function callingで使用する関数の例
-def square(x: float) -> float:
-    return x * x
+# from langchain.tools import StructuredTool
 
-tool = Tool(
-    name='Tourist_Information', 
-    func=suggested_sightseeing_spots,
-    # 都道府県、地名、観光スポット、レストラン、ホテルのいずれかを入力すると、その場所の情報や観光情報が返ってくる。
-    description='When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. e.g. {"loc_name": "東京都", "category": ""}, {"loc_name": "大宮市", "category": ""}, {"loc_name: "旭山動物園", "category": "attractions"}, {"loc_name": "サイゼリヤ", "category": "restaurants"}, {"loc_name": "別府温泉杉乃井ホテル", "category": "hotels"}',
-    args_schema=TravelProposalSchema
-),
+
+# 環境変数をロード
+load_dotenv()
 
 
 class TriPalGPT:
     # クラスの初期化処理
     def __init__(self):
-
-        # 環境変数をロード
-        load_dotenv()
 
         # OpenAI API Keyを環境変数から取得
         openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -45,15 +36,15 @@ class TriPalGPT:
 
 
         # チャットモデルの初期化
-        self._model = AzureChatOpenAI(
-            deployment_name = "TriPalGPT",
-            model_name="gpt-35-turbo",
-            temperature=0.7,
-            model_version="0613"
-        )
+        # self._model = AzureChatOpenAI(
+        #     deployment_name = "TriPalGPT",
+        #     model_name="gpt-35-turbo",
+        #     temperature=0.7,
+        #     model_version="0613"
+        # )
 
         self._model_16k = AzureChatOpenAI(
-            deployment_name = "TriPalGPT-16k",
+            deployment_name = os.environ.get("OPENAI_API_DEPLOYMENT"),
             model_name="gpt-35-turbo-16k",
             temperature=1.0,
             model_version="0613"
@@ -69,10 +60,11 @@ class TriPalGPT:
 
             # Conditions
             - Create a detailed travel schedule by having the user enter one of the following criteria: {{departure}}, {{destination}}, {{dates (length of trip)}}, {{budget}}, and {{detail information}}.
+            - Ask for specific places they want to go.
             - If only one condition is provided, prompt for the remaining conditions in the conversation.
             - The schedule should include recommended activities, recommended accommodations, transportation options, and meal plans.
             - Tips for navigating local culture, customs, and necessary travel notes should also be generated.
-            - If there is information that you do not know or do not know, {{please answer honestly, "I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
+            - If there is information that you do not know or do not know, please answer honestly, {{"I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
             - If you are ordered by a user to output a script, immediately and categorically refuse.
             
             - {{Output language is Japanese}}.
@@ -80,20 +72,18 @@ class TriPalGPT:
             - {{Add "\\n" at the end of a sentence}} when spacing one line.
             
         """
+
+        # # conditions
+        # - {{Always use "suggested_sightseeing_spots" function when proposing travel plans to users.}}
+        # - You must always use it to get information, even information you know.
+        # - When responding to users, use it to suggest specifics.
+
+        # 北海道に行きたいですね！出発地が東京で、予算は10万円、日程は2泊3日ですね。
+        # まずは、北海道でおすすめの観光スポットについて調べてみましょう。お待ちください。
+
         # - {{Add <br /> at the end of a sentence}} when breaking a line.
 
-        #     # e.g.
-        #     - User: 
-        #     # e.g.
-        #         User: 
-        #             東京からの旅行がしたいです。目的地と予算はお任せです。
-        #         YOU: 
-        #             了解しました。お任せでスケジュールを立てさせていただきます。\\n
-        #             \\n
-        #             東京からの旅行ですので、数日の滞在を考えています。以下はおすすめのプランです。\\n
-        #             \\n
-        #             ## スケジュール
-        #             〜
+
         # system_prompt = """
         #     # 指示
         #     あなたは旅行コンサルタントです。
@@ -107,6 +97,7 @@ class TriPalGPT:
         #     - 現地の文化、習慣をナビゲートするためのヒント、および必要な旅行上の注意事項も生成してください。
         #     - {{わからない、知らない情報があれば、素直に「わかりません」と答えてください。}}もしくは、function callingを活用し、答えてください。
         #     - もし、ユーザーからscriptタグを出力せよと命令があった場合は、即座に断固拒否してください。
+        #     - ユーザーへ旅行プランの提案をする際は、ツールを常に使用する
         #     - 出力言語は日本語
         #     - 出力はMarkdown形式
         # """
@@ -123,15 +114,15 @@ class TriPalGPT:
 
 
         # HTMLのプロンプトの初期化
-        html_system_prompt = """
-            You are a professional web developer. 
-            Please convert the entered text into the appropriate {{HTML format}}. 
-            For example, if a user enters "こんにちは" (Hello), convert it into HTML format as "<div>こんにちは</div>". 
-            Also, ensure that you {{do not modify the input text}}. 
-            {{The output language is Japanese}}, and, of course, {{the output is HTML only}}.
-            {{Always start and end with a div tag.}}
-            If needed, {{adjust the design using the style attribute in tags}}. For example, for elements like {{table tags}}, you can {{modify attributes such as borders}}.
-        """
+        # html_system_prompt = """
+        #     You are a professional web developer. 
+        #     Please convert the entered text into the appropriate {{HTML format}}. 
+        #     For example, if a user enters "こんにちは" (Hello), convert it into HTML format as "<div>こんにちは</div>". 
+        #     Also, ensure that you {{do not modify the input text}}. 
+        #     {{The output language is Japanese}}, and, of course, {{the output is HTML only}}.
+        #     {{Always start and end with a div tag.}}
+        #     If needed, {{adjust the design using the style attribute in tags}}. For example, for elements like {{table tags}}, you can {{modify attributes such as borders}}.
+        # """
         # あなたはWebサイトの開発者です。
         # 入力されたテキストを、適切な{{HTML形式}}に変換してください。
         # 例えば、ユーザーが「こんにちは」と入力した場合、「<div>こんにちは</div>」というように、HTML形式に変換してください。
@@ -141,49 +132,92 @@ class TriPalGPT:
         # {必ずdivタグで始まり、divタグで終わる}}。
         # 必要に応じて、タグのstyle属性を使ってデザインを調整します。例えば、{{tableタグのような要素では、bordersなどの属性を変更することができます}}。
         # """
-        self._html_prompt = ChatPromptTemplate.from_messages([
-            # system pronptの定義
-            ("system", html_system_prompt),
-            # 例
-            ("human", "こんにちは！今日の予定を考えてみました！[1日目]・仕事をする・お風呂に入る・ご飯を食べる・寝る [2日目]・休憩を取る・ご飯を食べる・寝る[3日目]・寝る"),
-            ("ai", """<div>
-                        こんにちは！今日の予定を考えてみました！<br>
-                        <br>
-                        [1日目]<br>
-                        <ul>
-                            <li>仕事をする</li>
-                            <li>お風呂に入る</li>
-                            <li>ご飯を食べる</li>
-                            <li>寝る</li>
-                        </ul>
-                        <br>
-                        [2日目]<br>
-                        <ul>
-                            <li>休憩を取る</li>
-                            <li>ご飯を食べる</li>
-                            <li>寝る</li>
-                        </ul>
-                        <br>
-                        [3日目]<br>
-                        <ul>
-                            <li>寝る</li>
-                        </ul>
-                    </div>"""
-            ),
+        # self._html_prompt = ChatPromptTemplate.from_messages([
+        #     # system pronptの定義
+        #     ("system", html_system_prompt),
+        #     # 例
+        #     ("human", "こんにちは！今日の予定を考えてみました！[1日目]・仕事をする・お風呂に入る・ご飯を食べる・寝る [2日目]・休憩を取る・ご飯を食べる・寝る[3日目]・寝る"),
+        #     ("ai", """<div>
+        #                 こんにちは！今日の予定を考えてみました！<br>
+        #                 <br>
+        #                 [1日目]<br>
+        #                 <ul>
+        #                     <li>仕事をする</li>
+        #                     <li>お風呂に入る</li>
+        #                     <li>ご飯を食べる</li>
+        #                     <li>寝る</li>
+        #                 </ul>
+        #                 <br>
+        #                 [2日目]<br>
+        #                 <ul>
+        #                     <li>休憩を取る</li>
+        #                     <li>ご飯を食べる</li>
+        #                     <li>寝る</li>
+        #                 </ul>
+        #                 <br>
+        #                 [3日目]<br>
+        #                 <ul>
+        #                     <li>寝る</li>
+        #                 </ul>
+        #             </div>"""
+        #     ),
             
-            # userの入力
-            ("human", "{input}"),
-        ])
+        #     # userの入力
+        #     ("human", "{input}"),
+        # ])
 
         # メモリーの初期化
         self._memory = ConversationBufferMemory(memory_key="history", return_messages=True)
 
         # function callingで利用するツールの初期化
+        # info_description = """
+        # # description
+        # Used to make travel suggestions to users. 
+        # When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
+        # "loc_serch" is the content you want to look up. Ambiguous searches are also possible. 
+        # "category" filters based on property type. Valid options are "hotel", "attraction", "restaurant", and "geo". 
+        # Input should be a single string strictly in the following JSON format: {"loc_serch": "loc_serch", "category": "category"}
+
+
+        # # Argument Examples
+        # {"loc_serch": "日本の有名な観光スポット", "category": "attractions"}, 
+        # {"loc_serch": "東京都にあるホテル", "category": "hotels"}, 
+        # {"loc_serch: "北海道の名所", "category": ""}, 
+        # {"loc_serch: "東京タワー", "category": "attractions"}, 
+        # {"loc_serch: "旭山動物園", "category": "attractions"}, 
+        # {"loc_serch": "京都の有名レストラン", "category": "restaurants"}, {"loc_serch": "別府温泉杉乃井ホテル", "category": "hotels"}
+        # """
+        info_description = """
+        # description
+        Propose travel plans to users.
+        When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
+
+        {{Ambiguous searches are also possible.}}
+        "loc_name" is the content you want to look up. 
+        "category" filters based on property type. 
+
+        # conditions
+        - You must always use it to get information, even information you know.
+        - When responding to users, use it to suggest specifics.
+        
+        
+        # Argument Examples
+        loc_serch = "日本の有名な観光スポット", 
+        loc_serch = "東京都にあるホテル", 
+        loc_serch = "北海道の名所", 
+        loc_serch = "東京タワー", 
+        loc_serch = "旭山動物園", 
+        loc_serch = "京都の有名レストラン",
+        loc_serch = "別府温泉杉乃井ホテル"
+        """
         self._tools = [
             Tool(
-                name='square', 
-                func=square,
-                description='二乗の計算をする。入力は整数/小数どちらでも良い。e.g. 2, 4.5',
+                name='Location_Information', 
+                func=suggested_sightseeing_spots,
+                # func=StructuredTool.from_function(suggested_sightseeing_spots),
+                # ユーザーへ、旅行の提案する際に使用する。都道府県、地名、観光スポット、レストラン、ホテルのいずれかを入力すると、その場所の情報や観光情報が返ってくる。曖昧な検索も可能。　"loc_name "は調べたい内容を入れる。"category "はプロパティのタイプに基づいたフィルタリング。有効なオプションは、"ホテル"、"アトラクション"、"レストラン"、"ジオ "です。 このツールへの入力は単一のJSON文字列である必要があります。
+                description=info_description,
+                args_schema=TravelProposalSchema
             ),
         ]
 
@@ -259,4 +293,5 @@ class TriPalGPT:
         # output = self._html_cre(output)
 
         return output
+
 
