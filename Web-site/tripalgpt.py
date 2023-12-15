@@ -28,13 +28,6 @@ class TriPalGPT:
     # クラスの初期化処理
     def __init__(self):
 
-        # OpenAI API Keyを環境変数から取得
-        openai.api_key = os.environ.get("OPENAI_API_KEY")
-        openai.api_base = os.environ.get("OPENAI_API_BASE")
-        openai.api_type = os.environ.get("OPENAI_API_TYPE")
-        openai.api_version = os.environ.get("OPENAI_API_VERSION")
-
-
         # チャットモデルの初期化
         # self._model = AzureChatOpenAI(
         #     deployment_name = "TriPalGPT",
@@ -44,10 +37,14 @@ class TriPalGPT:
         # )
 
         self._model_16k = AzureChatOpenAI(
-            deployment_name = os.environ.get("OPENAI_API_DEPLOYMENT"),
-            model_name="gpt-35-turbo-16k",
-            temperature=1.0,
-            model_version="0613"
+
+            api_key = os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
+            openai_api_type = os.environ.get("AZURE_OPENAI_API_TYPE"),  # API type
+            openai_api_version = os.environ.get("AZURE_OPENAI_API_VERSION"),  # API version
+            azure_deployment = os.environ.get("AZURE_OPENAI_API_DEPLOYMENT"),  # deployment name
+            azure_endpoint = os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
+            model = "gpt-35-turbo-16k",
+            temperature = 1.0,
         )
 
         
