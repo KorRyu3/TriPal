@@ -1,4 +1,4 @@
-from func_call_tools import *
+from func_call_tools import TravelProposalSchema, suggested_sightseeing_spots
 
 import openai
 import os
@@ -222,7 +222,7 @@ class TriPalGPT:
         ]
 
     # AgentExecutorの作成
-    def _cre_agent_exe(self) -> AgentExecutor:
+    def _create_agent_executor(self) -> AgentExecutor:
         
         # LangChainのLCELを利用して、Chainを作成する
         history = self._memory.load_memory_variables
@@ -264,10 +264,10 @@ class TriPalGPT:
 
 
     # 履歴を保存する
-    def _memory_response(self, user_input: str) -> str:
+    def _create_response(self, user_input: str) -> str:
 
         # Chainの作成
-        chain = self._cre_agent_exe()
+        chain = self._create_agent_executor()
 
         # ユーザーからの入力を取得する
         user_input = {"input": user_input}
@@ -282,12 +282,15 @@ class TriPalGPT:
 
 
         return output
+    
+    def _save_memory():
+        pass
 
 
     # ユーザーからの入力を取得する
     def get_response(self, user_input: str) -> str:
         # memory_responseメソッドを呼び出して、応答を取得する
-        output = self._memory_response(user_input=user_input)
+        output = self._create_response(user_input=user_input)
 
         # 返答をHTML形式に変換する
         # output = self._html_cre(output)
