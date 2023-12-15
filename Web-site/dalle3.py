@@ -33,6 +33,5 @@ class DallE3:
 
         image_url = json.loads(result.model_dump_json())['data'][0]['url']
 
-        print(image_url)
 
         return image_url

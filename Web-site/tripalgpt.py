@@ -275,7 +275,6 @@ class TriPalGPT:
         # 履歴を保存する
         self._memory.save_context(user_input, {"output": output})
 
-        print(output)
 
 
         return output

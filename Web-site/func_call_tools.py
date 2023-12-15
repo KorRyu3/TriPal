@@ -91,11 +91,7 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
     # Input should be a single string strictly in the following JSON format: {"loc_serch": "loc_serch", "category": "category"}
     # """
 
-    print("-"*50)
-    # print(loc_serch, category, other2)
-    print(loc_serch, category)
-    print("type:", type(loc_serch))
-    print("-"*50)
+
 
 
 
@@ -103,7 +99,6 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
     # serch_dict = json.loads(loc_serch)
     # loc_serch = serch_dict.get("loc_serch", None)
     # category = serch_dict.get("category", "")
-    print(loc_serch, category)
     language = "ja"
     currency = "JPY"
 
@@ -114,11 +109,7 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
     # ロケーションIDと、最低限の情報を取得
     loc_ids, other_info = get_location_id(loc_serch, category, language)
 
-    print("-"*50)
-    print(loc_ids)
-    import pprint
-    pprint.pprint(other_info)
-    print("-"*50)
+
 
 
     # 場所の情報を取得
@@ -142,8 +133,7 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
         output[other_loc_info["name"]] = loc_info
 
 
-    print("-"*50)
-    print(output)
+
 
 
     return output
@@ -224,11 +214,7 @@ def get_location_info(loc_id: str, other_loc_info: dict, language: str, currency
     # Web_URL: dict.get(key, d="URL無し")
     # street〜
 
-    import pprint
-    print("-"*50)
-    print("loc_id: ", loc_id)
-    pprint.pprint(res_dict)
-    print("-"*50)
+
 
     loc_info_dict["name"] = res_dict["name"]
     loc_info_dict["description"] = res_dict.get("description", "詳細なし")
