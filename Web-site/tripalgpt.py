@@ -17,8 +17,6 @@ from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import Tool
 from langchain.agents import AgentExecutor
 
-# from langchain.tools import StructuredTool
-
 
 # 環境変数をロード
 load_dotenv()
@@ -258,8 +256,6 @@ class TriPalGPT:
 
     #     return output
 
-
-
     # 履歴を保存する
     def _create_response(self, user_input: str) -> str:
 
@@ -275,13 +271,10 @@ class TriPalGPT:
         # 履歴を保存する
         self._memory.save_context(user_input, {"output": output})
 
-
-
         return output
     
     def _save_memory():
         pass
-
 
     # ユーザーからの入力を取得する
     def get_response(self, user_input: str) -> str:
@@ -292,5 +285,3 @@ class TriPalGPT:
         # output = self._html_cre(output)
 
         return output
-
-

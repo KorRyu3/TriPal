@@ -22,9 +22,8 @@ import random
 # 環境変数をロード
 load_dotenv()
 
-tripadvisor_key = os.environ.get("TRIPADVISOR_API_KEY")
-headers = {"accept": "application/json"}
-
+TRIPADVISOR_API_KEY = os.environ.get("TRIPADVISOR_API_KEY")
+HEADERS = {"accept": "application/json"}
 # ---------------
 
 # Toolで利用する関数の入力スキーマの定義例
@@ -78,22 +77,11 @@ class TravelProposalSchema(BaseModel):
 # Tool(Function Calling)で利用する関数の定義
 
 # 観光スポットの提案
-# def suggested_sightseeing_spots(serch_json: dir = {"loc_serch": None, "category": "") -> dict:
 def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Union[str, dict]:
     """
         :param loc_serch: Text to use for searching based on the name of the location. 
         :param category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". 
     """
-    # """
-    # serch_json: 
-    #       "loc_serch" is the content you want to look up. Ambiguous searches are also possible. 
-    #       "category" filters based on property type. Valid options are "hotel", "attraction", "restaurant", and "geo". 
-    # Input should be a single string strictly in the following JSON format: {"loc_serch": "loc_serch", "category": "category"}
-    # """
-
-
-
-
 
     # 辞書の引数を取り出す
     # serch_dict = json.loads(loc_serch)
@@ -102,29 +90,21 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
     language = "ja"
     currency = "JPY"
 
+    # loc_serch が入力されていない場合は、"検索したい場所を入力してください"を返す
     if loc_serch is None:
-        
         return "検索したい場所を入力してください"
     
     # ロケーションIDと、最低限の情報を取得
     loc_ids, other_info = get_location_id(loc_serch, category, language)
 
-
-
-
     # 場所の情報を取得
     output = {}
-    # for loc_id, other_loc_info  in zip(loc_ids, other_info.values()):
-        
-    #     loc_info = get_location_info(key, headers, loc_id, other_loc_info, language, currency)
-        
-    #     output[other_loc_info["name"]] = loc_info
 
-
+    # APIコール短縮のため、ロケーションIDをランダムにinfo_count個選ぶ
     info_count = 5
     ls = range(0, 10)
     rand_ls = list(random.sample(ls, info_count))
-    for rand_index  in rand_ls:
+    for rand_index in rand_ls:
 
         loc_id = loc_ids[rand_index]
         other_loc_info = other_info[loc_id]        
@@ -132,17 +112,13 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
         
         output[other_loc_info["name"]] = loc_info
 
-
-
-
-
     return output
 
 
 # ロケーションの検索をし、ロケーションIDを取得する
 def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list, dict]:
     """
-    ロケーションの検索をし、ロケーションIDを取得する関数
+    ロケーションの検索をし、ロケーションIDを取得する
 
     :param loc_serch: search query
     :param category: search category
@@ -152,7 +128,7 @@ def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list
     :return loc_info: dict of location information
     """
     # パラメータの設定
-    id_param = "?key=" + tripadvisor_key
+    id_param = "?key=" + TRIPADVISOR_API_KEY
     id_param += "&language=" + language
 
     id_param += "&searchQuery=" + loc_serch
@@ -161,7 +137,7 @@ def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list
         id_param += "&category=" + category
 
     url = "https://api.content.tripadvisor.com/api/v1/location/search"
-    response = requests.get(url + id_param, headers=headers)
+    response = requests.get(url + id_param, headers=HEADERS)
 
     # jsonの中身を取り出す
     res_dict = json.loads(response.text)
@@ -170,9 +146,11 @@ def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list
     other_info = {}
     for res_data in res_dict["data"]:
 
+        # ロケーションIDを取得
         location_id = res_data["location_id"] 
         loc_ids.append(location_id)
 
+        # ロケーションの最低限の情報を取得
         other_loc_info = {}
 
         other_loc_info["name"] = res_data["name"]
@@ -181,40 +159,33 @@ def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list
 
         other_info[location_id] = other_loc_info
 
-
     return loc_ids, other_info
 
 
 # ロケーションIDに基づいた、ロケーションの情報を取得する
 def get_location_info(loc_id: str, other_loc_info: dict, language: str, currency: str) -> dict:
     """
-    ロケーションIDに基づいた、ロケーションの情報を取得する
+    ロケーションIDに紐づいた、ロケーションの情報を取得する
     
     :param loc_id: location id 
     :param other_info: other information of the location by get_location_id()
     :param language: language of the response
     """
     # パラメータの設定
-    loc_param = f"/{loc_id}/details?key={tripadvisor_key}&language={language}&currency={currency}"
+    loc_param = f"/{loc_id}/details?key={TRIPADVISOR_API_KEY}&language={language}&currency={currency}"
     url = "https://api.content.tripadvisor.com/api/v1/location"
-    response = requests.get(url + loc_param, headers=headers)
+    response = requests.get(url + loc_param, headers=HEADERS)
 
-    
     # jsonの中身を取り出す
     res_dict = json.loads(response.text)
 
+    # errorの場合は、other_loc_info[name, country, address] をそのまま返す
     res_status = list(res_dict.keys())[0]
     if res_status == "error":
         return other_loc_info
 
+    # ロケーションの情報を辞書に格納する
     loc_info_dict = {}
-
-    # name: dict.get(key)
-    # description: dict.get(key, d="詳細なし")
-    # Web_URL: dict.get(key, d="URL無し")
-    # street〜
-
-
 
     loc_info_dict["name"] = res_dict["name"]
     loc_info_dict["description"] = res_dict.get("description", "詳細なし")
