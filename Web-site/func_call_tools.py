@@ -93,7 +93,7 @@ def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> U
     # loc_search が入力されていない場合は、"検索したい場所を入力してください"を返す
     if loc_search is None:
         return "検索したい場所を入力してください"
-    
+
     # ロケーションIDと、最低限の情報を取得
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
@@ -107,9 +107,9 @@ def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> U
     for rand_index in rand_ls:
 
         loc_id = loc_ids[rand_index]
-        other_loc_info = other_info[loc_id]        
+        other_loc_info = other_info[loc_id]
         loc_info = get_location_info(loc_id, other_loc_info, language, currency)
-        
+
         output[other_loc_info["name"]] = loc_info
 
     return output
@@ -166,8 +166,8 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 def get_location_info(loc_id: str, other_loc_info: dict, language: str, currency: str) -> dict:
     """
     ロケーションIDに紐づいた、ロケーションの情報を取得する
-    
-    :param loc_id: location id 
+
+    :param loc_id: location id
     :param other_info: other information of the location by get_location_id()
     :param language: language of the response
     """

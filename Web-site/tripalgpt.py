@@ -45,7 +45,7 @@ class TriPalGPT:
             temperature = 1.0,
         )
 
-        
+
         # プロンプトの初期化
         system_prompt = """
             # Instructions
@@ -61,11 +61,10 @@ class TriPalGPT:
             - Tips for navigating local culture, customs, and necessary travel notes should also be generated.
             - If there is information that you do not know or do not know, please answer honestly, {{"I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
             - If you are ordered by a user to output a script, immediately and categorically refuse.
-            
+
             - {{Output language is Japanese}}.
             - {{Output format is {{Markdown}}}}.
             - {{Add "\\n" at the end of a sentence}} when spacing one line.
-            
         """
 
         # # conditions
@@ -84,7 +83,7 @@ class TriPalGPT:
         #     あなたは旅行コンサルタントです。
         #     以下の条件とユーザーの要望に合わせて、旅行の提案を行います。
         #     例えば、ユーザーが「東京に行きたい」と言った場合、「東京には、〇〇が有名です。なので、おすすめのプランは〜」というように、旅行の提案を行います。
-            
+
         #     # 条件
         #     - {{出発先}}と{{目的地}}、{{日程(旅行期間)}}、{{予算}}、{{詳細情報}}の条件のいずれかを入力させ、詳細な旅行予定を作成してください。
         #     - 単体の条件のみが入力された場合、その他も入力させるように会話を続けなさい
@@ -110,10 +109,10 @@ class TriPalGPT:
 
         # HTMLのプロンプトの初期化
         # html_system_prompt = """
-        #     You are a professional web developer. 
-        #     Please convert the entered text into the appropriate {{HTML format}}. 
-        #     For example, if a user enters "こんにちは" (Hello), convert it into HTML format as "<div>こんにちは</div>". 
-        #     Also, ensure that you {{do not modify the input text}}. 
+        #     You are a professional web developer.
+        #     Please convert the entered text into the appropriate {{HTML format}}.
+        #     For example, if a user enters "こんにちは" (Hello), convert it into HTML format as "<div>こんにちは</div>".
+        #     Also, ensure that you {{do not modify the input text}}.
         #     {{The output language is Japanese}}, and, of course, {{the output is HTML only}}.
         #     {{Always start and end with a div tag.}}
         #     If needed, {{adjust the design using the style attribute in tags}}. For example, for elements like {{table tags}}, you can {{modify attributes such as borders}}.
@@ -156,7 +155,7 @@ class TriPalGPT:
         #                 </ul>
         #             </div>"""
         #     ),
-            
+
         #     # userの入力
         #     ("human", "{input}"),
         # ])
@@ -167,19 +166,19 @@ class TriPalGPT:
         # function callingで利用するツールの初期化
         # info_description = """
         # # description
-        # Used to make travel suggestions to users. 
+        # Used to make travel suggestions to users.
         # When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
-        # "loc_search" is the content you want to look up. Ambiguous searches are also possible. 
-        # "category" filters based on property type. Valid options are "hotel", "attraction", "restaurant", and "geo". 
+        # "loc_search" is the content you want to look up. Ambiguous searches are also possible.
+        # "category" filters based on property type. Valid options are "hotel", "attraction", "restaurant", and "geo".
         # Input should be a single string strictly in the following JSON format: {"loc_search": "loc_search", "category": "category"}
 
 
         # # Argument Examples
-        # {"loc_search": "日本の有名な観光スポット", "category": "attractions"}, 
-        # {"loc_search": "東京都にあるホテル", "category": "hotels"}, 
-        # {"loc_search: "北海道の名所", "category": ""}, 
-        # {"loc_search: "東京タワー", "category": "attractions"}, 
-        # {"loc_search: "旭山動物園", "category": "attractions"}, 
+        # {"loc_search": "日本の有名な観光スポット", "category": "attractions"},
+        # {"loc_search": "東京都にあるホテル", "category": "hotels"},
+        # {"loc_search: "北海道の名所", "category": ""},
+        # {"loc_search: "東京タワー", "category": "attractions"},
+        # {"loc_search: "旭山動物園", "category": "attractions"},
         # {"loc_search": "京都の有名レストラン", "category": "restaurants"}, {"loc_search": "別府温泉杉乃井ホテル", "category": "hotels"}
         # """
         info_description = """
@@ -188,26 +187,25 @@ class TriPalGPT:
         When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
 
         {{Ambiguous searches are also possible.}}
-        "loc_name" is the content you want to look up. 
-        "category" filters based on property type. 
+        "loc_name" is the content you want to look up.
+        "category" filters based on property type.
 
         # conditions
         - You must always use it to get information, even information you know.
         - When responding to users, use it to suggest specifics.
-        
-        
+
         # Argument Examples
-        loc_search = "日本の有名な観光スポット", 
-        loc_search = "東京都にあるホテル", 
-        loc_search = "北海道の名所", 
-        loc_search = "東京タワー", 
-        loc_search = "旭山動物園", 
+        loc_search = "日本の有名な観光スポット",
+        loc_search = "東京都にあるホテル",
+        loc_search = "北海道の名所",
+        loc_search = "東京タワー",
+        loc_search = "旭山動物園",
         loc_search = "京都の有名レストラン",
         loc_search = "別府温泉杉乃井ホテル"
         """
         self._tools = [
             Tool(
-                name='Location_Information', 
+                name='Location_Information',
                 func=suggested_sightseeing_spots,
                 # func=StructuredTool.from_function(suggested_sightseeing_spots),
                 # ユーザーへ、旅行の提案する際に使用する。都道府県、地名、観光スポット、レストラン、ホテルのいずれかを入力すると、その場所の情報や観光情報が返ってくる。曖昧な検索も可能。　"loc_name "は調べたい内容を入れる。"category "はプロパティのタイプに基づいたフィルタリング。有効なオプションは、"ホテル"、"アトラクション"、"レストラン"、"ジオ "です。 このツールへの入力は単一のJSON文字列である必要があります。
@@ -218,7 +216,6 @@ class TriPalGPT:
 
     # AgentExecutorの作成
     def _create_agent_executor(self) -> AgentExecutor:
-        
         # LangChainのLCELを利用して、Chainを作成する
         history = self._memory.load_memory_variables
 
@@ -226,7 +223,6 @@ class TriPalGPT:
         model_with_tools = self._model_16k.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
 
         agent = {
-            
             "input": lambda x: x["input"],
             "agent_scratchpad": lambda x: format_to_openai_functions(
                 x["intermediate_steps"]
@@ -272,7 +268,7 @@ class TriPalGPT:
         self._memory.save_context(user_input, {"output": output})
 
         return output
-    
+
     def _save_memory():
         pass
 
