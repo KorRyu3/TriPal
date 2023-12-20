@@ -31,11 +31,11 @@ class TravelProposalSchema(BaseModel):
 
     # ここを辞書型一つにすれば出力は安定する？ 
 
-    loc_serch: str = Field(
+    loc_search: str = Field(
         # デフォルト値を設定することができる
         default=None,
         # このフィールドのタイトル
-        title='LocationSerchQuery',
+        title='LocationSearchQuery',
         # 詳細な説明を記載することができる
         description='Text to use for searching based on the name of the location. Required parameter.',
         # e.g.の記載
@@ -49,23 +49,23 @@ class TravelProposalSchema(BaseModel):
     #     examples=['', 'hotels', 'attractions', 'restaurants', 'geos'],
     # )
 
-    # serch_json: dict = Field(
-    #     default={"loc_serch": None, "category": ""},
-    #     title='LocationSerchQuery',
+    # search_json: dict = Field(
+    #     default={"loc_search": None, "category": ""},
+    #     title='LocationSearchQuery',
     #     description="""
-    #     loc_serch: Text to use for searching based on the name of the location. 
+    #     loc_search: Text to use for searching based on the name of the location. 
     #     category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". 
-    #     Input should be a single string strictly in the following JSON format: {"loc_serch": "loc_serch", "category": "category"}
+    #     Input should be a single string strictly in the following JSON format: {"loc_search": "loc_search", "category": "category"}
     #     """,
     #     examples= [
-    #         {"loc_serch": "東京", "category": ""},
-    #         {"loc_serch": "日本の有名な観光スポット", "category": "attractions"},
-    #         {"loc_serch": "東京都にあるホテル", "category": "hotels"},
-    #         {"loc_serch": "北海道の名所", "category": "attractions"},
-    #         {"loc_serch": "東京タワー", "category": "attractions"},
-    #         {"loc_serch": "旭山動物園", "category": "attractions"},
-    #         {"loc_serch": "京都の有名レストラン", "category": "restaurants"},
-    #         {"loc_serch": "別府温泉杉乃井ホテル", "category": "hotels"}
+    #         {"loc_search": "東京", "category": ""},
+    #         {"loc_search": "日本の有名な観光スポット", "category": "attractions"},
+    #         {"loc_search": "東京都にあるホテル", "category": "hotels"},
+    #         {"loc_search": "北海道の名所", "category": "attractions"},
+    #         {"loc_search": "東京タワー", "category": "attractions"},
+    #         {"loc_search": "旭山動物園", "category": "attractions"},
+    #         {"loc_search": "京都の有名レストラン", "category": "restaurants"},
+    #         {"loc_search": "別府温泉杉乃井ホテル", "category": "hotels"}
     #     ],
     # )
 
@@ -77,25 +77,25 @@ class TravelProposalSchema(BaseModel):
 # Tool(Function Calling)で利用する関数の定義
 
 # 観光スポットの提案
-def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Union[str, dict]:
+def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> Union[str, dict]:
     """
-        :param loc_serch: Text to use for searching based on the name of the location. 
+        :param loc_search: Text to use for searching based on the name of the location. 
         :param category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". 
     """
 
     # 辞書の引数を取り出す
-    # serch_dict = json.loads(loc_serch)
-    # loc_serch = serch_dict.get("loc_serch", None)
-    # category = serch_dict.get("category", "")
+    # search_dict = json.loads(loc_search)
+    # loc_search = search_dict.get("loc_search", None)
+    # category = search_dict.get("category", "")
     language = "ja"
     currency = "JPY"
 
-    # loc_serch が入力されていない場合は、"検索したい場所を入力してください"を返す
-    if loc_serch is None:
+    # loc_search が入力されていない場合は、"検索したい場所を入力してください"を返す
+    if loc_search is None:
         return "検索したい場所を入力してください"
     
     # ロケーションIDと、最低限の情報を取得
-    loc_ids, other_info = get_location_id(loc_serch, category, language)
+    loc_ids, other_info = get_location_id(loc_search, category, language)
 
     # 場所の情報を取得
     output = {}
@@ -116,11 +116,11 @@ def suggested_sightseeing_spots(loc_serch: str = None, category: str = "") -> Un
 
 
 # ロケーションの検索をし、ロケーションIDを取得する
-def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list, dict]:
+def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[list, dict]:
     """
     ロケーションの検索をし、ロケーションIDを取得する
 
-    :param loc_serch: search query
+    :param loc_search: search query
     :param category: search category
     :param language: language of the response
 
@@ -131,7 +131,7 @@ def get_location_id(loc_serch: str, category: str, language: str) ->  Tuple[list
     id_param = "?key=" + TRIPADVISOR_API_KEY
     id_param += "&language=" + language
 
-    id_param += "&searchQuery=" + loc_serch
+    id_param += "&searchQuery=" + loc_search
 
     if category != "":
         id_param += "&category=" + category

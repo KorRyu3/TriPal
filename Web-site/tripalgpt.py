@@ -97,7 +97,7 @@ class TriPalGPT:
         #     - 出力はMarkdown形式
         # """
         self._prompt = ChatPromptTemplate.from_messages([
-            # system pronptの定義
+            # system promptの定義
             ("system", system_prompt),
             # 履歴を取得
             MessagesPlaceholder(variable_name="history"),
@@ -128,7 +128,7 @@ class TriPalGPT:
         # 必要に応じて、タグのstyle属性を使ってデザインを調整します。例えば、{{tableタグのような要素では、bordersなどの属性を変更することができます}}。
         # """
         # self._html_prompt = ChatPromptTemplate.from_messages([
-        #     # system pronptの定義
+        #     # system promptの定義
         #     ("system", html_system_prompt),
         #     # 例
         #     ("human", "こんにちは！今日の予定を考えてみました！[1日目]・仕事をする・お風呂に入る・ご飯を食べる・寝る [2日目]・休憩を取る・ご飯を食べる・寝る[3日目]・寝る"),
@@ -169,18 +169,18 @@ class TriPalGPT:
         # # description
         # Used to make travel suggestions to users. 
         # When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
-        # "loc_serch" is the content you want to look up. Ambiguous searches are also possible. 
+        # "loc_search" is the content you want to look up. Ambiguous searches are also possible. 
         # "category" filters based on property type. Valid options are "hotel", "attraction", "restaurant", and "geo". 
-        # Input should be a single string strictly in the following JSON format: {"loc_serch": "loc_serch", "category": "category"}
+        # Input should be a single string strictly in the following JSON format: {"loc_search": "loc_search", "category": "category"}
 
 
         # # Argument Examples
-        # {"loc_serch": "日本の有名な観光スポット", "category": "attractions"}, 
-        # {"loc_serch": "東京都にあるホテル", "category": "hotels"}, 
-        # {"loc_serch: "北海道の名所", "category": ""}, 
-        # {"loc_serch: "東京タワー", "category": "attractions"}, 
-        # {"loc_serch: "旭山動物園", "category": "attractions"}, 
-        # {"loc_serch": "京都の有名レストラン", "category": "restaurants"}, {"loc_serch": "別府温泉杉乃井ホテル", "category": "hotels"}
+        # {"loc_search": "日本の有名な観光スポット", "category": "attractions"}, 
+        # {"loc_search": "東京都にあるホテル", "category": "hotels"}, 
+        # {"loc_search: "北海道の名所", "category": ""}, 
+        # {"loc_search: "東京タワー", "category": "attractions"}, 
+        # {"loc_search: "旭山動物園", "category": "attractions"}, 
+        # {"loc_search": "京都の有名レストラン", "category": "restaurants"}, {"loc_search": "別府温泉杉乃井ホテル", "category": "hotels"}
         # """
         info_description = """
         # description
@@ -197,13 +197,13 @@ class TriPalGPT:
         
         
         # Argument Examples
-        loc_serch = "日本の有名な観光スポット", 
-        loc_serch = "東京都にあるホテル", 
-        loc_serch = "北海道の名所", 
-        loc_serch = "東京タワー", 
-        loc_serch = "旭山動物園", 
-        loc_serch = "京都の有名レストラン",
-        loc_serch = "別府温泉杉乃井ホテル"
+        loc_search = "日本の有名な観光スポット", 
+        loc_search = "東京都にあるホテル", 
+        loc_search = "北海道の名所", 
+        loc_search = "東京タワー", 
+        loc_search = "旭山動物園", 
+        loc_search = "京都の有名レストラン",
+        loc_search = "別府温泉杉乃井ホテル"
         """
         self._tools = [
             Tool(
