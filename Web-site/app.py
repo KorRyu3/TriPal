@@ -1,17 +1,17 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, Response
 from tripalgpt import TriPalGPT
 
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index() -> str:
     global tripal_gpt
     tripal_gpt = TriPalGPT()
     return render_template('index.html')
 
 
 @app.post('/chat')
-def chat():
+def chat() -> Response:
     # FormDataの中身を取り出す
     user_chat = request.form.get('user_chat')
 
