@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 
 from operator import itemgetter
+from typing import Generator
 
 # LangChainのモジュールをインポート
 from langchain.chat_models import AzureChatOpenAI
@@ -253,7 +254,9 @@ class TriPalGPT:
     #     return output
 
     # 履歴を保存する
-    def _create_response(self, user_input: str) -> str:
+
+    # 履歴を保存する
+    def _create_response(self, user_input: str) -> Generator:
 
         # Chainの作成
         chain = self._create_agent_executor()
@@ -262,22 +265,33 @@ class TriPalGPT:
         user_input = {"input": user_input}
 
         # 履歴を元に、Chainを実行する
-        res = chain.invoke(input=user_input)
-        output = res["output"]
-        # 履歴を保存する
-        self._memory.save_context(user_input, {"output": output})
+        # res = chain.invoke(input=user_input)
+        # output = res["output"]
+        generator_response = chain.stream(input=user_input)
 
-        return output
+        return generator_response
 
-    def _save_memory():
-        pass
+    def _save_memory(self, user_input: str) -> Generator:
+
+        generator_response = self._create_response(user_input=user_input)
+        output = ""
+        for res in generator_response:
+            output += res
+            print(res)
+            yield res
+        else:
+            print(output)
+            # 履歴を保存する
+            self._memory.save_context({"input": user_input}, {"output": output})
+
+
 
     # ユーザーからの入力を取得する
-    def get_response(self, user_input: str) -> str:
+    def get_response(self, user_input: str) -> Generator:
         # memory_responseメソッドを呼び出して、応答を取得する
-        output = self._create_response(user_input=user_input)
+        generator_output = self._save_memory(user_input=user_input)
 
         # 返答をHTML形式に変換する
         # output = self._html_cre(output)
 
-        return output
+        return generator_output
