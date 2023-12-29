@@ -240,7 +240,7 @@ class TriPalGPT:
 
         return agent_executor
 
-    # def _html_cre(self, user_input: str) -> str:
+    # def _html_cre(self, user_input: str) -> str: 
 
     #     # HTMLのChainの作成
     #     html_chain = self._html_prompt | self._model
@@ -258,7 +258,6 @@ class TriPalGPT:
     # 履歴を保存する
     def _create_response(self, user_input: str) -> Generator:
 
-
         # Chainの作成
         chain = self._create_agent_executor()
 
@@ -275,14 +274,10 @@ class TriPalGPT:
     def _save_memory(self, user_input: str) -> Generator:
 
         generator_response = self._create_response(user_input=user_input)
-        for res in generator_response:
-            print(type(res))
-        print(generator_response)
         output = ""
-        print(type(output))
         for res in generator_response:
-            print(res.content)
             output += res
+            print(res)
             yield res
         else:
             print(output)
