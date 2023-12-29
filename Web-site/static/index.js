@@ -1,3 +1,4 @@
+import EventSource from 'eventsource';
 const chatArea = document.querySelector('.chat-area');
 const typingArea = document.querySelector('#typing-area');
 const userInputArea = document.querySelector('.user-inputArea');
@@ -33,6 +34,19 @@ typingArea.addEventListener('submit', (event) => {
       addMessage('System', `Error: ${error.message}`);
   });
 });
+
+// ストリーミング機能を使って、サーバーからのメッセージを受信
+const messagesDiv = document.getElementById("chatBox");
+
+const eventSource = new EventSource("/chat");
+eventSource.onmessage = function (event) {
+    const data = event.data;
+    messagesDiv.innerHTML += data;
+};
+eventSource.onerror = function(event) {
+    console.error("Connection error:", event);
+    eventSource.close();
+};
 
 // メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
