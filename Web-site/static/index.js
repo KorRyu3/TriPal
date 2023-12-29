@@ -1,16 +1,16 @@
-const chatBox = document.getElementsByClassName('chat-box')[0];
+const chatArea = document.getElementsByClassName('chat-area')[0];
 const typingArea = document.getElementById('typing-area');
-const userChat = document.getElementsByClassName('user-chat')[0];
+const userInputArea = document.getElementsByClassName('user-inputArea')[0];
 
 typingArea.addEventListener('submit', (event) => {
   event.preventDefault();
-  const message = userChat.value;
+  const message = userInputArea.value;
   const formData = new FormData(typingArea);
 
-  userChat.value = '';
+  userInputArea.value = '';
   addMessage('You', message);
 
-  
+
   fetch('/chat', {
       method: 'POST',
       body: formData
@@ -28,12 +28,12 @@ typingArea.addEventListener('submit', (event) => {
 function addMessage(sender, message) {
 
   // I=user, O=LLM
-  
-  let classIOName = "outgoing"
+
+  let classIOName = "user-input"
   if (sender == "TriPalGPT") {
-    classIOName = "incoming"
+    classIOName = "ai-response"
   }
-  
+
   const chatIOElement = document.createElement('div');
   chatIOElement.classList.add("chat", classIOName);
 
@@ -52,6 +52,6 @@ function addMessage(sender, message) {
   }
 
   chatIOElement.appendChild(chatDetailsElement);
-  chatBox.appendChild(chatIOElement);
-  
+  chatArea.appendChild(chatIOElement);
+
 }
