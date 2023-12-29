@@ -1,57 +1,54 @@
-const chatArea = document.getElementsByClassName('chat-area')[0];
-const typingArea = document.getElementById('typing-area');
-const userInputArea = document.getElementsByClassName('user-inputArea')[0];
+const chatArea = document.querySelector('.chat-area');
+const typingArea = document.querySelector('#typing-area');
+const userInputArea = document.querySelector('.user-inputArea');
 
+// 入力エリアにsubmitイベントリスナーを追加
 typingArea.addEventListener('submit', (event) => {
+  // デフォルトのフォーム送信を防止
   event.preventDefault();
+  // ユーザーの入力を取得
   const message = userInputArea.value;
-  const formData = new FormData(typingArea);
-
   userInputArea.value = '';
+
+  // フォームデータを作成
+  const formData = new FormData(typingArea);
   addMessage('You', message);
 
-
+  // サーバーにPOSTリクエストを送信
   fetch('/chat', {
       method: 'POST',
       body: formData
   })
-  .then(response => response.json())
+  .then(response => response.json()) // レスポンスをJSONに変換
   .then(data => {
+      // レスポンスからメッセージを取得
       const message = data.response;
+      // AIのメッセージをチャットエリアに追加
       addMessage('TriPalGPT', message);
   })
   .catch(error => {
+      // エラーをコンソールに出力
       console.error(error);
+      // エラーメッセージをチャットエリアに追加
+      addMessage('System', `Error: ${error.message}`);
   });
 });
 
+// メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
+  // 送信者に基づいてクラス名を決定
+  const classIOName = sender === "TriPalGPT" ? "ai-response" : "user-input";
 
-  // I=user, O=LLM
-
-  let classIOName = "user-input"
-  if (sender == "TriPalGPT") {
-    classIOName = "ai-response"
-  }
-
+  // おしゃべり用の新しいdiv要素を作成
   const chatIOElement = document.createElement('div');
   chatIOElement.classList.add("chat", classIOName);
-
   const chatDetailsElement = document.createElement('div');
   chatDetailsElement.className = "details";
+  const messageP = document.createElement('p');
+  messageP.innerHTML = message;
 
-  if (sender == "You") {
-    const userP = document.createElement('p');
-    userP.innerHTML = `${message}`;
-    chatDetailsElement.appendChild(userP);
-  }
-  else if (sender == "TriPalGPT") {
-    const gptP = document.createElement('p');
-    gptP.innerHTML = `${message}`;
-    chatDetailsElement.appendChild(gptP);
-  }
-
+  // どんどん追加していくよ〜
+  chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
-
 }
