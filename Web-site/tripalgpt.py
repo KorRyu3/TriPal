@@ -4,16 +4,14 @@ import openai
 import os
 from dotenv import load_dotenv
 
-from operator import itemgetter
 from typing import Generator
 
 # LangChainのモジュールをインポート
 from langchain.chat_models import AzureChatOpenAI
 from langchain.memory import ConversationBufferMemory
-from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.tools.render import format_tool_to_openai_function
-from langchain.agents.format_scratchpad import format_to_openai_functions
+from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import Tool
 from langchain.agents import AgentExecutor
@@ -44,6 +42,7 @@ class TriPalGPT:
             azure_endpoint = os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
             model = "gpt-35-turbo-16k",
             temperature = 1.0,
+            streaming = True
         )
 
 
@@ -100,7 +99,7 @@ class TriPalGPT:
             # system promptの定義
             ("system", system_prompt),
             # 履歴を取得
-            MessagesPlaceholder(variable_name="history"),
+            MessagesPlaceholder(variable_name="chat_history"),
             # userの入力
             ("human", "{input}"),
             # agent機能
@@ -162,7 +161,7 @@ class TriPalGPT:
         # ])
 
         # メモリーの初期化
-        self._memory = ConversationBufferMemory(memory_key="history", return_messages=True)
+        self._memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
         # function callingで利用するツールの初期化
         # info_description = """
@@ -224,18 +223,20 @@ class TriPalGPT:
         model_with_tools = self._model_16k.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
 
         agent = {
-            "input": lambda x: x["input"],
-            "agent_scratchpad": lambda x: format_to_openai_functions(
-                x["intermediate_steps"]
-            ),
+        "input": lambda x: x["input"],
+        "agent_scratchpad": lambda x: format_to_openai_function_messages(
+            x["intermediate_steps"]
+        ),
         # itemgetter("history") は、memory.load_memory_variablesの戻り値の中から、historyの値を取り出す
         # 詳細は"https://python.langchain.com/docs/expression_language/cookbook/memory"を参照
-        } | RunnablePassthrough.assign(
-            history=RunnableLambda(history) | itemgetter("history")
-        ) | self._prompt | model_with_tools | OpenAIFunctionsAgentOutputParser()
+        "chat_history": lambda x: history(x)["chat_history"],
+        } | self._prompt | model_with_tools | OpenAIFunctionsAgentOutputParser()
+
+        print("agent: ", agent)
+        print("agent(type): ", type(agent))
 
         # agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
-        agent_executor = AgentExecutor(agent=agent, tools=self._tools, verbose=True)
+        agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=self._tools, verbose=True)
 
 
         return agent_executor
@@ -260,6 +261,8 @@ class TriPalGPT:
 
         # Chainの作成
         chain = self._create_agent_executor()
+        print("chain:",chain)
+        print("chain(type):", type(chain))
 
         # ユーザーからの入力を取得する
         user_input = {"input": user_input}
@@ -268,12 +271,22 @@ class TriPalGPT:
         # res = chain.invoke(input=user_input)
         # output = res["output"]
         generator_response = chain.stream(input=user_input)
+        print("generator_response: ", generator_response)
+        print("generator_response(type): ", type(generator_response))
 
         return generator_response
 
     def _save_memory(self, user_input: str) -> Generator:
 
         generator_response = self._create_response(user_input=user_input)
+        # ----test---- #
+        for res in generator_response:
+            res = res #["messages"]
+
+            print("res: ",res)
+            print("res(type): ", type(res))
+            print("-"*50)
+        # ----test---- #
         output = ""
         for res in generator_response:
             output += res
