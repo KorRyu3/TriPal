@@ -1,6 +1,5 @@
 from func_call_tools import TravelProposalSchema, suggested_sightseeing_spots
 
-import openai
 import os
 from dotenv import load_dotenv
 
@@ -24,15 +23,6 @@ load_dotenv()
 class TriPalGPT:
     # クラスの初期化処理
     def __init__(self):
-
-        # チャットモデルの初期化
-        # self._model = AzureChatOpenAI(
-        #     deployment_name = "TriPalGPT",
-        #     model_name="gpt-35-turbo",
-        #     temperature=0.7,
-        #     model_version="0613"
-        # )
-
         self._model_16k = AzureChatOpenAI(
 
             api_key = os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
@@ -44,7 +34,6 @@ class TriPalGPT:
             temperature = 1.0,
             streaming = True
         )
-
 
         # プロンプトの初期化
         system_prompt = """
@@ -106,59 +95,6 @@ class TriPalGPT:
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ])
 
-
-        # HTMLのプロンプトの初期化
-        # html_system_prompt = """
-        #     You are a professional web developer.
-        #     Please convert the entered text into the appropriate {{HTML format}}.
-        #     For example, if a user enters "こんにちは" (Hello), convert it into HTML format as "<div>こんにちは</div>".
-        #     Also, ensure that you {{do not modify the input text}}.
-        #     {{The output language is Japanese}}, and, of course, {{the output is HTML only}}.
-        #     {{Always start and end with a div tag.}}
-        #     If needed, {{adjust the design using the style attribute in tags}}. For example, for elements like {{table tags}}, you can {{modify attributes such as borders}}.
-        # """
-        # あなたはWebサイトの開発者です。
-        # 入力されたテキストを、適切な{{HTML形式}}に変換してください。
-        # 例えば、ユーザーが「こんにちは」と入力した場合、「<div>こんにちは</div>」というように、HTML形式に変換してください。
-        # 入力された文章は{{絶対に変更しない}}でください。
-        # {{出力言語は日本語}}です。
-        # もちろん{{出力はHTMLのみ}}です。
-        # {必ずdivタグで始まり、divタグで終わる}}。
-        # 必要に応じて、タグのstyle属性を使ってデザインを調整します。例えば、{{tableタグのような要素では、bordersなどの属性を変更することができます}}。
-        # """
-        # self._html_prompt = ChatPromptTemplate.from_messages([
-        #     # system promptの定義
-        #     ("system", html_system_prompt),
-        #     # 例
-        #     ("human", "こんにちは！今日の予定を考えてみました！[1日目]・仕事をする・お風呂に入る・ご飯を食べる・寝る [2日目]・休憩を取る・ご飯を食べる・寝る[3日目]・寝る"),
-        #     ("ai", """<div>
-        #                 こんにちは！今日の予定を考えてみました！<br>
-        #                 <br>
-        #                 [1日目]<br>
-        #                 <ul>
-        #                     <li>仕事をする</li>
-        #                     <li>お風呂に入る</li>
-        #                     <li>ご飯を食べる</li>
-        #                     <li>寝る</li>
-        #                 </ul>
-        #                 <br>
-        #                 [2日目]<br>
-        #                 <ul>
-        #                     <li>休憩を取る</li>
-        #                     <li>ご飯を食べる</li>
-        #                     <li>寝る</li>
-        #                 </ul>
-        #                 <br>
-        #                 [3日目]<br>
-        #                 <ul>
-        #                     <li>寝る</li>
-        #                 </ul>
-        #             </div>"""
-        #     ),
-
-        #     # userの入力
-        #     ("human", "{input}"),
-        # ])
 
         # メモリーの初期化
         self._memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -241,22 +177,8 @@ class TriPalGPT:
 
         return agent_executor
 
-    # def _html_cre(self, user_input: str) -> str: 
 
-    #     # HTMLのChainの作成
-    #     html_chain = self._html_prompt | self._model
-
-    #     # TriPalGPTからの出力を元に、Chainを実行する
-    #     res = html_chain.invoke(input={"input": user_input})
-    #     print(res)
-
-    #     output = res.content
-
-    #     return output
-
-    # 履歴を保存する
-
-    # 履歴を保存する
+    # streaming可能なgeneratorを返す
     def _create_response(self, user_input: str) -> Generator:
 
         # Chainの作成
@@ -276,6 +198,7 @@ class TriPalGPT:
 
         return generator_response
 
+    # 履歴を保存する
     def _save_memory(self, user_input: str) -> Generator:
 
         generator_response = self._create_response(user_input=user_input)
@@ -298,8 +221,6 @@ class TriPalGPT:
             self._memory.save_context({"input": user_input}, {"output": output})
 
 
-
-    # ユーザーからの入力を取得する
     def get_response(self, user_input: str) -> Generator:
         # memory_responseメソッドを呼び出して、応答を取得する
         generator_output = self._save_memory(user_input=user_input)
