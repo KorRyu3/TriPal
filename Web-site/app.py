@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, make_response, Response
+# from async_response import AsyncResponse
+# import asyncstdlib
 from tripalgpt import TriPalGPT
 
 app = Flask(__name__)
@@ -25,6 +27,9 @@ def chat() -> Response:
     # Responseオブジェクトを作成する
     response = make_response(generator_output)
     response.mimetype = 'text/event-stream'
+
+    # response = Response(generator_output, mimetype='text/event-stream')
+    # response = AsyncResponse(generator_output, mimetype='text/event-stream')
 
     return response
 

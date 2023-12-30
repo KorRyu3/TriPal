@@ -1,5 +1,8 @@
 from func_call_tools import TravelProposalSchema, suggested_sightseeing_spots
 
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.callbacks.streaming_stdout_final_only import FinalStreamingStdOutCallbackHandler
+
 import os
 from dotenv import load_dotenv
 
@@ -32,7 +35,9 @@ class TriPalGPT:
             azure_endpoint = os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
             model = "gpt-35-turbo-16k",
             temperature = 1.0,
-            streaming = True
+            # callbacks=[StreamingStdOutCallbackHandler()],
+            # callbacks=[FinalStreamingStdOutCallbackHandler()],
+            streaming = True,
         )
 
         # プロンプトの初期化
@@ -168,11 +173,13 @@ class TriPalGPT:
         "chat_history": lambda x: history(x)["chat_history"],
         } | self._prompt | model_with_tools | OpenAIFunctionsAgentOutputParser()
 
-        print("agent: ", agent)
-        print("agent(type): ", type(agent))
 
         # agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
-        agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=self._tools, verbose=True)
+        agent_executor = AgentExecutor.from_agent_and_tools(
+                agent=agent,
+                tools=self._tools,
+                verbose=True
+            )
 
 
         return agent_executor
@@ -183,49 +190,56 @@ class TriPalGPT:
 
         # Chainの作成
         chain = self._create_agent_executor()
-        print("chain:",chain)
-        print("chain(type):", type(chain))
 
         # ユーザーからの入力を取得する
         user_input = {"input": user_input}
 
         # 履歴を元に、Chainを実行する
-        # res = chain.invoke(input=user_input)
-        # output = res["output"]
-        generator_response = chain.stream(input=user_input)
+        generator_response = chain.astream_log(input=user_input)
         print("generator_response: ", generator_response)
         print("generator_response(type): ", type(generator_response))
 
         return generator_response
 
     # 履歴を保存する
-    def _save_memory(self, user_input: str) -> Generator:
+    async def _save_memory(self, user_input: str) -> Generator:
 
         generator_response = self._create_response(user_input=user_input)
         # ----test---- #
-        for res in generator_response:
-            res = res #["messages"]
+        async for res in generator_response:
 
             print("res: ",res)
             print("res(type): ", type(res))
             print("-"*50)
         # ----test---- #
         output = ""
-        for res in generator_response:
-            output += res
-            print(res)
-            yield res
-        else:
-            print(output)
-            # 履歴を保存する
-            self._memory.save_context({"input": user_input}, {"output": output})
+        # for res in generator_response:
+        #     output += res
+        #     print(res)
+        #     yield res
+        # else:
+        #     print(output)
+        #     # 履歴を保存する
+        #     self._memory.save_context({"input": user_input}, {"output": output})
 
 
-    def get_response(self, user_input: str) -> Generator:
+    async def get_response(self, user_input: str) -> Generator:
         # memory_responseメソッドを呼び出して、応答を取得する
-        generator_output = self._save_memory(user_input=user_input)
-
-        # 返答をHTML形式に変換する
-        # output = self._html_cre(output)
+        generator_output = await self._save_memory(user_input=user_input)
 
         return generator_output
+
+
+import asyncio
+
+async def main():
+    tripal_gpt = TriPalGPT()
+    output = await tripal_gpt.get_response(user_input="hello")
+    print("output: ", output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+    # main()
+
+
+
