@@ -1,38 +1,58 @@
-from flask import Flask, render_template, request, make_response, Response
-# from async_response import AsyncResponse
-# import asyncstdlib
 from tripalgpt import TriPalGPT
+# 標準ライブラリ
+from typing import AsyncIterator
+import json
+import asyncio
+# pydantic
+from pydantic import BaseModel
+# FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import StreamingResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+# uvicorn
+import uvicorn
 
-app = Flask(__name__)
 
-@app.route('/')
-def index() -> str:
-    global tripal_gpt
-    tripal_gpt = TriPalGPT()
-    return render_template('index.html')
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# template engineの設定
+templates = Jinja2Templates(directory="templates")
+# LLMの初期化
+tripal_gpt = TriPalGPT()
+
+class UserInput(BaseModel):
+    user_chat: str
+
+@app.get('/')
+def index(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name='index.html',
+    )
 
 @app.post('/chat')
-def chat() -> Response:
-    # FormDataの中身を取り出す
-    user_chat = request.form.get('user_chat')
+async def chat(body: UserInput):
+    print("body: ", body)
+    print("body(type): ", type(body))
+    print("body.user_chat: ", body.user_chat)
 
     # チャットボットにユーザーの入力を渡して、応答を取得する
-    generator_output = tripal_gpt.get_response(user_input=user_chat)
-    # 応答をJSON形式に変換する
-    # res_json = jsonify({'response': res})
-    # return res_json
-    # return Response(res, mimetype='text/event-stream')
+    # responseは非同期generator
+    async def generator_output() -> AsyncIterator[str]:
+        async for output in tripal_gpt.get_async_iter_response(user_input=body.user_chat):
+            print("output: ", output)
+            data = f"data: {json.dumps({'message': output})}"
+            yield data + "\n\n"
+            await asyncio.sleep(0)
 
     # Responseオブジェクトを作成する
-    response = make_response(generator_output)
-    response.mimetype = 'text/event-stream'
-
-    # response = Response(generator_output, mimetype='text/event-stream')
-    # response = AsyncResponse(generator_output, mimetype='text/event-stream')
-
-    return response
+    return StreamingResponse(
+            content=generator_output(),
+            media_type='text/event-stream',
+        )
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    uvicorn.run("app:app", reload=True)#, host="0.0.0.0", port=8000)
