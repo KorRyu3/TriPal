@@ -1,12 +1,9 @@
 from func_call_tools import TravelProposalSchema, suggested_sightseeing_spots
 
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.callbacks.streaming_stdout_final_only import FinalStreamingStdOutCallbackHandler
-
 import os
 from dotenv import load_dotenv
 
-from typing import Generator
+from typing import AsyncIterator
 
 # LangChainのモジュールをインポート
 from langchain.chat_models import AzureChatOpenAI
@@ -15,9 +12,11 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.tools.render import format_tool_to_openai_function
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
-from langchain.agents import Tool
-from langchain.agents import AgentExecutor
+from langchain.agents import Tool, AgentExecutor
 
+
+from typing import Union, Dict
+from langchain_core.tracers import RunLogPatch
 
 # 環境変数をロード
 load_dotenv()
@@ -25,7 +24,7 @@ load_dotenv()
 
 class TriPalGPT:
     # クラスの初期化処理
-    def __init__(self):
+    def __init__(self) -> None:
         self._model_16k = AzureChatOpenAI(
 
             api_key = os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
@@ -35,8 +34,6 @@ class TriPalGPT:
             azure_endpoint = os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
             model = "gpt-35-turbo-16k",
             temperature = 1.0,
-            # callbacks=[StreamingStdOutCallbackHandler()],
-            # callbacks=[FinalStreamingStdOutCallbackHandler()],
             streaming = True,
         )
 
@@ -186,7 +183,7 @@ class TriPalGPT:
 
 
     # streaming可能なgeneratorを返す
-    def _create_response(self, user_input: str) -> Generator:
+    async def _create_response(self, user_input: str) -> AsyncIterator[RunLogPatch]:
 
         # Chainの作成
         chain = self._create_agent_executor()
@@ -195,51 +192,84 @@ class TriPalGPT:
         user_input = {"input": user_input}
 
         # 履歴を元に、Chainを実行する
+        # import pdb; pdb.set_trace()
         generator_response = chain.astream_log(input=user_input)
-        print("generator_response: ", generator_response)
-        print("generator_response(type): ", type(generator_response))
+        # print("generator_response: ", generator_response)
+        # print("generator_response(type): ", type(generator_response))
 
         return generator_response
 
     # 履歴を保存する
-    async def _save_memory(self, user_input: str) -> Generator:
+    def _save_memory(self, user_input: str, final_output: str) -> None:
+        self._memory.save_context({"input": user_input}, {"output": final_output})
 
-        generator_response = self._create_response(user_input=user_input)
-        # ----test---- #
-        async for res in generator_response:
+    # 応答を整形する
+    def _format_astream_log_data(self, data: RunLogPatch) -> Union[None, Dict[str, str]]:
+        dict_data = data.ops[0]
+        # r文字列は、正規表現を表す
+        # \d*で、0回以上の数値の繰り返しを表す
+        stream_pattern = r"/logs/AzureChatOpenAI.*?/streamed_output_str/-"
+        final_pattern = r"/logs/AzureChatOpenAI.*?/final_output"
+        # print("dict_data: ", dict_data)
 
-            print("res: ",res)
-            print("res(type): ", type(res))
-            print("-"*50)
-        # ----test---- #
-        output = ""
-        # for res in generator_response:
-        #     output += res
-        #     print(res)
-        #     yield res
-        # else:
-        #     print(output)
-        #     # 履歴を保存する
-        #     self._memory.save_context({"input": user_input}, {"output": output})
+        import re
+
+        path = dict_data["path"]
+
+        # print("path: ", path)
+        # re.match()で、正規表現とパスを比較する
+        if re.match(stream_pattern, path):
+            response = dict_data["value"]
+            if response == "":
+                return None
+            else:
+                return {"stream_res": response}
+
+        elif re.match(final_pattern, path):
+            response = dict_data["value"]["generations"][0][0]["text"]
+            if response == "":
+                return None
+            else:
+                return {"final_output": response}
+
+        else:
+            return None
 
 
-    async def get_response(self, user_input: str) -> Generator:
+        # 応答を取得する
+    async def get_async_iter_response(self, user_input: str) -> AsyncIterator[str]:
         # memory_responseメソッドを呼び出して、応答を取得する
-        generator_output = await self._save_memory(user_input=user_input)
+        generator_response = await self._create_response(user_input=user_input)
 
-        return generator_output
+        async for res in generator_response:
+            format_res = self._format_astream_log_data(res)
+
+            if format_res is None:
+                continue
+
+            if format_res.get("final_output"):
+                final_output = format_res.get("final_output")
+                # print("final_output: ", final_output)
+                self._save_memory(user_input, final_output)
+                break
+
+            # print("res: ",format_res.get("stream_res"))
+            # print("res(type): ", format_res)
+            # print("-"*50)
+
+            yield format_res.get("stream_res")
 
 
-import asyncio
 
-async def main():
-    tripal_gpt = TriPalGPT()
-    output = await tripal_gpt.get_response(user_input="hello")
-    print("output: ", output)
+# import asyncio
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# async def main():
+#     tripal_gpt = TriPalGPT()
+#     # print("input: あなたについて教えて")
+#     async for output in tripal_gpt.get_async_iter_response(user_input="日本にいるくまについて教えて"):
+#     # async for output in tripal_gpt.get_async_iter_response(user_input="hello"):
+#         print("output(type): ", type(output), "  output: ", output)
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
     # main()
-
-
-
