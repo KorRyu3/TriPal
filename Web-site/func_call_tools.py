@@ -97,6 +97,9 @@ def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> U
     # ロケーションIDと、最低限の情報を取得
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
+    if loc_ids is None:
+        return "情報が取得出来ませんでした。もう一度やり直してください。"
+
     # 場所の情報を取得
     output = {}
 
@@ -142,20 +145,23 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     # jsonの中身を取り出す
     res_dict = json.loads(response.text)
 
+    if "error" in res_dict:
+        return None, {"error": res_dict["error"]}
+
     loc_ids = []
     other_info = {}
     for res_data in res_dict["data"]:
 
         # ロケーションIDを取得
-        location_id = res_data["location_id"] 
+        location_id = res_data["location_id"]
         loc_ids.append(location_id)
 
         # ロケーションの最低限の情報を取得
         other_loc_info = {}
 
-        other_loc_info["name"] = res_data["name"]
-        other_loc_info["country"] = res_data["address_obj"]["country"]
-        other_loc_info["address"] = res_data["address_obj"]["address_string"]
+        other_loc_info["name"] = res_data.get("name", "名前なし")
+        other_loc_info["country"] = res_data.get("address_obj", {}).get("country", "国なし")
+        other_loc_info["address"] = res_data.get("address_obj", {}).get("address_string", "住所なし")
 
         other_info[location_id] = other_loc_info
 
@@ -180,18 +186,18 @@ def get_location_info(loc_id: str, other_loc_info: dict, language: str, currency
     res_dict = json.loads(response.text)
 
     # errorの場合は、other_loc_info[name, country, address] をそのまま返す
-    res_status = list(res_dict.keys())[0]
-    if res_status == "error":
+    # res_status = list(res_dict.keys())[0]
+    if "error" in res_dict:
         return other_loc_info
 
     # ロケーションの情報を辞書に格納する
     loc_info_dict = {}
 
-    loc_info_dict["name"] = res_dict["name"]
+    loc_info_dict["name"] = res_dict.get("name", "名前なし")
     loc_info_dict["description"] = res_dict.get("description", "詳細なし")
     loc_info_dict["web_url"] = res_dict.get("Web_url", "TripadvisorのURL無し")
-    loc_info_dict["country"] = res_dict["address_obj"]["country"]
-    loc_info_dict["address"] = res_dict["address_obj"]["address_string"]
+    loc_info_dict["country"] = res_dict.get("address_obj", {}).get("country", "国なし")
+    loc_info_dict["address"] = res_dict.get("address_obj", {}).get("address_string", "住所なし")
     loc_info_dict["email"] = res_dict.get("email", "メールアドレスなし")
     loc_info_dict["phone"] = res_dict.get("phone", "電話番号なし")
     loc_info_dict["website"] = res_dict.get("website", "公式Webサイトなし")
