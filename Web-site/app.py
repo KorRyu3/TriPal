@@ -1,18 +1,16 @@
-from tripalgpt import TriPalGPT
-# 標準ライブラリ
 from typing import AsyncIterator
 import json
 import asyncio
-# pydantic
+
 from pydantic import BaseModel
 # FastAPI
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-# uvicorn
 import uvicorn
 
+from tripalgpt import TriPalGPT
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")

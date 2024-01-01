@@ -1,12 +1,8 @@
-from func_call_tools.suggestions import TravelProposalSchema, suggested_sightseeing_spots
-from func_call_tools.reservations import TravelReservationSchema, reserve_location
-
 import os
+from typing import AsyncIterator,  Union, Dict
+
 from dotenv import load_dotenv
-
-from typing import AsyncIterator
-
-# LangChainのモジュールをインポート
+# LangChain
 from langchain.chat_models import AzureChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -14,16 +10,21 @@ from langchain.tools.render import format_tool_to_openai_function
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import Tool, AgentExecutor
-
-
-from typing import Union, Dict
+# langchain_core
 from langchain_core.tracers import RunLogPatch
+from langchain_core.tools import StructuredTool
+
+from func_call_tools.suggestions import TravelProposalSchema, suggested_sightseeing_spots
+from func_call_tools.reservations import TravelReservationSchema, reserve_location
+
 
 # 環境変数をロード
 load_dotenv()
 
-
 class TriPalGPT:
+    """
+        Azure Chat OpenAI による旅行の計画を提案するクラス
+    """
     # クラスの初期化処理
     def __init__(self) -> None:
         self._model_16k = AzureChatOpenAI(
@@ -123,7 +124,7 @@ class TriPalGPT:
         info_description = """
         # description
         Propose travel plans to users.
-        When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location. 
+        When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location.
 
         {{Ambiguous searches are also possible.}}
         "loc_name" is the content you want to look up.
@@ -155,7 +156,11 @@ class TriPalGPT:
 
     # AgentExecutorの作成
     def _create_agent_executor(self) -> AgentExecutor:
-        # LangChainのLCELを利用して、Chainを作成する
+        """
+            LangChainのLCELを利用して、AgentExecutor(Chain)を作成する。
+
+            Tools(Function calling)付きのChainになっています。
+        """
         history = self._memory.load_memory_variables
 
         # Toolで定義した関数を、Function callingで利用できるように変換する
@@ -172,19 +177,22 @@ class TriPalGPT:
         } | self._prompt | model_with_tools | OpenAIFunctionsAgentOutputParser()
 
 
-        # agent_executor = AgentExecutor(agent=agent, tools=tools, memory=memory, verbose=True)
         agent_executor = AgentExecutor.from_agent_and_tools(
                 agent=agent,
                 tools=self._tools,
-                verbose=True
+                verbose=True  # 途中経過を表示(debug用)
             )
-
 
         return agent_executor
 
 
     # streaming可能なgeneratorを返す
     def _create_response(self, user_input: str) -> AsyncIterator[RunLogPatch]:
+        """
+            ユーザーの入力をLLMに渡して、streaming形式のlogを取得する。
+
+            :param user_input: ユーザーからの入力
+        """
 
         # Chainの作成
         chain = self._create_agent_executor()
@@ -202,10 +210,24 @@ class TriPalGPT:
 
     # 履歴を保存する
     def _save_memory(self, user_input: str, final_output: str) -> None:
+        """
+            ユーザーの入力と最終的な出力を履歴に保存する。
+
+            :param user_input: ユーザーからの入力
+            :param final_output: 保存する最終的な出力
+        """
         self._memory.save_context({"input": user_input}, {"output": final_output})
 
     # 応答を整形する
     def _format_astream_log(self, data: RunLogPatch) -> Union[None, Dict[str, str]]:
+        """
+            streamingで出力されるlogを綺麗な形に整形し、必要な情報のみを取得する。
+
+            1 token(例えば"あ"や"う"など)のみを取得するために、logにあるpathを使って、その識別しています。
+            また、関係のないlogや、空白のtokenはNoneを返すようにしています。
+
+            :param data: streamingで出力されるlog
+        """
         dict_data: dict = data.ops[0]
         # print("dict_data: ", dict_data)
         path: str = dict_data["path"]
@@ -240,6 +262,10 @@ class TriPalGPT:
 
         # 応答を取得する
     async def get_async_iter_response(self, user_input: str) -> AsyncIterator[str]:
+        """
+            ユーザーの入力をLLMに渡して、streaming形式のiteratorを取得する。
+
+            :param user_input: ユーザーからの入力"""
         # memory_responseメソッドを呼び出して、応答を取得する
         generator_response = self._create_response(user_input=user_input)
 
