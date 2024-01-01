@@ -1,4 +1,5 @@
-from func_call_tools import TravelProposalSchema, suggested_sightseeing_spots
+from func_call_tools.suggestions import TravelProposalSchema, suggested_sightseeing_spots
+from func_call_tools.reservations import TravelReservationSchema, reserve_location
 
 import os
 from dotenv import load_dotenv
@@ -183,7 +184,7 @@ class TriPalGPT:
 
 
     # streaming可能なgeneratorを返す
-    async def _create_response(self, user_input: str) -> AsyncIterator[RunLogPatch]:
+    def _create_response(self, user_input: str) -> AsyncIterator[RunLogPatch]:
 
         # Chainの作成
         chain = self._create_agent_executor()
@@ -204,29 +205,30 @@ class TriPalGPT:
         self._memory.save_context({"input": user_input}, {"output": final_output})
 
     # 応答を整形する
-    def _format_astream_log_data(self, data: RunLogPatch) -> Union[None, Dict[str, str]]:
-        dict_data = data.ops[0]
-        # r文字列は、正規表現を表す
-        # \d*で、0回以上の数値の繰り返しを表す
-        stream_pattern = r"/logs/AzureChatOpenAI.*?/streamed_output_str/-"
-        final_pattern = r"/logs/AzureChatOpenAI.*?/final_output"
+    def _format_astream_log(self, data: RunLogPatch) -> Union[None, Dict[str, str]]:
+        dict_data: dict = data.ops[0]
         # print("dict_data: ", dict_data)
+        path: str = dict_data["path"]
 
-        import re
+        required_pattern = "/logs/AzureChatOpenAI"
+        streaming_pattern = "/streamed_output_str/-"
+        final_pattern = "/final_output"
 
-        path = dict_data["path"]
+        print("path: ", path)
+        print("-"*50)
 
-        # print("path: ", path)
-        # re.match()で、正規表現とパスを比較する
-        if re.match(stream_pattern, path):
-            response = dict_data["value"]
+        # pathには /logs/AzureChatOpenAI/streamed_output_str/- などが入っています。
+        # なぜ分けて判定しているかというと、AgentExecutorで複数回thinkingが行われると、このpathが動的に変更されるため、静的で変わらない部分で判定しています。
+        # 例) /logs/AzureChatOpenAI:2/streamed_output_str/- など  (:2の部分が動的に変わる)
+        if required_pattern in path and streaming_pattern in path:
+            response: str = dict_data["value"]
             if response == "":
                 return None
             else:
                 return {"stream_res": response}
-
-        elif re.match(final_pattern, path):
-            response = dict_data["value"]["generations"][0][0]["text"]
+        # こちらも同様
+        elif required_pattern in path and final_pattern in path:
+            response: str = dict_data["value"]["generations"][0][0]["text"]
             if response == "":
                 return None
             else:
@@ -239,17 +241,18 @@ class TriPalGPT:
         # 応答を取得する
     async def get_async_iter_response(self, user_input: str) -> AsyncIterator[str]:
         # memory_responseメソッドを呼び出して、応答を取得する
-        generator_response = await self._create_response(user_input=user_input)
+        generator_response = self._create_response(user_input=user_input)
 
         async for res in generator_response:
-            format_res = self._format_astream_log_data(res)
+            format_res = self._format_astream_log(res)
 
             if format_res is None:
+                # 関係のないlogや、空白のtokenは無視
                 continue
 
             if format_res.get("final_output"):
                 final_output = format_res.get("final_output")
-                # print("final_output: ", final_output)
+                # 履歴を保存
                 self._save_memory(user_input, final_output)
                 break
 
@@ -266,10 +269,10 @@ class TriPalGPT:
 # async def main():
 #     tripal_gpt = TriPalGPT()
 #     # print("input: あなたについて教えて")
-#     async for output in tripal_gpt.get_async_iter_response(user_input="日本にいるくまについて教えて"):
-#     # async for output in tripal_gpt.get_async_iter_response(user_input="hello"):
+#     # async for output in tripal_gpt.get_async_iter_response(user_input="日本にいるくまについて教えて"):
+#     async for output in tripal_gpt.get_async_iter_response(user_input="hello"):
 #         print("output(type): ", type(output), "  output: ", output)
 
 # if __name__ == "__main__":
 #     asyncio.run(main())
-    # main()
+#     # main()
