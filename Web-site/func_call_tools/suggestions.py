@@ -75,7 +75,7 @@ class TravelProposalSchema(BaseModel):
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 # 観光スポットの提案
-def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> Union[str, dict]:
+def suggested_sightseeing_spots(loc_search: str = "", category: str = "") -> Union[str, dict[str, dict[str, str]]]:
     """
         検索情報(とカテゴリ)を与えて、おすすめの観光スポットを返す
         :param loc_search: Text to use for searching based on the name of the location.
@@ -91,12 +91,12 @@ def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> U
 
     # loc_search が入力されていない場合は、"検索したい場所を入力してください"を返す
     # ただ、function callingの特性上ほぼありえない
-    if loc_search is None:
+    if loc_search == "":
         return "検索したい場所を入力してください"
 
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
-    if loc_ids is None:
+    if loc_ids == []:
         return "情報が取得出来ませんでした。もう一度やり直してください。"
 
     # 場所の情報を取得
@@ -119,7 +119,7 @@ def suggested_sightseeing_spots(loc_search: str = None, category: str = "") -> U
 
 
 # ロケーションの検索をし、ロケーションIDを取得する
-def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[list, dict]:
+def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[list[str], dict[str, dict[str, str]]]:
     """
     ロケーションの検索をし、ロケーションIDを取得する
 
@@ -143,11 +143,11 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     if "error" in res_dict:
         print("res_dict(error): ", res_dict)
         print("res_dict(error): ", res_dict["error"])
-        return None, {"error": res_dict["error"]}
+        return [], {"error": res_dict["error"]}
     elif "message" in res_dict:
         print("res_dict(message): ", res_dict)
         print("res_dict(message): ", res_dict["message"])
-        return None, {"message": res_dict["message"]}
+        return [], {"message": res_dict["message"]}
 
 
     loc_ids = []
@@ -171,7 +171,7 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 
 
 # ロケーションIDに基づいた、ロケーションの情報を取得する
-def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: str) -> dict:
+def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: str) -> dict[str, str]:
     """
     ロケーションIDに紐づいた、ロケーションの情報を取得する
 

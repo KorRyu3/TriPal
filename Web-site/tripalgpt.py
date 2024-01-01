@@ -198,11 +198,11 @@ class TriPalGPT:
         chain = self._create_agent_executor()
 
         # ユーザーからの入力を取得する
-        user_input = {"input": user_input}
+        user_input_dict = {"input": user_input}
 
         # 履歴を元に、Chainを実行する
         # import pdb; pdb.set_trace()
-        generator_response = chain.astream_log(input=user_input)
+        generator_response = chain.astream_log(input=user_input_dict)
         # print("generator_response: ", generator_response)
         # print("generator_response(type): ", type(generator_response))
 
@@ -243,18 +243,18 @@ class TriPalGPT:
         # なぜ分けて判定しているかというと、AgentExecutorで複数回thinkingが行われると、このpathが動的に変更されるため、静的で変わらない部分で判定しています。
         # 例) /logs/AzureChatOpenAI:2/streamed_output_str/- など  (:2の部分が動的に変わる)
         if required_pattern in path and streaming_pattern in path:
-            response: str = dict_data["value"]
-            if response == "":
+            streamed_res: str = dict_data["value"]
+            if streamed_res == "":
                 return None
             else:
-                return {"stream_res": response}
+                return {"stream_res": streamed_res}
         # こちらも同様
         elif required_pattern in path and final_pattern in path:
-            response: str = dict_data["value"]["generations"][0][0]["text"]
-            if response == "":
+            final_res: str = dict_data["value"]["generations"][0][0]["text"]
+            if final_res == "":
                 return None
             else:
-                return {"final_output": response}
+                return {"final_output": final_res}
 
         else:
             return None
@@ -277,7 +277,7 @@ class TriPalGPT:
                 continue
 
             if format_res.get("final_output"):
-                final_output = format_res.get("final_output")
+                final_output = format_res["final_output"]
                 # 履歴を保存
                 self._save_memory(user_input, final_output)
                 break
@@ -286,7 +286,7 @@ class TriPalGPT:
             # print("res(type): ", format_res)
             # print("-"*50)
 
-            yield format_res.get("stream_res")
+            yield format_res["stream_res"]
 
 
 
