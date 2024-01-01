@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  # FastAPI
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+    - Web-site/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
