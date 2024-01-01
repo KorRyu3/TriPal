@@ -9,5 +9,6 @@ services:
     - Web-site/.env
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
+    # volumesはローカルにあるファイルをコンテナに転送させ、そのファイルの変更を反映する
+    # volumes:  # for development only
+    #   - .:/app
