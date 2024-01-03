@@ -1,24 +1,24 @@
 import os
 import json
-from typing import Tuple, Union
+from typing import Tuple, Union, Literal
 import random
 
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # from pydantic import BaseModel, Field
 # Fieldの使い方は下記を参照
 # https://docs.pydantic.dev/latest/concepts/fields/
 #
 # ↓ LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
-from pydantic.v1 import BaseModel , Field
+from langchain_core.pydantic_v1 import BaseModel, Field
 # v1Fieldの使い方は下記を参照
 # https://docs.pydantic.dev/1.10/usage/schema/
 
 
 # ---------- 初期化処理 ---------- #
 # 環境変数をロード
-load_dotenv("../.env")
+load_dotenv(find_dotenv())
 
 TRIPADVISOR_API_KEY = os.environ.get("TRIPADVISOR_API_KEY")
 HEADERS = {
@@ -27,14 +27,13 @@ HEADERS = {
     }
 # ------------------------------- #
 
+
 # Toolで利用する関数の入力スキーマの定義例
 class TravelProposalSchema(BaseModel):
 
-    # ここを辞書型一つにすれば出力は安定する？
-
     loc_search: str = Field(
         # デフォルト値を設定することができる
-        default=None,
+        default="",
         # このフィールドのタイトル
         title='LocationSearchQuery',
         # 詳細な説明を記載することができる
@@ -43,49 +42,26 @@ class TravelProposalSchema(BaseModel):
         examples= ['日本の有名な観光スポット', '東京都にあるホテル', '北海道の名所', '東京タワー', '旭山動物園', '京都の有名レストラン', '別府温泉杉乃井ホテル'],
     )
 
-    # category: str = Field(
-    #     default="",
-    #     title='Category',
-    #     description='Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". Arbitrary parameter',
-    #     examples=['', 'hotels', 'attractions', 'restaurants', 'geos'],
-    # )
-
-    # search_json: dict = Field(
-    #     default={"loc_search": None, "category": ""},
-    #     title='LocationSearchQuery',
-    #     description="""
-    #     loc_search: Text to use for searching based on the name of the location.
-    #     category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". 
-    #     Input should be a single string strictly in the following JSON format: {"loc_search": "loc_search", "category": "category"}
-    #     """,
-    #     examples= [
-    #         {"loc_search": "東京", "category": ""},
-    #         {"loc_search": "日本の有名な観光スポット", "category": "attractions"},
-    #         {"loc_search": "東京都にあるホテル", "category": "hotels"},
-    #         {"loc_search": "北海道の名所", "category": "attractions"},
-    #         {"loc_search": "東京タワー", "category": "attractions"},
-    #         {"loc_search": "旭山動物園", "category": "attractions"},
-    #         {"loc_search": "京都の有名レストラン", "category": "restaurants"},
-    #         {"loc_search": "別府温泉杉乃井ホテル", "category": "hotels"}
-    #     ],
-    # )
+    category: Literal["", "hotels", "attractions", "restaurants", "geos"] = Field(
+        default="",
+        title='Category',
+        description='Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". Arbitrary parameter',
+        examples=['', 'hotels', 'attractions', 'restaurants', 'geos'],
+    )
 
 
 
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 # 観光スポットの提案
-def suggested_sightseeing_spots(loc_search: str = "", category: str = "") -> Union[str, dict[str, dict[str, str]]]:
+def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotels", "attractions", "restaurants", "geos"] = "") -> Union[str, dict[str, dict[str, str]]]:
     """
         検索情報(とカテゴリ)を与えて、おすすめの観光スポットを返す
+
         :param loc_search: Text to use for searching based on the name of the location.
         :param category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos".
     """
 
-    # 辞書の引数を取り出す
-    # search_dict = json.loads(loc_search)
-    # loc_search = search_dict.get("loc_search", None)
-    # category = search_dict.get("category", "")
     language = "ja"
     currency = "JPY"
 
@@ -133,7 +109,7 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     # パラメータの設定
     id_param = f"?key={TRIPADVISOR_API_KEY}&language={language}&searchQuery={loc_search}"
 
-    if category != "":
+    if category:
         id_param += "&category=" + category
 
     url = f"https://api.content.tripadvisor.com/api/v1/location/search"
