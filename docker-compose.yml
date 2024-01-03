@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-    - Web-site/.env
+    - src/.env
     ports:
       - "8000:8000"
     # volumesはローカルにあるファイルをコンテナに転送させ、そのファイルの変更を反映する

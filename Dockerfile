@@ -22,7 +22,7 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-WORKDIR /app/Web-site
+WORKDIR /app/src
 
 EXPOSE 8000
 
