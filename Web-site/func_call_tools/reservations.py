@@ -1,32 +1,30 @@
-# from pydantic import BaseModel, Field
+import os
+import json
+from typing import Tuple, Union, Literal
 
+import requests
+from dotenv import load_dotenv, find_dotenv
+# from pydantic import BaseModel, Field
 # Fieldの使い方は下記を参照
 # https://docs.pydantic.dev/latest/concepts/fields/
 
-
 # ↓ LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
 from pydantic.v1 import BaseModel , Field
-
 # v1Fieldの使い方は下記を参照
 # https://docs.pydantic.dev/1.10/usage/schema/
-
-import requests
-import os
-from dotenv import load_dotenv
-import json
-from typing import Tuple, Union
 
 
 # ---------- 初期化処理 ---------- #
 # 環境変数をロード
-load_dotenv("../.env")
-
+load_dotenv(find_dotenv())
 HEADERS = {"accept": "application/json"}
+BOOKING_API_KEY = os.environ.get("BOOKING_API_KEY")
 # ------------------------------- #
 
 # Toolで利用する関数の入力スキーマの定義例
 class TravelReservationSchema(BaseModel):
     ...
+
 
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
