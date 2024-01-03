@@ -10,6 +10,9 @@ desktop.ini
 # python env
 .venv/
 
+# mypy cache
+*/.mypy_cache/
+
 # environment variables
 */.env
 
