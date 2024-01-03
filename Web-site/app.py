@@ -5,7 +5,7 @@ import asyncio
 from pydantic import BaseModel
 # FastAPI
 from fastapi import FastAPI, Request
-from fastapi.responses import StreamingResponse, HTMLResponse
+from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import uvicorn
@@ -14,12 +14,13 @@ from tripalgpt import TriPalGPT
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 # template engineの設定
 templates = Jinja2Templates(directory="templates")
 # LLMの初期化
 tripal_gpt = TriPalGPT()
 
+
+# ユーザーの入力を受け取るためのスキーマ
 class UserInput(BaseModel):
     user_chat: str
 
