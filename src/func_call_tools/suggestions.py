@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Tuple, Union, Literal
+from typing import Tuple, Dict, Union, Literal
 import random
 
 import requests
@@ -54,7 +54,7 @@ class TravelProposalSchema(BaseModel):
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 # 観光スポットの提案
-def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotels", "attractions", "restaurants", "geos"] = "") -> Union[str, dict[str, dict[str, str]]]:
+def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotels", "attractions", "restaurants", "geos"] = "") -> Union[str, Dict[str, Dict[str, str]]]:
     """
         検索情報(とカテゴリ)を与えて、おすすめの観光スポットを返す
 
@@ -95,7 +95,7 @@ def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotel
 
 
 # ロケーションの検索をし、ロケーションIDを取得する
-def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[list[str], dict[str, dict[str, str]]]:
+def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[list[str], Dict[str, Dict[str, str]]]:
     """
     ロケーションの検索をし、ロケーションIDを取得する
 
@@ -147,7 +147,7 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 
 
 # ロケーションIDに基づいた、ロケーションの情報を取得する
-def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: str) -> dict[str, str]:
+def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: str) -> Dict[str, str]:
     """
     ロケーションIDに紐づいた、ロケーションの情報を取得する
 
