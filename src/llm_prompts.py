@@ -1,5 +1,5 @@
 
-def gpt_system_prompt() -> str:
+def get_system_prompt() -> str:
     en_prompt = """
         # Instructions
         You are a travel consultant.
@@ -41,7 +41,7 @@ def gpt_system_prompt() -> str:
     return en_prompt
 
 
-def trip_suggestion_description() -> str:
+def get_trip_suggestion_desc() -> str:
     en_info_description = """
         # description
         Propose travel plans to users.
@@ -90,5 +90,5 @@ def trip_suggestion_description() -> str:
     return en_info_description
 
 
-def trip_reservation_description() -> str:
+def get_trip_reservation_desc() -> str:
     ...

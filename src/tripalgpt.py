@@ -1,5 +1,5 @@
 import os
-from typing import AsyncGenerator,  Union, Dict
+from typing import AsyncIterator, AsyncGenerator,  Union, Dict
 
 from dotenv import load_dotenv, find_dotenv
 # LangChain
@@ -16,7 +16,7 @@ from langchain_core.tools import StructuredTool, ToolException
 
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
 from func_call_tools.reservations import TravelReservationSchema, reserve_location
-from llm_prompts import gpt_system_prompt, trip_suggestion_description, trip_reservation_description
+from llm_prompts import get_system_prompt, get_trip_suggestion_desc, get_trip_reservation_desc
 
 # 環境変数をロード
 load_dotenv(find_dotenv())
@@ -40,7 +40,7 @@ class TriPalGPT:
 
         self._prompt = ChatPromptTemplate.from_messages([
             # system promptの定義
-            ("system", gpt_system_prompt()),
+            ("system", get_system_prompt()),
             # 履歴を取得
             MessagesPlaceholder(variable_name="chat_history"),
             # userの入力
@@ -65,7 +65,7 @@ class TriPalGPT:
             StructuredTool.from_function(
                 name='Location_Information',
                 func=get_trip_suggestions_info,
-                description=trip_suggestion_description(),
+                description=get_trip_suggestion_desc(),
                 args_schema=TravelProposalSchema,
                 handle_tool_error=_handle_error,
             ),
@@ -103,7 +103,7 @@ class TriPalGPT:
 
 
     # streaming可能なgeneratorを返す
-    def _create_response(self, user_input: str) -> AsyncGenerator[RunLogPatch]:
+    def _fetch_astream_log(self, user_input: str) -> AsyncIterator[RunLogPatch]:
         """
             ユーザーの入力をLLMに渡して、streaming形式のlogを取得する。
 
@@ -167,14 +167,14 @@ class TriPalGPT:
 
 
     # 応答を取得する
-    async def get_async_iter_response(self, user_input: str) -> AsyncGenerator[str]:
+    async def get_async_generator_output(self, user_input: str) -> AsyncGenerator[str]:
         """
-            ユーザーの入力をLLMに渡して、streaming形式のiteratorを取得する。
+            ユーザーの入力をLLMに渡して、streaming形式のasync generatorを取得する。
 
             :param user_input: ユーザーからの入力
         """
         # memory_responseメソッドを呼び出して、応答を取得する
-        generator_response = self._create_response(user_input=user_input)
+        generator_response = self._fetch_astream_log(user_input=user_input)
 
         async for res in generator_response:
             format_res = self._format_astream_log(res)

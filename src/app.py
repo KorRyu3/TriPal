@@ -39,8 +39,8 @@ async def chat(body: UserInput):
 
     # チャットボットにユーザーの入力を渡して、応答を取得する
     # responseは非同期generator
-    async def generator_output() -> AsyncGenerator[str]:
-        async for output in tripal_gpt.get_async_iter_response(user_input=body.user_chat):
+    async def async_generator_output() -> AsyncGenerator[str]:
+        async for output in tripal_gpt.get_async_generator_output(user_input=body.user_chat):
             print("output: ", output)
             data = f"data: {json.dumps({'message': output})}"
             yield data + "\n\n"
@@ -48,7 +48,7 @@ async def chat(body: UserInput):
 
     # Responseオブジェクトを作成する
     return StreamingResponse(
-            content=generator_output(),
+            content=async_generator_output(),
             media_type='text/event-stream',
         )
 
