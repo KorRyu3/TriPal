@@ -1,5 +1,5 @@
 import os
-from typing import AsyncIterator,  Union, Dict
+from typing import AsyncGenerator,  Union, Dict
 
 from dotenv import load_dotenv, find_dotenv
 # LangChain
@@ -103,7 +103,7 @@ class TriPalGPT:
 
 
     # streaming可能なgeneratorを返す
-    def _create_response(self, user_input: str) -> AsyncIterator[RunLogPatch]:
+    def _create_response(self, user_input: str) -> AsyncGenerator[RunLogPatch]:
         """
             ユーザーの入力をLLMに渡して、streaming形式のlogを取得する。
 
@@ -167,7 +167,7 @@ class TriPalGPT:
 
 
     # 応答を取得する
-    async def get_async_iter_response(self, user_input: str) -> AsyncIterator[str]:
+    async def get_async_iter_response(self, user_input: str) -> AsyncGenerator[str]:
         """
             ユーザーの入力をLLMに渡して、streaming形式のiteratorを取得する。
 
