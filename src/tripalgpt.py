@@ -140,6 +140,8 @@ class TriPalGPT:
         """
         dict_data: dict = data.ops[0]
         path: str = dict_data["path"]
+        # print("dict_data: ", dict_data)
+        # print("path: ", path)
 
         required_pattern = "/logs/AzureChatOpenAI"
         streaming_pattern = "/streamed_output_str/-"
@@ -156,18 +158,21 @@ class TriPalGPT:
                 return {"stream_res": streamed_res}
         # こちらも同様
         elif required_pattern in path and final_pattern in path:
-            final_res: str = dict_data["value"]["generations"][0][0]["text"]
-            if final_res == "":
+            final_res: Union[str, None]= dict_data["value"]
+            if final_res is None:
+                return None
+            final_res_str: str = final_res["generations"][0][0]["text"]
+            if final_res_str == "":
                 return None
             else:
-                return {"final_output": final_res}
+                return {"final_output": final_res_str}
         # patternに合致しない場合はNoneを返す
         else:
             return None
 
 
     # 応答を取得する
-    async def get_async_generator_output(self, user_input: str) -> AsyncGenerator[str]:
+    async def get_async_generator_output(self, user_input: str) -> AsyncGenerator[str, None]:
         """
             ユーザーの入力をLLMに渡して、streaming形式のasync generatorを取得する。
 
@@ -202,9 +207,10 @@ class TriPalGPT:
 # async def main():
 #     tripal_gpt = TriPalGPT()
 #     # print("input: あなたについて教えて")
-#     async for output in tripal_gpt.get_async_iter_response(user_input="日本にいるくまについて教えて"):
+#     async for output in tripal_gpt.get_async_generator_output(user_input="東京の観光地について教えて"):
 #     # async for output in tripal_gpt.get_async_iter_response(user_input="hello"):
-#         print("output(type): ", type(output), "  output: ", output)
+#         # print("output(type): ", type(output), "  output: ", output)
+#         print("output: ", output)
 
 # if __name__ == "__main__":
 #     asyncio.run(main())

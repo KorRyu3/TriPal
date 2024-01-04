@@ -39,7 +39,7 @@ async def chat(body: UserInput):
 
     # チャットボットにユーザーの入力を渡して、応答を取得する
     # responseは非同期generator
-    async def async_generator_output() -> AsyncGenerator[str]:
+    async def async_generator_output() -> AsyncGenerator[str, None]:
         async for output in tripal_gpt.get_async_generator_output(user_input=body.user_chat):
             print("output: ", output)
             data = f"data: {json.dumps({'message': output})}"
