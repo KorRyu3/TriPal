@@ -13,6 +13,9 @@ import uvicorn
 from tripalgpt import TriPalGPT
 
 app = FastAPI()
+# app.pyを起動する際は、実行するdirectoryを/src/に変更してから実行しないとここでエラーが出る。
+# 原因は本当に不明
+# おそらく、こいつが参照するdirectoryが、appから見たものではなく、作業directoryから見たものだと推測できる
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # template engineの設定
 templates = Jinja2Templates(directory="templates")
