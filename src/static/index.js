@@ -35,17 +35,60 @@ typingArea.addEventListener("submit", (event) => {
 });
 
 // ストリーミング機能を使って、サーバーからのメッセージを受信
-const messagesDiv = document.getElementById("chatBox");
+function sendQuestionForStreaming() {
+  var userInput = document.querySelector(".user-inputArea").value;
+  displayUserInput(userInput);
+  var streamUrl =
+    "http://0.0.0.0:8000/stream?user_chat=" + encodeURIComponent(userInput);
+  document.querySelector(".user-inputArea").value = "";
 
-const eventSource = new EventSource("/chat");
-eventSource.onmessage = function (event) {
-  const data = event.data;
-  messagesDiv.innerHTML += data;
-};
-eventSource.onerror = function (event) {
-  console.error("Connection error:", event);
-  eventSource.close();
-};
+  var eventSource = new EventSource(streamUrl);
+
+  var responseDiv = createNewChatBox();
+  let isFirstMessage = true;
+  let currentMessage = "";
+
+  eventSource.onmessage = function (event) {
+    var data = JSON.parse(event.data);
+
+    if (isFirstMessage && data.message === "") {
+      isFirstMessage = false;
+      return;
+    }
+    if (data.message === "") {
+      eventSource.close();
+    } else {
+      currentMessage += data.message;
+      updateChatBox(responseDiv, currentMessage);
+    }
+  };
+
+  eventSource.onerror = function (error) {
+    console.error("EventSource failed:", error);
+    eventSource.close();
+  };
+}
+
+document
+  .querySelector("#typing-area")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (eventSource) {
+      eventSource.close();
+    }
+  });
+
+// const messagesDiv = document.getElementById("chatBox");
+
+// const eventSource = new EventSource("/chat");
+// eventSource.onmessage = function (event) {
+//   const data = event.data;
+//   messagesDiv.innerHTML += data;
+// };
+// eventSource.onerror = function (event) {
+//   console.error("Connection error:", event);
+//   eventSource.close();
+// };
 
 // メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
