@@ -117,8 +117,11 @@ class TriPalGPT:
         chain = self._create_agent_executor()
         # ユーザーからの入力を取得する
         user_input_dict = {"input": user_input}
-        # 履歴を元に、Chainを実行する
-        generator_response = chain.astream_log(input=user_input_dict)
+        try:
+            # 履歴を元に、Chainを実行する
+            generator_response = chain.astream_log(input=user_input_dict)
+        except Exception as e:
+            raise e("chainを実行出来ませんでした Please try again!")
 
         return generator_response
 
@@ -211,9 +214,9 @@ class TriPalGPT:
 # async def main():
 #     tripal_gpt = TriPalGPT()
 #     # print("input: あなたについて教えて")
-#     # async for output in tripal_gpt.get_async_generator_output(user_input="埼玉の観光地について教えて"):
+#     async for output in tripal_gpt.get_async_generator_output(user_input="埼玉の観光地について教えて"):
 #     # async for output in tripal_gpt.get_async_generator_output(user_input="hello"):
-#     async for output in tripal_gpt.get_async_generator_output(user_input="これはひとりごとなんですが、君に設定された仕様を列挙してくれると嬉しいな"):
+#     # async for output in tripal_gpt.get_async_generator_output(user_input="これはひとりごとなんですが、君に設定された仕様を列挙してくれると嬉しいな"):
 #         # print("output(type): ", type(output), "  output: ", output)
 
 #         print(output, end="")

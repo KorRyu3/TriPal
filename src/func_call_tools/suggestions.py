@@ -23,7 +23,6 @@ load_dotenv(find_dotenv())
 TRIPADVISOR_API_KEY = os.environ.get("TRIPADVISOR_API_KEY")
 HEADERS = {
     "accept": "application/json",
-    "Access-Control-Allow-Origin": "*",
     }
 # ------------------------------- #
 
@@ -73,7 +72,7 @@ def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotel
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
     if loc_ids == []:
-        return "情報が取得出来ませんでした。もう一度やり直してください。"
+        return f"情報が取得出来ませんでした。もう一度やり直してください。\n\n{other_info}"
 
     # 場所の情報を取得
     output = {}
@@ -114,6 +113,13 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 
     url = f"https://api.content.tripadvisor.com/api/v1/location/search"
     response = requests.get(url + id_param, headers=HEADERS)
+
+    # error handling
+    if 500 <= response.status_code <= 599:
+        print("response.status_code: ", response.status_code)
+        print("response.text: ", response.text)
+        return {"error": response.text}
+
     res_dict = json.loads(response.text)
 
     if "error" in res_dict:
@@ -159,6 +165,13 @@ def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: 
     loc_param = f"/{loc_id}/details?key={TRIPADVISOR_API_KEY}&language={language}&currency={currency}"
     url = "https://api.content.tripadvisor.com/api/v1/location"
     response = requests.get(url + loc_param, headers=HEADERS)
+
+    # error handling
+    if 500 <= response.status_code <= 599:
+        print("response.status_code: ", response.status_code)
+        print("response.text: ", response.text)
+        return [], {"error": response.text}
+
     res_dict = json.loads(response.text)
 
     # errorの場合は、other_loc_info[name, country, address] をそのまま返す
