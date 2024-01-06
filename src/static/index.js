@@ -2,6 +2,35 @@ const chatArea = document.querySelector(".chat-area");
 const typingArea = document.querySelector("#typing-area");
 const userInputArea = document.querySelector(".user-inputArea");
 
+// WebSocketを開く
+// ここら辺正直俺もよくわかってない
+// FastAPIのdocsを参考に、とりあえずWebSocketを書く。
+// https://fastapi.tiangolo.com/ja/advanced/websockets/
+const ws = new WebSocket("ws://localhost:8000/chat");
+
+// Websocketが接続されたときの処理
+ws.onopen = function () {
+  console.log("connected websocket main component");
+}
+
+// Websocketが切断されたときの処理
+ws.onclose = function () {
+  console.log("disconnected websocket main component");
+  addMessage("TriPalGPT", "ごめんね、接続が切れちゃったよ。リロードしてもう一度試してみてね。");
+}
+
+// Websocketでエラーが発生したときの処理
+ws.onerror = function (err) {
+  console.error(
+    "Socket encountered error: ",
+    err.message,
+    "Closing socket"
+  );
+  addMessage("TriPalGPT", "ごめんね、エラーが発生しちゃったよ。リロードしてもう一度試してみてね。");
+  ws.close();
+}
+
+
 // 入力エリアにsubmitイベントリスナーを追加
 typingArea.addEventListener("submit", (event) => {
   // デフォルトのフォーム送信を防止
@@ -9,86 +38,31 @@ typingArea.addEventListener("submit", (event) => {
   // ユーザーの入力を取得
   const message = userInputArea.value;
   userInputArea.value = "";
-
-  // フォームデータを作成
-  const formData = new FormData(typingArea);
   addMessage("You", message);
 
-  // サーバーにPOSTリクエストを送信
-  fetch("/chat", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json()) // レスポンスをJSONに変換
-    .then((data) => {
-      // レスポンスからメッセージを取得
-      const message = data.response;
-      // AIのメッセージをチャットエリアに追加
-      addMessage("TriPalGPT", message);
-    })
-    .catch((error) => {
-      // エラーをコンソールに出力
-      console.error(error);
-      // エラーメッセージをチャットエリアに追加
-      addMessage("System", `Error: ${error.message}`);
-    });
+  // WebSocketにメッセージを送信
+  ws.send(message);
+
+  // TriPalGPTからの返答を受け取る
+  // TriPalGPT用の新しいdiv要素を作成
+  const chatIOElement = document.createElement("div");
+  chatIOElement.classList.add("chat", "ai-response");
+  const chatDetailsElement = document.createElement("div");
+  chatDetailsElement.className = "details";
+  const messageP = document.createElement("p");
+
+  // メッセージを受け取り、messagePに追加
+  ws.onmessage = function (event) {
+    // += で追加していく
+    messageP.innerHTML += event.data;
+  }
+
+  // どんどん追加していくよ〜
+  chatDetailsElement.appendChild(messageP);
+  chatIOElement.appendChild(chatDetailsElement);
+  chatArea.appendChild(chatIOElement);
 });
 
-// ストリーミング機能を使って、サーバーからのメッセージを受信
-function sendQuestionForStreaming() {
-  var userInput = document.querySelector(".user-inputArea").value;
-  displayUserInput(userInput);
-  var streamUrl =
-    "http://0.0.0.0:8000/stream?user_chat=" + encodeURIComponent(userInput);
-  document.querySelector(".user-inputArea").value = "";
-
-  var eventSource = new EventSource(streamUrl);
-
-  var responseDiv = createNewChatBox();
-  let isFirstMessage = true;
-  let currentMessage = "";
-
-  eventSource.onmessage = function (event) {
-    var data = JSON.parse(event.data);
-
-    if (isFirstMessage && data.message === "") {
-      isFirstMessage = false;
-      return;
-    }
-    if (data.message === "") {
-      eventSource.close();
-    } else {
-      currentMessage += data.message;
-      updateChatBox(responseDiv, currentMessage);
-    }
-  };
-
-  eventSource.onerror = function (error) {
-    console.error("EventSource failed:", error);
-    eventSource.close();
-  };
-}
-
-document
-  .querySelector("#typing-area")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (eventSource) {
-      eventSource.close();
-    }
-  });
-
-// const messagesDiv = document.getElementById("chatBox");
-
-// const eventSource = new EventSource("/chat");
-// eventSource.onmessage = function (event) {
-//   const data = event.data;
-//   messagesDiv.innerHTML += data;
-// };
-// eventSource.onerror = function (event) {
-//   console.error("Connection error:", event);
-//   eventSource.close();
-// };
 
 // メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
