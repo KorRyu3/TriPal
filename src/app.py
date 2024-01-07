@@ -49,9 +49,9 @@ async def chat(ws: WebSocket):
         async for output in tripal_gpt.get_async_generator_output(user_input=user_chat):
             # print("output: ", output)
             # 応答を送信する
-            # UXのために、0.05秒待つ
+            # UXのために、0.03秒待つ
             # 0秒だと早すぎて目で追えない
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.03)
             # Websocketに応答を送信
             await ws.send_text(output)
             await asyncio.sleep(0)
