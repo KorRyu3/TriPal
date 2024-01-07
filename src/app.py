@@ -42,12 +42,10 @@ async def chat(ws: WebSocket):
     while True:
         # ユーザーの入力を受け取る
         user_chat = await ws.receive_text()
-        print("user_chat: ", user_chat)
 
         # チャットボットにユーザーの入力を渡して、応答を取得する
         # responseは非同期generator
         async for output in tripal_gpt.get_async_generator_output(user_input=user_chat):
-            # print("output: ", output)
             # 応答を送信する
             # UXのために、0.03秒待つ
             # 0秒だと早すぎて目で追えない

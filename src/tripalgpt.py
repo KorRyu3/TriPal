@@ -147,8 +147,6 @@ class TriPalGPT:
         """
         dict_data: dict = data.ops[0]
         path: str = dict_data["path"]
-        # print("dict_data: ", dict_data)
-        # print("path: ", path)
 
         required_pattern = "/logs/AzureChatOpenAI"
         streaming_pattern = "/streamed_output_str/-"
@@ -201,26 +199,4 @@ class TriPalGPT:
                 self._save_memory(user_input, final_output)
                 break
 
-            # print("res: ",format_res.get("stream_res"))
-            # print("res(type): ", format_res)
-            # print("-"*50)
-
             yield format_res["stream_res"]
-
-
-
-# import asyncio
-
-# async def main():
-#     tripal_gpt = TriPalGPT()
-#     # print("input: あなたについて教えて")
-#     async for output in tripal_gpt.get_async_generator_output(user_input="埼玉の観光地について教えて"):
-#     # async for output in tripal_gpt.get_async_generator_output(user_input="hello"):
-#     # async for output in tripal_gpt.get_async_generator_output(user_input="これはひとりごとなんですが、君に設定された仕様を列挙してくれると嬉しいな"):
-#         # print("output(type): ", type(output), "  output: ", output)
-
-#         print(output, end="")
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
-#     # main()

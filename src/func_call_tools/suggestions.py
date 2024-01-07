@@ -134,7 +134,6 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 
     loc_ids = []
     other_info = {}
-    print("res_dict: ", res_dict)
     for res_data in res_dict["data"]:
         # responseの中からロケーションIDを取得
         location_id = res_data["location_id"]
@@ -168,8 +167,6 @@ def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: 
 
     # error handling
     if 500 <= response.status_code <= 599:
-        print("response.status_code: ", response.status_code)
-        print("response.text: ", response.text)
         return [], {"error": response.text}
 
     res_dict = json.loads(response.text)
