@@ -71,7 +71,7 @@ def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotel
 
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
-    if loc_ids == []:
+    if not loc_ids:
         return f"情報が取得出来ませんでした。もう一度やり直してください。\n\n{other_info}"
 
     # 場所の情報を取得
@@ -118,7 +118,7 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     if 500 <= response.status_code <= 599:
         print("response.status_code: ", response.status_code)
         print("response.text: ", response.text)
-        return {"error": response.text}
+        return [], {"error": response.text}
 
     res_dict = json.loads(response.text)
 
@@ -167,7 +167,7 @@ def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: 
 
     # error handling
     if 500 <= response.status_code <= 599:
-        return [], {"error": response.text}
+        return {"error": response.text}
 
     res_dict = json.loads(response.text)
 

@@ -119,4 +119,4 @@ def get_trip_suggestion_desc() -> str:
 
 
 def get_trip_reservation_desc() -> str:
-    ...
+    return ""

@@ -119,11 +119,9 @@ class TriPalGPT:
         user_input_dict = {"input": user_input}
         try:
             # 履歴を元に、Chainを実行する
-            generator_response = chain.astream_log(input=user_input_dict)
-        except Exception as e:
-            raise e("chainを実行出来ませんでした Please try again!")
-
-        return generator_response
+            return chain.astream_log(input=user_input_dict)
+        except ValueError as e:
+            raise RuntimeError("chainを実行出来ませんでした。 Please try again!") from e
 
     # 履歴を保存する
     def _save_memory(self, user_input: str, final_output: str) -> None:
@@ -155,25 +153,18 @@ class TriPalGPT:
         # pathには /logs/AzureChatOpenAI/streamed_output_str/- などが入っています。
         # なぜ分けて判定しているかというと、AgentExecutorで複数回thinkingが行われると、このpathが動的に変更されるため、静的で変わらない部分で判定しています。
         # 例) /logs/AzureChatOpenAI:2/streamed_output_str/- など  (:2の部分が動的に変わる)
-        if required_pattern in path and streaming_pattern in path:
+        if (required_pattern in path) and (streaming_pattern in path):
             streamed_res: str = dict_data["value"]
-            if streamed_res == "":
-                return None
-            else:
+            if streamed_res:
                 return {"stream_res": streamed_res}
         # こちらも同様
-        elif required_pattern in path and final_pattern in path:
-            final_res: Union[str, None]= dict_data["value"]
-            if final_res is None:
-                return None
-            final_res_str: str = final_res["generations"][0][0]["text"]
-            if final_res_str == "":
-                return None
-            else:
+        elif (required_pattern in path) and (final_pattern in path):
+            final_res: Union[str, None] = dict_data["value"]
+            final_res_str: Union[str, None] = final_res["generations"][0][0]["text"] if final_res else None
+            if final_res_str:
                 return {"final_output": final_res_str}
         # patternに合致しない場合はNoneを返す
-        else:
-            return None
+        return None
 
 
     # 応答を取得する
