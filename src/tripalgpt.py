@@ -137,7 +137,7 @@ class TriPalGPT:
         try:
             # 履歴を元に、Chainを実行する
             return chain.astream_log(input=user_input_dict)
-        except ValueError as e:
+        except Exception as e:
             # エラーをログに出力
             logger.error(f"[Chain Error]\n{e}")
 
