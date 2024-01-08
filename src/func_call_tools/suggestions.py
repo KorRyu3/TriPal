@@ -2,6 +2,7 @@ import os
 import json
 from typing import Tuple, Dict, Union, Literal
 import random
+from logging import getLogger, StreamHandler, Formatter
 
 import requests
 from dotenv import load_dotenv, find_dotenv
@@ -17,6 +18,14 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 
 
 # ---------- 初期化処理 ---------- #
+# Logの出力
+logger = getLogger(__name__)
+handler = StreamHandler()
+handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s - %(name)s \n" + "%(message)s"))
+logger.setLevel("INFO")
+handler.setLevel("INFO")
+logger.addHandler(handler)
+
 # 環境変数をロード
 load_dotenv(find_dotenv())
 
@@ -116,19 +125,26 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
 
     # error handling
     if 500 <= response.status_code <= 599:
-        print("response.status_code: ", response.status_code)
-        print("response.text: ", response.text)
+        logger.error(
+            "[Tripadvisor Server Error] \n" +
+            f"status_code: {response.status_code}\n" +
+            f"error text: {response.text}"
+        )
         return [], {"error": response.text}
 
     res_dict = json.loads(response.text)
 
     if "error" in res_dict:
-        print("res_dict(error): ", res_dict)
-        print("res_dict(error): ", res_dict["error"])
+        logger.error(
+            "[Tripadvisor Error] \n" +
+            f"error text: {res_dict['error']}"
+        )
         return [], {"error": res_dict["error"]}
     elif "message" in res_dict:
-        print("res_dict(message): ", res_dict)
-        print("res_dict(message): ", res_dict["message"])
+        logger.error(
+            "[Tripadvisor Error] \n" +
+            f"error text[message]: {res_dict['message']}",
+        )
         return [], {"message": res_dict["message"]}
 
 
@@ -167,6 +183,11 @@ def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: 
 
     # error handling
     if 500 <= response.status_code <= 599:
+        logger.error(
+            "[Tripadvisor Server Error] \n" +
+            f"status_code: {response.status_code}\n" +
+            f"error text: {response.text}"
+        )
         return {"error": response.text}
 
     res_dict = json.loads(response.text)

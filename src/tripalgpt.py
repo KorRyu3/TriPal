@@ -1,5 +1,6 @@
 import os
 from typing import AsyncIterator, AsyncGenerator,  Union, Dict
+from logging import getLogger, StreamHandler, Formatter
 
 from dotenv import load_dotenv, find_dotenv
 # LangChain
@@ -18,8 +19,19 @@ from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestio
 from func_call_tools.reservations import TravelReservationSchema, reserve_location
 from llm_prompts import get_system_prompt, prompt_injection_defense, get_trip_suggestion_desc, get_trip_reservation_desc
 
+# ---------- 初期化処理 ---------- #
+# Logの出力
+logger = getLogger(__name__)
+handler = StreamHandler()
+handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s - %(name)s \n" + "%(message)s"))
+logger.setLevel("INFO")
+handler.setLevel("INFO")
+logger.addHandler(handler)
+
 # 環境変数をロード
 load_dotenv(find_dotenv())
+
+# ------------------------------- #
 
 class TriPalGPT:
     """
@@ -59,11 +71,16 @@ class TriPalGPT:
         # function callingで利用するツールの初期化
         # Toolsのエラーハンドリングする関数
         def _handle_error(error: ToolException) -> str:
-            return (
-                "The following errors occurred during tool execution:"
-                + error.args[0]
-                + "Please try another tool or let the user type again!"
-            )
+            error_msg = f"""
+                [ToolException]
+                The following errors occurred during tool execution:\n
+                {error.args[0]}\n
+                Please try another tool or let the user type again!
+            """
+            # errorをログに出力
+            logger.error(error_msg)
+
+            return error_msg
 
         self._tools = [
             StructuredTool.from_function(
@@ -121,6 +138,9 @@ class TriPalGPT:
             # 履歴を元に、Chainを実行する
             return chain.astream_log(input=user_input_dict)
         except ValueError as e:
+            # エラーをログに出力
+            logger.error(f"[Chain Error]\n{e}")
+
             raise RuntimeError("chainを実行出来ませんでした。 Please try again!") from e
 
     # 履歴を保存する
