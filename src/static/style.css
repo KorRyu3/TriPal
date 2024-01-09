@@ -16,7 +16,7 @@ body{
   min-height: 100vh;
   background: #f7f7f7;
 }
-.wrapper{
+.chat-container{
   background: #fff;
   width: 750px;
   border-radius: 16px;
@@ -24,22 +24,22 @@ body{
               0 32px 64px -48px rgba(0, 0, 0, 0.5);
 }
 
-:is(.chat-box)::-webkit-scrollbar{
+:is(.chat-area)::-webkit-scrollbar{
   width: 0px;
 }
 
 /* Chat Area CSS Code */
-.chat-area header{
+.chat-box header{
   display: flex;
   justify-content: center;
   padding: 16px 30px;
 }
-.chat-area header h1{
+.chat-box header h1{
   font-size: 28px;
   padding: 0px 5px;
   font-family: 'Pacifico', cursive;
 }
-.chat-box{
+.chat-area{
   height: 500px;
   overflow-y: auto;
   background: #f7f7f7;
@@ -47,41 +47,41 @@ body{
   box-shadow: inset 0 32px 32px -32px rgb(0 0 0 / 5%),
               inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
 }
-.chat-box .chat{
+.chat-area .chat{
   margin: 15px 0;
 }
-.chat-box .chat p{
+.chat-area .chat p{
   word-wrap: break-word;
   padding: 8px 16px;
   box-shadow: 0 0 32px rgb(0 0 0 / 8%),
               0 16px 16px -16px rgb(0 0 0 / 10%);
 }
-.chat-box .outgoing{
+.chat-area .user-input{
   display: flex;
 }
-.outgoing .details{
+.user-input .details{
   margin-left: auto;
   max-width: calc(100% - 130px);
   border-radius: 18px;
 }
-.outgoing .details p{
+.user-input .details p{
   background: #333;
   color: #fff;
 }
-.chat-box .incoming{
+.chat-area .ai-response{
   display: flex;
   align-items: flex-end;
 }
-.incoming .details{
+.ai-response .details{
   margin-right: auto;
   max-width: calc(100% - 130px);
   border-radius: 18px;
 }
-.incoming .details p{
+.ai-response .details p{
   background: #fff;
   color: #333;
 }
-.chat-area #typing-area{
+.chat-box #typing-area{
   padding: 18px 30px;
   display: flex;
   justify-content: space-between;

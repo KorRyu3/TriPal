@@ -37,13 +37,16 @@ $ deactivate
 環境変数ファイルには、Azure OpenAIのAPI-KEYなどの情報が入っているため、GitHub上には上げていません。  
 プログラムを動かす際は、管理者から直接ファイルを
 受け取ってください。
-また、受け取ったファイルは、`Web-site/`直下に置いてください。
+また、受け取ったファイルは、`src/`直下に置いてください。
 
 ## ファイル構成(将来的)
 ```bash
 TriPal
 ├── README.md
 ├── .gitignore
+├── .dockerignore
+├── docker-compose.yml
+├── Dockerfile
 ├── requirements.txt
 ├── .venv
 │   └── ...
@@ -51,11 +54,16 @@ TriPal
 │   ├── architecture.drawio
 │   ├── first_design.drawio
 │   └── work-flow.drawio
-└── Web-site
+└── src
     ├── .env
+    ├── __init__.py
     ├── app.py
+    ├── dalle3.py
+    ├── llm_prompts.py
     ├── tripalgpt.py
-    ├── functools.py
+    ├── func_call_tools
+    │   ├── reservations.py
+    │   └── suggestions.py
     ├── templates
     │   └── index.html
     └── static

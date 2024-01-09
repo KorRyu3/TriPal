@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  # FastAPI
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+    - src/.env
+    ports:
+      - "8000:8000"
+    # volumesはローカルにあるファイルをコンテナに転送させ、そのファイルの変更を反映する
+    # volumes:  # for development only
+    #   - .:/app

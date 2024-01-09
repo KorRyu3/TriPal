@@ -1,0 +1,17 @@
+**/.DS_Store
+**/desktop.ini
+**.pyc
+**/__pycache__/
+**/.ipynb_checkpoints/
+
+
+**/.gitignore
+**/README.md
+**/.env
+
+**/.venv/
+**/.git/
+**/drawio/
+
+**/tests/
+
