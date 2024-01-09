@@ -1,3 +1,13 @@
+// ユーザーからの入力をエスケープする処理
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 const chatArea = document.querySelector(".chat-area");
 const typingArea = document.querySelector("#typing-area");
 const userInputArea = document.querySelector(".user-inputArea");
@@ -11,37 +21,39 @@ const ws = new WebSocket("ws://localhost:8000/chat");
 // Websocketが接続されたときの処理
 ws.onopen = function () {
   console.log("connected websocket main component");
-}
+};
 
 // Websocketが切断されたときの処理
 ws.onclose = function () {
   console.log("disconnected websocket main component");
-  addMessage("TriPalGPT", "ごめんね、接続が切れちゃったよ。リロードしてもう一度試してみてね。");
-}
+  addMessage(
+    "TriPalGPT",
+    "ごめんね、接続が切れちゃったよ。リロードしてもう一度試してみてね。"
+  );
+};
 
 // Websocketでエラーが発生したときの処理
 ws.onerror = function (err) {
-  console.error(
-    "Socket encountered error: ",
-    err.message,
-    "Closing socket"
+  console.error("Socket encountered error: ", err.message, "Closing socket");
+  addMessage(
+    "TriPalGPT",
+    "ごめんね、エラーが発生しちゃったよ。リロードしてもう一度試してみてね。"
   );
-  addMessage("TriPalGPT", "ごめんね、エラーが発生しちゃったよ。リロードしてもう一度試してみてね。");
   ws.close();
-}
-
+};
 
 // 入力エリアにsubmitイベントリスナーを追加
 typingArea.addEventListener("submit", (event) => {
   // デフォルトのフォーム送信を防止
   event.preventDefault();
   // ユーザーの入力を取得
-  const message = userInputArea.value;
+  const userInput = userInputArea.value;
+  const safeInput = escapeHtml(userInput);
   userInputArea.value = "";
-  addMessage("You", message);
+  addMessage("You", safeInput);
 
   // WebSocketにメッセージを送信
-  ws.send(message);
+  ws.send(safeInput);
 
   // TriPalGPTからの返答を受け取る
   // TriPalGPT用の新しいdiv要素を作成
@@ -55,14 +67,13 @@ typingArea.addEventListener("submit", (event) => {
   ws.onmessage = function (event) {
     // += で追加していく
     messageP.innerHTML += event.data;
-  }
+  };
 
   // どんどん追加していくよ〜
   chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
 });
-
 
 // メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
