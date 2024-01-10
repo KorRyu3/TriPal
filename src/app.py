@@ -17,8 +17,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # template engineの設定
 templates = Jinja2Templates(directory="templates")
 
-# LLMの初期化
-tripal_gpt = TriPalGPT()
+
 
 
 # HTMLをレンダリングするだけの関数
@@ -35,6 +34,9 @@ def index(request: Request):
 # sessionって何ですか？？？？？？？？？？？？？？？？？？？？
 @app.websocket('/chat')
 async def chat(ws: WebSocket):
+    # LLMの初期化
+    tripal_gpt = TriPalGPT()
+
     # Websocketの接続を確立
     await ws.accept()
 
