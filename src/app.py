@@ -56,5 +56,7 @@ async def chat(ws: WebSocket):
 
 
 if __name__ == '__main__':
-    # uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
-    uvicorn.run("app:app", host="0.0.0.0", port=8000)
+    # Static directoryの読み込みをHTTPSに強制する
+    # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
+    # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, proxy_headers=True, forwarded_allow_ips="*")

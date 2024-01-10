@@ -6,7 +6,8 @@ const userInputArea = document.querySelector(".user-inputArea");
 // ここら辺正直俺もよくわかってない
 // FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-const ws = new WebSocket("ws://localhost:8000/chat");
+const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io"
+const ws = new WebSocket("wss://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
 ws.onopen = function () {
