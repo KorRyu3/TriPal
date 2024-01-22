@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Tuple, Dict, Union, Literal
+from typing import Tuple, Dict, Union, Literal, Optional
 import random
 from logging import getLogger, StreamHandler, Formatter
 
@@ -50,7 +50,7 @@ class TravelProposalSchema(BaseModel):
         examples= ['日本の有名な観光スポット', '東京都にあるホテル', '北海道の名所', '東京タワー', '旭山動物園', '京都の有名レストラン', '別府温泉杉乃井ホテル'],
     )
 
-    category: Literal["", "hotels", "attractions", "restaurants", "geos"] = Field(
+    category: Optional[Literal["", "hotels", "attractions", "restaurants", "geos"]] = Field(
         default="",
         title='Category',
         description='Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". Arbitrary parameter',
@@ -62,7 +62,7 @@ class TravelProposalSchema(BaseModel):
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 # 観光スポットの提案
-def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotels", "attractions", "restaurants", "geos"] = "") -> Union[str, Dict[str, Dict[str, str]]]:
+def get_trip_suggestions_info(loc_search: str = "", category: Optional[Literal["", "hotels", "attractions", "restaurants", "geos"]] = "") -> Union[str, Dict[str, Dict[str, str]]]:
     """
         検索情報(とカテゴリ)を与えて、おすすめの観光スポットを返す
 

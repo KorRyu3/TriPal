@@ -59,8 +59,6 @@ class TriPalGPT:
             MessagesPlaceholder(variable_name="chat_history"),
             # userの入力
             ("human", "{input}"),
-            # prompt injection対策
-            ("system", prompt_injection_defense()),
             # agent機能
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ])
@@ -83,6 +81,7 @@ class TriPalGPT:
             return error_msg
 
         self._tools = [
+            # 提案機能
             StructuredTool.from_function(
                 name='Location_Information',
                 func=get_trip_suggestions_info,
@@ -117,7 +116,7 @@ class TriPalGPT:
         agent_executor = AgentExecutor.from_agent_and_tools(
                 agent=agent,
                 tools=self._tools,
-                # verbose=True  # 途中経過を表示(debug用)
+                verbose=True  # 途中経過を表示(debug用)
             )
 
         return agent_executor
@@ -132,10 +131,10 @@ class TriPalGPT:
         """
         # Chainの作成
         chain = self._create_agent_executor()
-        # ユーザーからの入力を取得する
         user_input_dict = {"input": user_input}
+
         try:
-            # 履歴を元に、Chainを実行する
+            # Chainを実行する。出力形式はStreaming
             return chain.astream_log(input=user_input_dict)
         except Exception as e:
             # エラーをログに出力
@@ -213,3 +212,12 @@ class TriPalGPT:
                 break
 
             yield format_res["stream_res"]
+
+
+# import asyncio
+# async def main():
+#     async for output in TriPalGPT().get_async_generator_output(user_input="北海道のアクティビティを教えて"):
+#         print(output, end="")
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
