@@ -57,7 +57,7 @@ $ pip install -r requirements.txt
 ```bash
 # Windows
 > .\.venv\Scripts\activate
-# Linux
+## MacOS or Linux
 $ source .venv/bin/activate
 ```
 
