@@ -22,8 +22,6 @@ RUN pip install --upgrade pip && \
 
 COPY . .
 
-WORKDIR /app/src
-
 EXPOSE 8000
 
-CMD ["python3", "app.py"]
+CMD ["python3", "src/app.py"]
