@@ -16,12 +16,20 @@ const userInputArea = document.querySelector(".user-inputArea");
 // ここら辺正直俺もよくわかってない
 // FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-// const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io"
-// const ws = new WebSocket("wss://" + web_url + "/chat");
+/*
+デプロイ用WebSocket
+デプロイするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
+*/
+const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io"
+const ws = new WebSocket("wss://" + web_url + "/chat");
 
-// バックエンドデバッグ用 **消すな！**
-const web_url = "0.0.0.0:8000";
-const ws = new WebSocket("ws://" + web_url + "/chat");
+/*
+デバッグ用WebSocket
+開発する時は、こっちのWebSocketを使ってください。
+デプロイ/PRする時は、コメントアウトすること
+*/
+// const web_url = "0.0.0.0:8000";
+// const ws = new WebSocket("ws://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
 ws.onopen = function () {
