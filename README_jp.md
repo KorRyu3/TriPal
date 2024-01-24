@@ -105,10 +105,26 @@ TriPal
 
 ## 開発者向け情報
 
-### 環境変数ファイルの受け取り方
-環境変数ファイルはセキュリティ保護のためGitHubにアップロードしていません。  
-そのため、管理者から直接ファイルを受け取ってください。  
-また、受け取ったファイルを`src/`に配置してください。  
+### 環境変数ファイルについて
+環境変数は、`.env`で管理しています。  
+envファイルは`src/`に配置してください。  
+また、`.env`の中身は以下のようになっています。
+```bash
+# .env
+# Azure OpenAI API
+AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAIのデプロイメント名"
+AZURE_OPENAI_API_KEY="Azure OpenAIのAPIキー"
+AZURE_OPENAI_API_BASE="Azure OpenAIのエンドポイント (base URL)"
+AZURE_OPENAI_API_VERSION="Azure OpenAIのバージョン指定"
+
+# TripAdvisor API
+TRIPADVISOR_API_KEY="TripadvisorのAPI key"
+
+# Rakuten API
+RAKUTEN_APPLICATION_ID="楽天デベロッパーのアプリケーションID"
+RAKUTEN_APPLICATION_SECRET="楽天デベロッパーのアプリケーションシークレット"
+RAKUTEN_AFFILIATE_ID="楽天デベロッパーのアフィリエイトID"
+```
 
 ### Gitのルール
 Gitのルールは[GitRule_README.md](./GitRule_README.md)を参照してください。

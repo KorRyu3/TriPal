@@ -106,9 +106,25 @@ TriPal
 ## Developers Information
 
 ### About Environment Variables
-We don't upload the environment variable file to GitHub.  
-Therefore, please receive the file directly from the administrator.  
-Also, please put the received file in `src/`.
+The environment variables are managed by `.env` file.
+The file should be placed in `src/` directory.
+Also, the contents of `.env` are as follows:
+```bash
+# .env
+# Azure OpenAI API
+AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAI's deployment name"
+AZURE_OPENAI_API_KEY="Azure OpenAI's API key"
+AZURE_OPENAI_API_BASE="Azure OpenAI's endpoint (base URL)"
+AZURE_OPENAI_API_VERSION="Azure OpenAI's version"
+
+# TripAdvisor API
+TRIPADVISOR_API_KEY="Tripadvisor's API key"
+
+# Rakuten API
+RAKUTEN_APPLICATION_ID="Rakuten Developer's application ID"
+RAKUTEN_APPLICATION_SECRET="Rakuten Developer's application secret"
+RAKUTEN_AFFILIATE_ID="Rakuten Developer's affiliate ID"
+```
 
 ### Git Rule
 You can see the Git rule in [GitRule_README.md](./GitRule_README.md).
