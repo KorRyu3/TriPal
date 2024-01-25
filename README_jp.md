@@ -1,9 +1,9 @@
 # TriPal
-TriPal(ﾄﾘﾊﾟﾙ) is an AI service that **proposes travel plans** and provides **reservation proposals** for accommodation facilities in the form of conversations.
+**旅行プランを提案**し、**宿泊施設などの予約提案**を会話形式で提供するAIサービス。
 
 [English](./README.md) | [日本語](./README_jp.md)
 
-## Tech Stack
+## 使用技術
 <!-- シールド一覧 -->
 <!-- https://shields.io/badges -->
 <!-- https://simpleicons.org/ -->
@@ -23,37 +23,37 @@ TriPal(ﾄﾘﾊﾟﾙ) is an AI service that **proposes travel plans** and prov
     <img src="https://img.shields.io/badge/-azure-0078D4.svg?logo=Microsoft-Azure&style=for-the-badge">
 </p>
 
-## Installation
-### Step0: Clone this repository
+## インストール
+### Step0: リポジトリのクローン
 ```bash
 $ git clone https://github.com/KorRyu3/TriPal
 $ cd TriPal
 ```
 
-### Step1: Make Virtual Environment
+### Step1: 仮想環境の作成
 ```bash
 $ python3 -m venv .venv
 
-# Activate the virtual environment
+# 仮想環境を有効化
 ## Windows
 > .\.venv\Scripts\activate
 ## MacOS or Linux
 $ source .venv/bin/activate
 ```
 
-#### If you want to deactivate the virtual environment
+#### 仮想環境を無効化する場合
 ```bash
 $ deactivate
 ```
 
-### Step2: Install Requirements
+### Step2: 必要なライブラリのインストール
 ```bash
 $ pip install -r requirements.txt
 ```
 
 
 ## Usage
-### Step0: Activate Environment
+### Step0: 仮想環境の有効化
 ```bash
 # Windows
 > .\.venv\Scripts\activate
@@ -61,16 +61,16 @@ $ pip install -r requirements.txt
 $ source .venv/bin/activate
 ```
 
-### Step1: Run App
+### Step1: アプリの起動
 ```bash
 $ python3 src/app.py
 ```
 
-### Step2: Access to the App
-Open your browser and access to `http://127.0.0.1:8000/`.
+### Step2: アプリへのアクセス
+`http://127.0.0.1:8000/`にアクセスすると、アプリが起動します。
 
 
-## Directory Structure
+## ディレクトリ構成
 ```bash
 TriPal
 ├── GitRule_README.md
@@ -103,31 +103,31 @@ TriPal
         └── index.js
 ```
 
-## Developers Information
+## 開発者向け情報
 
-### About Environment Variables
-The environment variables are managed by `.env` file.
-The file should be placed in `src/` directory.
-Also, the contents of `.env` are as follows:
+### 環境変数ファイルについて
+環境変数は、`.env`で管理しています。  
+envファイルは`src/`に配置してください。  
+また、`.env`の中身は以下のようになっています。
 ```bash
 # .env
 # Azure OpenAI API
-AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAI's deployment name"
-AZURE_OPENAI_API_KEY="Azure OpenAI's API key"
-AZURE_OPENAI_API_BASE="Azure OpenAI's endpoint (base URL)"
-AZURE_OPENAI_API_VERSION="Azure OpenAI's version"
+AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAIのデプロイメント名"
+AZURE_OPENAI_API_KEY="Azure OpenAIのAPIキー"
+AZURE_OPENAI_API_BASE="Azure OpenAIのエンドポイント (base URL)"
+AZURE_OPENAI_API_VERSION="Azure OpenAIのバージョン指定"
 
 # TripAdvisor API
-TRIPADVISOR_API_KEY="Tripadvisor's API key"
+TRIPADVISOR_API_KEY="TripadvisorのAPI key"
 
 # Rakuten API
-RAKUTEN_APPLICATION_ID="Rakuten Developer's application ID"
-RAKUTEN_APPLICATION_SECRET="Rakuten Developer's application secret"
-RAKUTEN_AFFILIATE_ID="Rakuten Developer's affiliate ID"
+RAKUTEN_APPLICATION_ID="楽天デベロッパーのアプリケーションID"
+RAKUTEN_APPLICATION_SECRET="楽天デベロッパーのアプリケーションシークレット"
+RAKUTEN_AFFILIATE_ID="楽天デベロッパーのアフィリエイトID"
 ```
 
-### Git Rule
-You can see the Git rule in [GitRule_README.md](./GitRule_README.md).
+### Gitのルール
+Gitのルールは[GitRule_README.md](./GitRule_README.md)を参照してください。
 
 ## Contributors
 <!-- generateの仕方は https://contrib.rocks/preview を参照 -->
