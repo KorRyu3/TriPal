@@ -1,23 +1,13 @@
-// ユーザーからの入力をエスケープする処理
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-const chatArea = document.querySelector(".chat-area");
-const typingArea = document.querySelector("#typing-area");
-const userInputArea = document.querySelector(".user-inputArea");
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
 // WebSocketを開く
 // ここら辺正直俺もよくわかってない
 // FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io"
-const ws = new WebSocket("wss://" + web_url + "/chat");
+
+// const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
+const web_url = "0.0.0.0:8000";
+const ws = new WebSocket("ws://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
 ws.onopen = function () {
@@ -43,6 +33,18 @@ ws.onerror = function (err) {
   ws.close();
 };
 
+// 下までスクロールする
+var scrollToBottom = () => {
+  container.scrollTop = container.scrollHeight;
+};
+
+const chatArea = document.querySelector(".chat-area");
+const typingArea = document.querySelector("#typing-area");
+const userInputArea = document.querySelector(".user-inputArea");
+
+// グローバルスコープまたは関数スコープの外部でカウンタを初期化
+let detailCounter = 0;
+
 // 入力エリアにsubmitイベントリスナーを追加
 typingArea.addEventListener("submit", (event) => {
   // デフォルトのフォーム送信を防止
@@ -56,24 +58,36 @@ typingArea.addEventListener("submit", (event) => {
   // WebSocketにメッセージを送信
   ws.send(safeInput);
 
+  // カウンタをインクリメント
+  detailCounter++;
+
   // TriPalGPTからの返答を受け取る
   // TriPalGPT用の新しいdiv要素を作成
   const chatIOElement = document.createElement("div");
   chatIOElement.classList.add("chat", "ai-response");
   const chatDetailsElement = document.createElement("div");
   chatDetailsElement.className = "details";
-  const messageP = document.createElement("p");
-
-  // メッセージを受け取り、messagePに追加
-  ws.onmessage = function (event) {
-    // += で追加していく
-    messageP.innerHTML += event.data;
-  };
+  // TriPal_details_1という風にidの値が増えていく
+  chatDetailsElement.id = "TriPal_details_" + detailCounter;
 
   // どんどん追加していくよ〜
-  chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
+
+  let streaming = "";
+  // メッセージを受け取り、chatDetailsElementに追加
+  ws.onmessage = function (event) {
+    streaming += event.data;
+    document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+      marked.parse(streaming);
+    // streaming処理をしている中で、event.dataに\nがあるか判定
+    //   if (event.data.includes("\n")) {
+    //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+    //       marked.parse(chatDetailsElement.innerHTML + event.data);
+    //   } else {
+    //     chatDetailsElement.innerHTML += event.data;
+    //   }
+  };
 });
 
 // メッセージをチャットエリアに追加する関数
@@ -93,4 +107,14 @@ function addMessage(sender, message) {
   chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
+}
+
+// ユーザーからの入力をエスケープする処理
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
