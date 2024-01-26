@@ -1,5 +1,5 @@
 # TriPal
-TriPal(ﾄﾘﾊﾟﾙ) is an AI service that **proposes travel plans** and provides **reservation proposals** for accommodation facilities in the form of conversations.
+TriPal is an AI service that **proposes travel plans** and provides **reservation proposals** for accommodation facilities in the form of conversations.
 
 [English](./README.md) | [日本語](./README_jp.md)
 
