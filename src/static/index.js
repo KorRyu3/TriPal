@@ -6,7 +6,7 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
 
 // const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
-const web_url = "0.0.0.0:8000";
+const web_url = "127.0.0.1:8000";
 const ws = new WebSocket("ws://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
