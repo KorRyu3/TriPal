@@ -2,7 +2,7 @@ import os
 import json
 from typing import Tuple, Dict, Union, Literal, Optional
 import random
-from logging import getLogger, StreamHandler, Formatter
+from logging import getLogger, StreamHandler, FileHandler, Formatter
 
 import requests
 from dotenv import load_dotenv, find_dotenv
@@ -21,10 +21,14 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 # Logの出力
 logger = getLogger(__name__)
 handler = StreamHandler()
+file_handler = FileHandler(filename="logs/suggestions.log")
 handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s - %(name)s \n" + "%(message)s"))
+file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
 logger.setLevel("INFO")
 handler.setLevel("INFO")
+file_handler.setLevel("ERROR")
 logger.addHandler(handler)
+logger.addHandler(file_handler)
 
 # 環境変数をロード
 load_dotenv(find_dotenv())
@@ -50,7 +54,7 @@ class TravelProposalSchema(BaseModel):
         examples= ['日本の有名な観光スポット', '東京都にあるホテル', '北海道の名所', '東京タワー', '旭山動物園', '京都の有名レストラン', '別府温泉杉乃井ホテル'],
     )
 
-    category: Optional[Literal["", "hotels", "attractions", "restaurants", "geos"]] = Field(
+    category: Literal["", "hotels", "attractions", "restaurants", "geos"] = Field(
         default="",
         title='Category',
         description='Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos". Arbitrary parameter',
@@ -62,7 +66,7 @@ class TravelProposalSchema(BaseModel):
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 # 観光スポットの提案
-def get_trip_suggestions_info(loc_search: str = "", category: Optional[Literal["", "hotels", "attractions", "restaurants", "geos"]] = "") -> Union[str, Dict[str, Dict[str, str]]]:
+def get_trip_suggestions_info(loc_search: str = "", category: Literal["", "hotels", "attractions", "restaurants", "geos"] = "") -> Union[str, Dict[str, Dict[str, str]]]:
     """
         検索情報(とカテゴリ)を与えて、おすすめの観光スポットを返す
 
@@ -80,7 +84,7 @@ def get_trip_suggestions_info(loc_search: str = "", category: Optional[Literal["
 
     loc_ids, other_info = get_location_id(loc_search, category, language)
 
-    if not loc_ids:
+    if loc_ids == []:
         return f"情報が取得出来ませんでした。もう一度やり直してください。\n\n{other_info}"
 
     # 場所の情報を取得
@@ -117,7 +121,7 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     # パラメータの設定
     id_param = f"?key={TRIPADVISOR_API_KEY}&language={language}&searchQuery={loc_search}"
 
-    if category:
+    if category != "":
         id_param += "&category=" + category
 
     url = f"https://api.content.tripadvisor.com/api/v1/location/search"
@@ -126,26 +130,20 @@ def get_location_id(loc_search: str, category: str, language: str) ->  Tuple[lis
     # error handling
     if 500 <= response.status_code <= 599:
         logger.error(
-            "[Tripadvisor Server Error] \n" +
+            "[Tripadvisor Server Error(Location Search)] \n" +
             f"status_code: {response.status_code}\n" +
             f"error text: {response.text}"
         )
-        return [], {"error": response.text}
+        return [], {"error": "Server Error"}
 
-    res_dict = json.loads(response.text)
+    res_dict: dict = json.loads(response.text)
 
-    if "error" in res_dict:
+    if "error" in res_dict or "message" in res_dict:
         logger.error(
             "[Tripadvisor Error] \n" +
-            f"error text: {res_dict['error']}"
+            f"error text: {res_dict}"
         )
-        return [], {"error": res_dict["error"]}
-    elif "message" in res_dict:
-        logger.error(
-            "[Tripadvisor Error] \n" +
-            f"error text[message]: {res_dict['message']}",
-        )
-        return [], {"message": res_dict["message"]}
+        return [], {"error": "Search Error"}
 
 
     loc_ids = []
@@ -184,13 +182,13 @@ def get_location_info(loc_id: str, min_loc_info: dict, language: str, currency: 
     # error handling
     if 500 <= response.status_code <= 599:
         logger.error(
-            "[Tripadvisor Server Error] \n" +
+            f"[Tripadvisor Server Error(Location {loc_id} Details)] \n" +
             f"status_code: {response.status_code}\n" +
             f"error text: {response.text}"
         )
-        return {"error": response.text}
+        return {"error": "Server Error"}
 
-    res_dict = json.loads(response.text)
+    res_dict: dict = json.loads(response.text)
 
     # errorの場合は、other_loc_info[name, country, address] をそのまま返す
     # res_status = list(res_dict.keys())[0]
