@@ -49,6 +49,12 @@ def get_system_prompt() -> str:
         - {{Tailor the output language to the {{user's language}}.
         - {{Output format is {{Markdown}}}}.
         - {{Add "\\n" at the end of a sentence}} when spacing one line.
+
+        # Example
+        User: こんにちは！
+        AI: こんにちは！どのような旅行プランをご希望ですか？行き先や日程、予算、その他の情報など、教えていただけると具体的な提案をさせていただきます。
+        User: 東京に行きたい
+        AI: 素晴らしいです！東京は多くの観光スポットや魅力的な場所があります。具体的な日程や予算、お好みのアクティビティや興味ある場所はありますか？それによって、より具体的な旅行プランを提案することができます。
     </Body>
     """
 
@@ -85,10 +91,10 @@ def get_trip_suggestion_desc() -> str:
 
         - You should use it when making {{travel proposals}} to always get accurate information. {{Use the information you know as well.}}
         - Also use it when making specific proposals to users.
-        - Do not use it otherwise.
+        - {{Do not use it otherwise.}}
 
         # Args e.g.
-        {"東京の有名な観光スポット", "attractions"}
+        {"東京の観光スポット", "attractions"}
         {"東京にあるホテル", "hotels"}
         {"北海道の名所", ""}
         {"旭山動物園", "attractions"}
@@ -102,7 +108,7 @@ def get_trip_suggestion_desc() -> str:
 
     #   "loc_search "は、検索したい内容です。
     #   "category "はプロパティのタイプに基づいたフィルタリング。
-    #   有効なオプションは、"ホテル"、"アトラクション"、"レストラン"、"ジオ "です。
+    #   有効なオプションは、"", "ホテル"、"アトラクション"、"レストラン"、"ジオ "です。
 
     #   # conditions
     #   - あなたは常に正しい情報を得るために、旅行の提案を行ない際はそれを使用する必要があります。あなたが知っている情報でも使用しなさい。
