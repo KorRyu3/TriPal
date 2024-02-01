@@ -3,7 +3,6 @@ import os
 
 # FastAPI
 from fastapi import FastAPI, Request, WebSocket
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
@@ -12,22 +11,9 @@ from tripalgpt import TriPalGPT
 app = FastAPI()
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 
-# template engineの設定
-templates = Jinja2Templates(directory="templates")
-
-
-
-
-# HTMLをレンダリングするだけの関数
-@app.get('/')
-def index(request: Request):
-    return templates.TemplateResponse(
-        request=request,
-        name='index.html',
-    )
 
 # Websocketを使用して、一つのrouteで送受信ができるようにする
 # そうしないと、入力と出力が一緒にできず、他の人が入力した内容で出力してしまう可能性がある
