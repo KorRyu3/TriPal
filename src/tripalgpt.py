@@ -1,6 +1,6 @@
 import os
 from typing import AsyncIterator, AsyncGenerator,  Union, Dict
-from logging import getLogger, StreamHandler, Formatter
+from logging import getLogger, StreamHandler, FileHandler, Formatter
 
 from dotenv import load_dotenv, find_dotenv
 # LangChain
@@ -20,12 +20,20 @@ from func_call_tools.reservations import TravelReservationSchema, reserve_locati
 from llm_prompts import get_system_prompt, prompt_injection_defense, get_trip_suggestion_desc, get_trip_reservation_desc
 
 # ---------- 初期化処理 ---------- #
-# Logの出力
+# ---Logの出力---
 logger = getLogger(__name__)
+# handlerの設定
 handler = StreamHandler()
-handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s - %(name)s \n" + "%(message)s"))
+file_handler = FileHandler(filename="logs/tripalgpt.log")
+# handlerのフォーマットを設定
+handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s - %(name)s  %(message)s"))
+file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
+# logのレベルを設定
 logger.setLevel("INFO")
 handler.setLevel("INFO")
+file_handler.setLevel("ERROR")
+# handlerをロガーに追加
+logger.addHandler(file_handler)
 logger.addHandler(handler)
 
 # 環境変数をロード
@@ -38,7 +46,9 @@ class TriPalGPT:
         Azure Chat OpenAI による旅行の計画を提案するクラス
     """
     # クラスの初期化処理
-    def __init__(self) -> None:
+    def __init__(self, hash_token: str) -> None:
+        self._token = hash_token
+
         self._model_16k = AzureChatOpenAI(
             openai_api_key = os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
             openai_api_type = os.environ.get("AZURE_OPENAI_API_TYPE"),  # API type
@@ -138,7 +148,7 @@ class TriPalGPT:
             return chain.astream_log(input=user_input_dict)
         except Exception as e:
             # エラーをログに出力
-            logger.error(f"[Chain Error]\n{e}")
+            logger.error(f"[Chain Error] chainを実行出来ませんでした。\n{e}")
 
             raise RuntimeError("chainを実行出来ませんでした。 Please try again!") from e
 
@@ -176,13 +186,13 @@ class TriPalGPT:
             return None
         if streaming_pattern in path:
             streamed_res: str = dict_data["value"]
-            if streamed_res:
+            if streamed_res != "":
                 return {"stream_res": streamed_res}
         # こちらも同様
         elif final_pattern in path:
             final_res: Union[str, None] = dict_data["value"]
             final_res_str: Union[str, None] = final_res["generations"][0][0]["text"] if final_res else None
-            if final_res_str:
+            if final_res_str is not None:
                 return {"final_output": final_res_str}
         # patternに合致しない場合はNoneを返す
         return None
@@ -205,7 +215,7 @@ class TriPalGPT:
                 # 関係のないlogや、空白のtokenは無視
                 continue
 
-            if format_res.get("final_output"):
+            if format_res.get("final_output") is not None:
                 final_output = format_res["final_output"]
                 # 履歴を保存
                 self._save_memory(user_input, final_output)
