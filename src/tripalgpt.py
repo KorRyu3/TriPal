@@ -4,16 +4,17 @@ from logging import getLogger, StreamHandler, FileHandler, Formatter
 
 from dotenv import load_dotenv, find_dotenv
 # LangChain
-from langchain.chat_models import AzureChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.tools.render import format_tool_to_openai_function
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
 from langchain.agents.output_parsers import OpenAIFunctionsAgentOutputParser
 from langchain.agents import AgentExecutor
 # langchain_core
 from langchain_core.tracers import RunLogPatch
 from langchain_core.tools import StructuredTool, ToolException
+from langchain_core.utils.function_calling import convert_to_openai_function
+# langchain_openai
+from langchain_openai import AzureChatOpenAI
 
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
 from func_call_tools.reservations import TravelReservationSchema, reserve_location
@@ -111,7 +112,7 @@ class TriPalGPT:
         history = self._memory.load_memory_variables
 
         # Toolで定義した関数を、Function callingで利用できるように変換する
-        model_with_tools = self._model_16k.bind(functions=[format_tool_to_openai_function(t) for t in self._tools])
+        model_with_tools = self._model_16k.bind(functions=[convert_to_openai_function(t) for t in self._tools])
 
         agent = {
         "input": lambda x: x["input"],
@@ -191,8 +192,8 @@ class TriPalGPT:
         # こちらも同様
         elif final_pattern in path:
             final_res: Union[str, None] = dict_data["value"]
-            final_res_str: Union[str, None] = final_res["generations"][0][0]["text"] if final_res else None
-            if final_res_str is not None:
+            final_res_str: str = final_res["generations"][0][0]["text"] if final_res else ""
+            if final_res_str != "":
                 return {"final_output": final_res_str}
         # patternに合致しない場合はNoneを返す
         return None
@@ -219,6 +220,7 @@ class TriPalGPT:
                 final_output = format_res["final_output"]
                 # 履歴を保存
                 self._save_memory(user_input, final_output)
+                print("履歴が保存されました！")
                 break
 
             yield format_res["stream_res"]
