@@ -1,8 +1,5 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
-// WebSocketを開く
-// ここら辺正直俺もよくわかってない
-// FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
 
 // const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
