@@ -136,6 +136,10 @@ td {
 .ai-response .details ol li {
   overflow: visible; /* markerが消えてしまうため */
 }
+.ai-response .details ol,
+ul {
+  padding-left: 1rem; /* markerの位置調整 */
+}
 /*
 ========== 入力画面 ==========
 */
