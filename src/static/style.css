@@ -140,6 +140,9 @@ td {
 ul {
   padding-left: 1rem; /* markerの位置調整 */
 }
+ol ul {
+  list-style-type: disc; /* ブラウザ環境によって異なるためstyleの定義 */
+}
 /*
 ========== 入力画面 ==========
 */
