@@ -117,7 +117,7 @@ class TriPalGPT:
         agent_executor = AgentExecutor.from_agent_and_tools(
                 agent=agent,
                 tools=self._tools,
-                verbose=True  # 途中経過を表示(debug用)
+                # verbose=True  # 途中経過を表示(debug用)
             )
 
         return agent_executor
