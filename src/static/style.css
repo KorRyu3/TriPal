@@ -51,7 +51,6 @@ body {
 }
 .chat-area .chat {
   margin: 15px 0; /* テキストエリアの間隔 */
-  /* padding: 8px 16px; */
 }
 /*
 ========== ユーザー側 ==========
@@ -76,7 +75,6 @@ body {
   display: flex;
   align-items: flex-end;
   list-style-position: inside;
-  /* white-space: pre-wrap; */
   word-wrap: break-word;
 }
 .ai-response .details {
