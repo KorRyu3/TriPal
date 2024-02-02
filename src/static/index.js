@@ -74,20 +74,32 @@ typingArea.addEventListener("submit", (event) => {
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
 
-  let streaming = "";
-  // メッセージを受け取り、chatDetailsElementに追加
+  // 出力をぶち込む変数を定義
+  let mdParse = "";
   ws.onmessage = function (event) {
-    streaming += event.data;
-    document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-      marked.parse(streaming);
-    // streaming処理をしている中で、event.dataに\nがあるか判定
-    //   if (event.data.includes("\n")) {
-    //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-    //       marked.parse(chatDetailsElement.innerHTML + event.data);
-    //   } else {
-    //     chatDetailsElement.innerHTML += event.data;
-    //   }
+    // event.dataをinnerHTMLに追加
+    chatDetailsElement.innerHTML += event.data;
+    // 退避用の変数に追加
+    mdParse += event.data;
+    if (event.data.includes("\n")) {
+      // 今まで退避していたmdをパースし、innerHTMLで上書き
+      chatDetailsElement.innerHTML = marked.parse(mdParse);
+    }
   };
+
+  // let streaming = "";
+  // // メッセージを受け取り、chatDetailsElementに追加
+  // ws.onmessage = function (event) {
+  //   streaming += event.data;
+  //   document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+  //     marked.parse(streaming);
+  // streaming処理をしている中で、event.dataに\nがあるか判定
+  //   if (event.data.includes("\n")) {
+  //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+  //       marked.parse(chatDetailsElement.innerHTML + event.data);
+  //   } else {
+  //     chatDetailsElement.innerHTML += event.data;
+  //   }
 });
 
 // メッセージをチャットエリアに追加する関数
