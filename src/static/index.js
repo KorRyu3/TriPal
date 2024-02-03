@@ -88,20 +88,6 @@ typingArea.addEventListener("submit", (event) => {
       chatDetailsElement.innerHTML = marked.parse(mdParse);
     }
   };
-
-  // let streaming = "";
-  // // メッセージを受け取り、chatDetailsElementに追加
-  // ws.onmessage = function (event) {
-  //   streaming += event.data;
-  //   document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-  //     marked.parse(streaming);
-  // streaming処理をしている中で、event.dataに\nがあるか判定
-  //   if (event.data.includes("\n")) {
-  //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-  //       marked.parse(chatDetailsElement.innerHTML + event.data);
-  //   } else {
-  //     chatDetailsElement.innerHTML += event.data;
-  //   }
 });
 
 // メッセージをチャットエリアに追加する関数
