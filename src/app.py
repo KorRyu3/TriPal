@@ -5,7 +5,6 @@ import os
 from fastapi import FastAPI, Request, WebSocket
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import uvicorn
 
 from tripalgpt import TriPalGPT
 
@@ -57,9 +56,10 @@ async def chat(ws: WebSocket):
             await ws.send_text(output)
             await asyncio.sleep(0)
 
-
-if __name__ == '__main__':
-    # Static directoryの読み込みをHTTPSに強制する
-    # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
-    # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, proxy_headers=True, forwarded_allow_ips="*")
+# ローカルで実行するならコメント解除する
+# if __name__ == '__main__':
+    # import uvicorn
+    # # Static directoryの読み込みをHTTPSに強制する
+    # # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
+    # # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
+    # uvicorn.run("app:app", host="127.0.0.1", port=8000, proxy_headers=True, forwarded_allow_ips="*")
