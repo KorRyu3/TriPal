@@ -40,11 +40,6 @@ ws.onerror = function (err) {
   ws.close();
 };
 
-// 下までスクロールする
-var scrollToBottom = () => {
-  container.scrollTop = container.scrollHeight;
-};
-
 const chatArea = document.querySelector(".chat-area");
 const typingArea = document.querySelector("#typing-area");
 const userInputArea = document.querySelector(".user-inputArea");
