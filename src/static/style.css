@@ -3,7 +3,7 @@
 
 * {
   margin: 0;
-  /* padding: 0; */
+  padding: 0;
   overflow: hidden;
   box-sizing: border-box;
   text-decoration: none;
@@ -51,7 +51,6 @@ body {
 }
 .chat-area .chat {
   margin: 15px 0; /* テキストエリアの間隔 */
-  /* padding: 8px 16px; */
 }
 /*
 ========== ユーザー側 ==========
@@ -75,8 +74,6 @@ body {
 .chat-area .ai-response {
   display: flex;
   align-items: flex-end;
-  list-style-position: inside;
-  /* white-space: pre-wrap; */
   word-wrap: break-word;
 }
 .ai-response .details {
@@ -135,6 +132,16 @@ td {
   padding: 1px;
   background: #ddd;
   overflow: auto;
+}
+.ai-response .details ol li {
+  overflow: visible; /* markerが消えてしまうため */
+}
+.ai-response .details ol,
+ul {
+  padding-left: 1rem; /* markerの位置調整 */
+}
+ol ul {
+  list-style-type: disc; /* ブラウザ環境によって異なるためstyleの定義 */
 }
 /*
 ========== 入力画面 ==========

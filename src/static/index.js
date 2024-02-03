@@ -1,13 +1,20 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
-// WebSocketを開く
-// ここら辺正直俺もよくわかってない
-// FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
+/*
+デプロイ用WebSocket
+PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
+*/
+const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
+const ws = new WebSocket("wss://" + web_url + "/chat");
 
-// const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
-const web_url = "0.0.0.0:8000";
-const ws = new WebSocket("ws://" + web_url + "/chat");
+/*
+デバッグ用WebSocket
+開発する時は、こっちのWebSocketを使ってください。
+PRする時は、コメントアウトすること
+*/
+// const web_url = "0.0.0.0:8000";
+// const ws = new WebSocket("ws://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
 ws.onopen = function () {
@@ -74,20 +81,32 @@ typingArea.addEventListener("submit", (event) => {
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
 
-  let streaming = "";
-  // メッセージを受け取り、chatDetailsElementに追加
+  // 出力をぶち込む変数を定義
+  let mdParse = "";
   ws.onmessage = function (event) {
-    streaming += event.data;
-    document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-      marked.parse(streaming);
-    // streaming処理をしている中で、event.dataに\nがあるか判定
-    //   if (event.data.includes("\n")) {
-    //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
-    //       marked.parse(chatDetailsElement.innerHTML + event.data);
-    //   } else {
-    //     chatDetailsElement.innerHTML += event.data;
-    //   }
+    // event.dataをinnerHTMLに追加
+    chatDetailsElement.innerHTML += event.data;
+    // 退避用の変数に追加
+    mdParse += event.data;
+    if (event.data.includes("\n")) {
+      // 今まで退避していたmdをパースし、innerHTMLで上書き
+      chatDetailsElement.innerHTML = marked.parse(mdParse);
+    }
   };
+
+  // let streaming = "";
+  // // メッセージを受け取り、chatDetailsElementに追加
+  // ws.onmessage = function (event) {
+  //   streaming += event.data;
+  //   document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+  //     marked.parse(streaming);
+  // streaming処理をしている中で、event.dataに\nがあるか判定
+  //   if (event.data.includes("\n")) {
+  //     document.getElementById("TriPal_details_" + detailCounter).innerHTML =
+  //       marked.parse(chatDetailsElement.innerHTML + event.data);
+  //   } else {
+  //     chatDetailsElement.innerHTML += event.data;
+  //   }
 });
 
 // メッセージをチャットエリアに追加する関数
