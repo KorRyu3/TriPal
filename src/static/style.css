@@ -162,7 +162,6 @@ td {
 #chatBox ol li,
 #chatBox ul li {
   overflow: visible;
-  /* list-style-type: auto; */
 }
 
 #chatBox ol li ul,
@@ -173,7 +172,6 @@ td {
 #chatBox ol li ul li,
 #chatBox ul li ul li {
   overflow: visible;
-  /* list-style-type: auto; */
 }
 /*
 ========== 入力画面 ==========
