@@ -1,10 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 @font-face {
-  font-family: "line-seed";
-  src: url(/src/static/font/LINESeedJP_OTF_Rg.woff);
-  src: url(/src/static/font/LINESeedSans_W_Rg.woff);
+  font-family: "LineSeed";
+  font-weight: normal;
+  src: url(/src/static/font/LINESeedJP_OTF_Rg.woff), format("woff");
+  src: url(/src/static/font/LINESeedJP_OTF_Rg.woff2), format("woff2");
+  src: url(/src/static/font/LINESeedSans_W_Rg.woff), format("woff");
+  src: url(/src/static/font/LINESeedSans_W_Rg.woff2), format("woff2");
+}
+@font-face {
+  font-family: "LineSeed";
+  font-weight: bold;
+  src: url(/src/static/font/LINESeedJP_OTF_Bd.woff), format("woff");
+  src: url(/src/static/font/LINESeedJP_OTF_Bd.woff2), format("woff2");
+  src: url(/src/static/font/LINESeedSans_W_Bd.woff), format("woff");
+  src: url(/src/static/font/LINESeedSans_W_Bd.woff2), format("woff2");
 }
 
 * {
