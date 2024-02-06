@@ -126,8 +126,8 @@ RAKUTEN_APPLICATION_SECRET="楽天デベロッパーのアプリケーション�
 RAKUTEN_AFFILIATE_ID="楽天デベロッパーのアフィリエイトID"
 ```
 
-### Gitのルール
-Gitのルールは[GitRule_README.md](./GitRule_README.md)を参照してください。
+### コントリビューター向けのガイドライン
+ガイドラインは[CONTRIBUTING.md](./CONTRIBUTING.md)を参照してください。
 
 ## Contributors
 <!-- generateの仕方は https://contrib.rocks/preview を参照 -->
