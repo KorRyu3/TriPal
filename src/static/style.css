@@ -150,15 +150,29 @@ td {
   background: #ddd;
   overflow: auto;
 }
-.ai-response .details ol li {
-  overflow: visible; /* markerが消えてしまうため */
+/*
+========== Markdownスタイル ==========
+*/
+#chatBox ol,
+#chatBox ul {
+  padding-left: 2rem;
 }
-.ai-response .details ol,
-ul {
-  padding-left: 1rem; /* markerの位置調整 */
+
+#chatBox ol li,
+#chatBox ul li {
+  overflow: visible;
+  /* list-style-type: auto; */
 }
-ol ul {
-  list-style-type: disc; /* ブラウザ環境によって異なるためstyleの定義 */
+
+#chatBox ol li ul,
+#chatBox ul li ul {
+  padding-left: 2rem;
+}
+
+#chatBox ol li ul li,
+#chatBox ul li ul li {
+  overflow: visible;
+  /* list-style-type: auto; */
 }
 /*
 ========== 入力画面 ==========
