@@ -58,6 +58,7 @@ body {
   font-family: "Pacifico", cursive;
 }
 .chat-area {
+  font-family: "line-seed";
   height: 500px;
   overflow-y: auto;
   background: #f7f7f7;
