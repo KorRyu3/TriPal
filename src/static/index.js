@@ -87,6 +87,9 @@ typingArea.addEventListener("submit", (event) => {
       // 今まで退避していたmdをパースし、innerHTMLで上書き
       chatDetailsElement.innerHTML = marked.parse(mdParse);
     }
+
+    // 新しいメッセージが追加された際に自動スクロール (返答用)
+    handleNewMessage();
   };
 });
 
@@ -107,6 +110,32 @@ function addMessage(sender, message) {
   chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
+
+  // 新しいメッセージが追加された際に自動スクロール
+  handleNewMessage();
+}
+
+// 新しいメッセージが追加された際に自動スクロールする関数
+function handleNewMessage() {
+  // チャットコンテナを取得
+  var chatContainer = document.getElementById("chatBox");
+  // 最後のメッセージ要素を取得
+  var lastMessage = chatContainer.lastElementChild;
+  if (lastMessage) {
+    // 最後のメッセージの位置を取得
+    var lastMessageRect = lastMessage.getBoundingClientRect();
+    // チャットコンテナの高さ
+    var containerHeight = chatContainer.clientHeight;
+    // チャットコンテナ内のスクロール量
+    var scrollTop = chatContainer.scrollTop;
+    // 最後のメッセージが表示されるように自動スクロール
+    if (lastMessageRect.bottom > containerHeight) {
+      chatContainer.scrollTo({
+        top: scrollTop + lastMessageRect.bottom - containerHeight,
+        behavior: "smooth", // スムーズなスクロール
+      });
+    }
+  }
 }
 
 // ユーザーからの入力をエスケープする処理
