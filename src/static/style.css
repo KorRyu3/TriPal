@@ -156,7 +156,7 @@ td {
 */
 #chatBox ol,
 #chatBox ul {
-  padding-left: 2rem;
+  padding-left: 18px;
 }
 
 #chatBox ol li,
@@ -167,7 +167,7 @@ td {
 
 #chatBox ol li ul,
 #chatBox ul li ul {
-  padding-left: 2rem;
+  padding-left: 18px;
 }
 
 #chatBox ol li ul li,
