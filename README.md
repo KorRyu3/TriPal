@@ -126,8 +126,8 @@ RAKUTEN_APPLICATION_SECRET="Rakuten Developer's application secret"
 RAKUTEN_AFFILIATE_ID="Rakuten Developer's affiliate ID"
 ```
 
-### Git Rule
-You can see the Git rule in [GitRule_README.md](./GitRule_README.md).
+### Contribution Guide
+You can see the contribution guide in [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Contributors
 <!-- generateの仕方は https://contrib.rocks/preview を参照 -->
