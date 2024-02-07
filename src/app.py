@@ -7,8 +7,6 @@ from logging import FileHandler, Formatter, getLogger
 from typing import Annotated
 
 import uvicorn
-
-# FastAPI
 from fastapi import (
     Cookie,
     FastAPI,
@@ -49,29 +47,34 @@ file_handler.setLevel("INFO")
 logger.addHandler(file_handler)
 # ---------------- #
 
+
 # ランダムな文字列を生成する関数
-def random_name(n) -> str:
+def random_name(n: int) -> str:
     """
     ランダムな文字列を生成する関数
     :param n: 文字列の長さ
     """
     rand_lst = [random.choice(string.ascii_letters + string.digits) for _ in range(n)]
-    return ''.join(rand_lst)
+    return "".join(rand_lst)
+
 
 # ----------------------------- #
 
 
 # HTMLをレンダリングするだけの関数
-@app.get('/')
+@app.get("/")
 def index(request: Request):
     return templates.TemplateResponse(
         request=request,
-        name='index.html',
+        name="index.html",
     )
 
+
 # Cookieを設定するエンドポイント
-@app.get('/set-cookie')
-def set_cookie(response: Response, session_id: Annotated[str | None, Cookie()] = None):
+@app.get("/set-cookie")
+def set_cookie(
+    response: Response, session_id: Annotated[str | None, Cookie()] = None
+) -> dict[str, str]:
     if session_id is None:
         session_id = random_name(20)
         # response.set_cookie(key="session_id", value=session_id, httponly=True, samesite="None", secure=True)  # max_ageは秒
@@ -80,10 +83,15 @@ def set_cookie(response: Response, session_id: Annotated[str | None, Cookie()] =
     else:
         return {"message": "Cookie is already set.", "session_id": session_id}
 
+
 # Websocketを使用して、一つのrouteで送受信ができるようにする
 # そうしないと、入力と出力が一緒にできず、他の人が入力した内容で出力してしまう可能性がある
-@app.websocket('/chat')
-async def chat(ws: WebSocket, session_id: Annotated[str | None, Cookie()] = None, sec_websocket_key: Annotated[str | None, Header()] = None):
+@app.websocket("/chat")
+async def chat(
+    ws: WebSocket,
+    session_id: Annotated[str | None, Cookie()] = None,
+    sec_websocket_key: Annotated[str | None, Header()] = None,
+):
     # Websocketの接続を確立
     await ws.accept()
 
@@ -106,7 +114,9 @@ async def chat(ws: WebSocket, session_id: Annotated[str | None, Cookie()] = None
 
             # チャットボットにユーザーの入力を渡して、応答を取得する
             # responseは非同期generator
-            async for output in tripal_gpt.get_async_generator_output(user_input=user_chat):
+            async for output in tripal_gpt.get_async_generator_output(
+                user_input=user_chat
+            ):
                 # 応答を送信する
                 # UXのために、0.03秒待つ
                 # 0秒だと早すぎて目で追えない
@@ -120,11 +130,21 @@ async def chat(ws: WebSocket, session_id: Annotated[str | None, Cookie()] = None
     except Exception as e:
         # エラーをログに出力
         logger.error(f" {e.__class__.__name__}: {e}   token: {hash_token}")
-        await ws.send_text("エラーが発生しました。 しばらくしてから再度お試しください。")
+        await ws.send_text(
+            "エラーが発生しました。 しばらくしてから再度お試しください。"
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Static directoryの読み込みをHTTPSに強制する
     # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
     # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
     # uvicorn.run("app:app", host="0.0.0.0", port=8000, proxy_headers=True, forwarded_allow_ips="*")
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, proxy_headers=True, forwarded_allow_ips="*", reload=True)
+    uvicorn.run(
+        "app:app",
+        host="0.0.0.0",
+        port=8000,
+        proxy_headers=True,
+        forwarded_allow_ips="*",
+        reload=True,
+    )

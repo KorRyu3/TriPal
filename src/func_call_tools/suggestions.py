@@ -140,15 +140,15 @@ def get_location_id(
     if category != "":
         id_param += "&category=" + category
 
-    url = f"https://api.content.tripadvisor.com/api/v1/location/search"
+    url = "https://api.content.tripadvisor.com/api/v1/location/search"
     response = requests.get(url + id_param, headers=HEADERS)
 
     # error handling
     if 500 <= response.status_code <= 599:
         logger.error(
-            "[Tripadvisor Server Error(Location Search)] \n"
-            + f"status_code: {response.status_code}\n"
-            + f"error text: {response.text}"
+            f"[Tripadvisor Server Error(Location Search)] \n"
+            f"status_code: {response.status_code}\n"
+            f"error text: {response.text}"
         )
         return [], {"error": "Server Error"}
 
@@ -201,8 +201,8 @@ def get_location_info(
     if 500 <= response.status_code <= 599:
         logger.error(
             f"[Tripadvisor Server Error(Location {loc_id} Details)] \n"
-            + f"status_code: {response.status_code}\n"
-            + f"error text: {response.text}"
+            f"status_code: {response.status_code}\n"
+            f"error text: {response.text}"
         )
         return {"error": "Server Error"}
 

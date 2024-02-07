@@ -13,11 +13,10 @@ from langchain_core.tracers import RunLogPatch
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import AzureChatOpenAI
 
-from func_call_tools.reservations import TravelReservationSchema, reserve_location
+# from func_call_tools.reservations import TravelReservationSchema, reserve_location
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
-from llm_prompts import (
+from llm_prompts import (  # get_trip_reservation_desc,
     get_system_prompt,
-    get_trip_reservation_desc,
     get_trip_suggestion_desc,
     prompt_injection_defense,
 )
@@ -140,7 +139,9 @@ class TriPalGPT:
         )
 
         agent_executor = AgentExecutor.from_agent_and_tools(
-            agent=agent, tools=self._tools, verbose=True  # 途中経過を表示(debug用)
+            agent=agent,
+            tools=self._tools,
+            verbose=True,  # 途中経過を表示(debug用)
         )
 
         return agent_executor
