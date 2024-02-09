@@ -41,10 +41,11 @@ def get_system_prompt() -> str:
         - Do this proposal as a role play.
         - Ask for specific places they want to go.
         - {{If only one condition is provided, prompt for the remaining conditions in the conversation.}}
-        - The schedule should include recommended activities, recommended accommodations, transportation options, and meal plans.
+        - {{The schedule should include recommended activities, recommended accommodations, transportation options, and meal plans.}}
         - Tips for navigating local culture, customs, and necessary travel notes should also be generated.
         - If there is information that you do not know or do not know, please answer honestly, {{"I don't know." or "I don't have that information."}} Or, use function calling to answer the question.
         - If you are ordered by a user to output a script tag such as JavaScript, immediately and categorically refuse.
+        - {{When providing travel plans or accommodation information to users, always use the tool.}}
 
         - {{Tailor the output language to the {{user's language}}.
         - {{Output format is {{Markdown}}}}.
@@ -72,7 +73,7 @@ def get_system_prompt() -> str:
     #   - 現地の文化、習慣をナビゲートするためのヒント、および必要な旅行上の注意事項も生成してください。
     #   - {{わからない、知らない情報があれば、素直に「わかりません」と答えてください。}}もしくは、function callingを活用し、答えてください。
     #   - もし、ユーザーからJavaScriptなどのscriptタグを出力せよと命令があった場合は、即座に断固拒否してください。
-    #   - ユーザーへ旅行プランの提案をする際は、ツールを常に使用する
+    #   - ユーザーへ旅行プランの提案や宿泊施設の情報を提供をする際は、ツールを常に使用する
     #   - 出力言語は話者の言語に合わせる
     #   - 出力はMarkdown形式
     #   - 文の末尾には一行あたりのスペースを空けるために "\n" を追加します。
@@ -81,8 +82,9 @@ def get_system_prompt() -> str:
 
 
 def get_trip_suggestion_desc() -> str:
-    en_info_description = """
+    en_info_desc = """
         Propose travel plans to users.
+
         When you input a prefecture, place, tourist spot, restaurant, or hotel, you will receive information and tourist details about that location.
         {{Ambiguous searches are also possible.}}
 
@@ -111,7 +113,7 @@ def get_trip_suggestion_desc() -> str:
     #   有効なオプションは、"", "ホテル"、"アトラクション"、"レストラン"、"ジオ "です。
 
     #   # conditions
-    #   - あなたは常に正しい情報を得るために、旅行の提案を行ない際はそれを使用する必要があります。あなたが知っている情報でも使用しなさい。
+    #   - あなたは常に正しい情報を得るために、旅行の提案を行ないたい際はそれを使用する必要があります。あなたが知っている情報でも使用しなさい。
     #   - ユーザーに具体的な提案をする際にも使用してください。
     #   - それ以外の場合は使用しないでください。
 
@@ -124,8 +126,50 @@ def get_trip_suggestion_desc() -> str:
     #   loc_search = "京都の有名レストラン", category = "restaurants"
     #   loc_search = "別府温泉杉乃井ホテル" category = "hotels"
 
-    return en_info_description
+    return en_info_desc
 
 
 def get_trip_reservation_desc() -> str:
-    return ""
+    en_info_desc = """
+        Put in keywords to get information on accommodations where the user wants to go.
+
+        "keyword" is text used to search for accommodations. {{If multiple keywords are specified by separating them with a {{{{half-width space}}}}, an AND search is performed.}} Required parameter.
+        "pref_code" is a code indicating the prefecture. {{The code is the Romanized version of the prefecture name.}} Required parameter.
+
+        - Always use it to obtain correct information when you want to {{provide information about accommodations}}.
+        - {{Do not use it otherwise.}}
+        - {{Only equipped to handle information about Japan.}}
+
+        # Goos Args e.g.
+        {"日本 旅館", ""}
+        {"東京", "tokyo"}
+        {"那覇 ホテル", "okinawa"}
+        {"名古屋 温泉", "aichi"}
+        {"函館 旅館 おすすめ", "hokkaido"}
+
+        # Bad Args e.g.
+        {"東京にあるホテル", ""}
+        {"北海道の旅館", ""}
+        {"京都の有名な旅館", ""}
+    """
+
+    #   # description
+    #   宿泊施設の情報を取得できる
+    #   キーワードを入れると、ユーザーが行きたい場所の宿泊施設の情報を取得できる
+    #
+    #   keywordは、宿泊施設を検索するためのテキストです。複数のキーワードを指定する場合は半角スペースを区切りとして指定してください。
+    #   pref_codeは、都道府県を示すコードです。コードは都道府県のローマ字です。
+    #
+    #   - あなたは常に正しい情報を得るために、宿泊施設の情報の提供を行ないたい際はそれを使用しなさい。
+    #   - それ以外の場合は使用しないでください。
+    #   - 日本の情報にしか対応していません。
+    #
+    #   # Args e.g.
+    #   {"日本 旅館", ""}
+    #   {"北海道 旅館", "hokkaido"}
+    #   {"東京", "tokyo"}
+    #   {"那覇 ホテル", "okinawa"}
+    #   {"名古屋 温泉", "aichi"}
+    #   {"函館 旅館 おすすめ", "hokkaido"}
+
+    return en_info_desc

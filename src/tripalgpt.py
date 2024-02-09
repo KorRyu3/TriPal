@@ -13,10 +13,11 @@ from langchain_core.tracers import RunLogPatch
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import AzureChatOpenAI
 
-# from func_call_tools.reservations import TravelReservationSchema, reserve_location
+from func_call_tools.reservations import TravelReservationSchema, get_reserve_location
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
-from llm_prompts import (  # get_trip_reservation_desc,
+from llm_prompts import (
     get_system_prompt,
+    get_trip_reservation_desc,
     get_trip_suggestion_desc,
     prompt_injection_defense,
 )
@@ -107,6 +108,13 @@ class TriPalGPT:
                 args_schema=TravelProposalSchema,
                 handle_tool_error=_handle_error,
             ),
+            StructuredTool.from_function(
+                name="Reservation_Information",
+                func=get_reserve_location,
+                description=get_trip_reservation_desc(),
+                args_schema=TravelReservationSchema,
+                handle_tool_error=_handle_error,
+            ),
         ]
 
     # AgentExecutorの作成
@@ -141,7 +149,7 @@ class TriPalGPT:
         agent_executor = AgentExecutor.from_agent_and_tools(
             agent=agent,
             tools=self._tools,
-            verbose=True,  # 途中経過を表示(debug用)
+            # verbose=True,  # 途中経過を表示(debug用)
         )
 
         return agent_executor
@@ -236,7 +244,6 @@ class TriPalGPT:
                 final_output = format_res["final_output"]
                 # 履歴を保存
                 self._save_memory(user_input, final_output)
-                print("履歴が保存されました！")
                 break
 
             yield format_res["stream_res"]

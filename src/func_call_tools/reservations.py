@@ -1,7 +1,9 @@
 import json
 import os
-from typing import Literal, Tuple, Union
+from logging import FileHandler, Formatter, getLogger
+from typing import Any, Literal
 
+import numpy as np
 import requests
 from dotenv import find_dotenv, load_dotenv
 
@@ -17,53 +19,174 @@ from pydantic.v1 import BaseModel, Field
 
 
 # ---------- 初期化処理 ---------- #
+# directoryをfunc_call_toolsに変更
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# Logの出力
+logger = getLogger(__name__)
+file_handler = FileHandler(filename="../logs/reservations.log")
+file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
+logger.setLevel("INFO")
+file_handler.setLevel("ERROR")
+logger.addHandler(file_handler)
+
 # 環境変数をロード
 load_dotenv(find_dotenv())
 HEADERS = {"accept": "application/json"}
-BOOKING_API_KEY = os.environ.get("BOOKING_API_KEY")
+RAKUTEN_APPLICATION_ID = os.environ.get("RAKUTEN_APPLICATION_ID")
+RAKUTEN_AFFILIATE_ID = os.environ.get("RAKUTEN_AFFILIATE_ID")
+# 都道府県コード
+PREFECTURE_CODE = Literal[
+    "",
+    "hokkaido",
+    "aomori",
+    "iwate",
+    "miyagi",
+    "akita",
+    "yamagata",
+    "hukushima",
+    "ibaragi",
+    "tochigi",
+    "gunma",
+    "saitama",
+    "tiba",
+    "tokyo",
+    "kanagawa",
+    "niigata",
+    "toyama",
+    "ishikawa",
+    "hukui",
+    "yamanasi",
+    "nagano",
+    "gihu",
+    "shizuoka",
+    "aichi",
+    "mie",
+    "shiga",
+    "kyoto",
+    "osaka",
+    "hyogo",
+    "nara",
+    "wakayama",
+    "tottori",
+    "simane",
+    "okayama",
+    "hiroshima",
+    "yamaguchi",
+    "tokushima",
+    "kagawa",
+    "ehime",
+    "kouchi",
+    "hukuoka",
+    "saga",
+    "nagasaki",
+    "kumamoto",
+    "ooita",
+    "miyazaki",
+    "kagoshima",
+    "okinawa",
+]
 # ------------------------------- #
 
 
 # Toolで利用する関数の入力スキーマの定義例
-class TravelReservationSchema(BaseModel): ...
+class TravelReservationSchema(BaseModel):
+    keyword: str = Field(
+        default="",
+        title="Keyword Hotel Search",
+        # 宿泊施設の名前を検索するためのキーワード。 複数のキーワードを指定する場合は半角スペースを区切りとして指定してください。
+        description="Text used to search for accommodations. If multiple keywords are specified by separating them with a half-width space, an AND search is performed. Required parameter.",
+        examples=[
+            "北海道 旅館",
+            "東京",
+            "那覇 ホテル",
+            "名古屋 温泉",
+            "函館 旅館 おすすめ",
+        ],
+    )
+
+    pref_code: PREFECTURE_CODE = Field(
+        default="",
+        title="Prefecture Code",
+        # 都道府県を示すコード。コードは都道府県のローマ字。 このフィールドが指定された場合、指定された地区に属する施設のみが検索対象となります。
+        description="A code indicating the prefecture. The code is the Romanized version of the prefecture name. If this field is specified, only facilities belonging to the designated district will be included in the search. Required parameter.",
+        examples=["tokyo", "shiga", "hokkaido"],
+    )
 
 
 # ------Tool(Function Calling)で利用する関数の定義------ #
 
 
-def reserve_location(**kwargs) -> None: ...
+def get_reserve_location(keyword: str, pref_code: str = "") -> dict[str, Any]:
+    """
+    宿泊施設の情報を取得
+
+    :param keyword: search keyword. space separated. multiple can be specified
+    :param pref_code: prefecture code. romaji
+    """
+
+    res_dict: dict = _find_matching_props(keyword, pref_code)
+
+    if res_dict.get("error"):
+        return res_dict
+
+    # 取得した情報の数を調べる
+    length = len(res_dict["hotels"])
+    # 情報の数を10個以下に制限
+    count = length if length < 10 else 10
+
+    rnd_choices = np.random.choice(length, count, replace=False)
+
+    hotel_info = {}
+    for rnd_index in rnd_choices:
+        hotel_info_temp = {}
+
+        hotel_name: str = res_dict["hotels"][rnd_index][0]["hotelBasicInfo"][
+            "hotelName"
+        ]
+        hotel_info_temp["hotel_info"] = res_dict["hotels"][rnd_index][0][
+            "hotelBasicInfo"
+        ]
+        hotel_info[hotel_name] = hotel_info_temp
+
+    return hotel_info
 
 
-def _get_list_cities(**kwargs) -> None: ...
+def _find_matching_props(
+    keyword: str, pref_code: PREFECTURE_CODE = ""
+) -> dict[str, Any] | dict[str, str]:
+    """
+    ロケーション検索の結果を取得する
 
+    :param keyword: search keyword. space separated. multiple can be specified
+    :param pref_code: prefecture code. romaji
+    """
 
-def _find_matching_props(**kwargs) -> None:
-    ...
+    # ホテル名、特徴、郵便番号、住所1、住所2、電話番号、ホテル情報URL、宿泊プラン一覧ページ、最低料金、アクセス方法
+    elements = "hotelName,hotelSpecial,postalCode,address1,address2,telephoneNo,hotelInformationUrl,planListUrl,hotelMinCharge,access"
 
-    list_cities = _get_list_cities(**kwargs)
+    required_param = f"?applicationId={RAKUTEN_APPLICATION_ID}&affiliateId={RAKUTEN_AFFILIATE_ID}&format=json&formatVersion=2"
+    optional_param = f"&responseType=small&elements={elements}&keyword={keyword}&middleClassCode={pref_code}"
 
-    ...
+    url = "https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426"
 
-    property_id = ...
+    res = requests.get(url + required_param + optional_param, headers=HEADERS)
 
-    ...
+    if 500 <= res.status_code <= 599:
+        logger.error(
+            f"[Rakuten Server Error(Keyword Hotel Search)] \n"
+            f"status_code: {res.status_code}\n"
+            f"error text: {res.text}"
+        )
+        return {"error": "Server Error"}
 
-    return property_id, ...
+    dict_data: dict = json.loads(res.text)
 
+    if "error" in dict_data:
+        logger.error(
+            f"[Rakuten Error(Keyword Hotel Search)]\n"
+            f"error: {dict_data['error']}\n"
+            f"error_description: {dict_data['error_description']}"
+        )
+        return {"error": "Server Error. Please try another keyword."}
 
-def _get_details_props(**kwargs) -> None:
-    ...
-
-    (property_id,) = _find_matching_props(**kwargs)
-
-    ...
-
-    return property_id, ...
-
-
-def _get_property_availability_prices(**kwargs) -> None:
-    ...
-
-    property_id, details_props = _get_details_props(**kwargs)
-
-    ...
+    return dict_data
