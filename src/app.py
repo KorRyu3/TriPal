@@ -16,12 +16,13 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from tripalgpt import TriPalGPT
 
-# ---------- 初期化処理 ---------- #
+# --------------- 初期化処理 --------------- #
 # cwdを./srcに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # ---FastAPI--- #
@@ -45,7 +46,7 @@ logger.setLevel("INFO")
 file_handler.setLevel("INFO")
 # handlerをロガーに追加
 logger.addHandler(file_handler)
-# ---------------- #
+# ----------------------------------------- #
 
 
 # ランダムな文字列を生成する関数
@@ -63,7 +64,7 @@ def random_name(n: int) -> str:
 
 # HTMLをレンダリングするだけの関数
 @app.get("/")
-def index(request: Request):
+def index(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request,
         name="index.html",
@@ -91,7 +92,7 @@ async def chat(
     ws: WebSocket,
     session_id: Annotated[str | None, Cookie()] = None,
     sec_websocket_key: Annotated[str | None, Header()] = None,
-):
+) -> None:
     # Websocketの接続を確立
     await ws.accept()
 
@@ -127,6 +128,7 @@ async def chat(
     except WebSocketDisconnect:
         # Websocket接続が切れたら、ログを出力する
         logger.info(f"WebSocket disconnected. token: {hash_token}")
+        del tripal_gpt
     except Exception as e:
         # エラーをログに出力
         logger.error(f" {e.__class__.__name__}: {e}   token: {hash_token}")
@@ -142,9 +144,9 @@ if __name__ == "__main__":
     # uvicorn.run("app:app", host="0.0.0.0", port=8000, proxy_headers=True, forwarded_allow_ips="*")
     uvicorn.run(
         "app:app",
-        host="0.0.0.0",
+        host="127.0.0.1",
         port=8000,
         proxy_headers=True,
         forwarded_allow_ips="*",
-        reload=True,
+        # reload=True,
     )
