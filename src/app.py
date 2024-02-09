@@ -19,6 +19,7 @@ from fastapi import (
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 from tripalgpt import TriPalGPT
 
@@ -37,15 +38,14 @@ templates = Jinja2Templates(directory="templates")
 
 # ---Logの出力--- #
 logger = getLogger(__name__)
+logger.setLevel("ERROR")
 # handlerの設定
 file_handler = FileHandler(filename="logs/app.log")
-# handlerのフォーマットを設定
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
-# logのレベルを設定
-logger.setLevel("INFO")
-file_handler.setLevel("INFO")
-# handlerをロガーに追加
+file_handler.setLevel("ERROR")
 logger.addHandler(file_handler)
+# Azure App InsightsにLogを送信するための設定
+logger.addHandler(AzureLogHandler())
 # ----------------------------------------- #
 
 
@@ -102,8 +102,6 @@ async def chat(
     token = f"{sec_websocket_key}{session_id}"
     hash_token = hashlib.sha1(token.encode("utf-8")).hexdigest()
 
-    logger.info(f"WebSocket connected.    token: {hash_token}")
-
     # LLMの初期化
     tripal_gpt = TriPalGPT(hash_token)
 
@@ -126,12 +124,10 @@ async def chat(
                 await ws.send_text(output)
                 await asyncio.sleep(0)
     except WebSocketDisconnect:
-        # Websocket接続が切れたら、ログを出力する
-        logger.info(f"WebSocket disconnected. token: {hash_token}")
         del tripal_gpt
     except Exception as e:
         # エラーをログに出力
-        logger.error(f" {e.__class__.__name__}: {e}   token: {hash_token}")
+        logger.exception(f" {e.__class__.__name__}: {e}   token: {hash_token}")
         await ws.send_text(
             "エラーが発生しました。 しばらくしてから再度お試しください。"
         )

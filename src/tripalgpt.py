@@ -12,6 +12,7 @@ from langchain_core.tools import StructuredTool, ToolException
 from langchain_core.tracers import RunLogPatch
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import AzureChatOpenAI
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 from func_call_tools.reservations import TravelReservationSchema, get_reserve_location
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
@@ -27,15 +28,14 @@ from llm_prompts import (
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # ---Logの出力---
 logger = getLogger(__name__)
+logger.setLevel("ERROR")
 # handlerの設定
 file_handler = FileHandler(filename="logs/tripalgpt.log")
-# handlerのフォーマットを設定
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-# logのレベルを設定
-logger.setLevel("INFO")
 file_handler.setLevel("ERROR")
-# handlerをロガーに追加
 logger.addHandler(file_handler)
+# Azure App InsightsにLogを送信するための設定
+logger.addHandler(AzureLogHandler())
 
 # 環境変数をロード
 load_dotenv(find_dotenv())
@@ -95,7 +95,7 @@ class TriPalGPT:
                 Please try another tool or let the user type again!
             """
             # errorをログに出力
-            logger.error(error_msg)
+            logger.exception(error_msg)
 
             return error_msg
 
@@ -170,7 +170,7 @@ class TriPalGPT:
             return chain.astream_log(input=user_input_dict)
         except Exception as e:
             # エラーをログに出力
-            logger.error(f"[Chain Error] chainを実行出来ませんでした。\n{e}")
+            logger.exception(f"[Chain Error] chainを実行出来ませんでした。\n{e}")
 
             raise RuntimeError("chainを実行出来ませんでした。 Please try again!") from e
 

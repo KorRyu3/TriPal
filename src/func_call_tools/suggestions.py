@@ -6,6 +6,7 @@ from typing import Literal, Tuple
 
 import requests
 from dotenv import find_dotenv, load_dotenv
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 # from pydantic import BaseModel, Field
 # Fieldの使い方は下記を参照
@@ -23,11 +24,14 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # Logの出力
 logger = getLogger(__name__)
+logger.setLevel("ERROR")
+# handlerの設定
 file_handler = FileHandler(filename="../logs/suggestions.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-logger.setLevel("INFO")
 file_handler.setLevel("ERROR")
 logger.addHandler(file_handler)
+# Azure App InsightsにLogを送信するための設定
+logger.addHandler(AzureLogHandler())
 
 # 環境変数をロード
 load_dotenv(find_dotenv())
@@ -145,7 +149,7 @@ def get_location_id(
 
     # error handling
     if 500 <= response.status_code <= 599:
-        logger.error(
+        logger.exception(
             f"[Tripadvisor Server Error(Location Search)] \n"
             f"status_code: {response.status_code}\n"
             f"error text: {response.text}"
@@ -155,7 +159,7 @@ def get_location_id(
     res_dict: dict = json.loads(response.text)
 
     if "error" in res_dict or "message" in res_dict:
-        logger.error("[Tripadvisor Error] \n" + f"error text: {res_dict}")
+        logger.exception("[Tripadvisor Error] \n" + f"error text: {res_dict}")
         return [], {"error": "Search Error"}
 
     loc_ids = []
@@ -199,7 +203,7 @@ def get_location_info(
 
     # error handling
     if 500 <= response.status_code <= 599:
-        logger.error(
+        logger.exception(
             f"[Tripadvisor Server Error(Location {loc_id} Details)] \n"
             f"status_code: {response.status_code}\n"
             f"error text: {response.text}"

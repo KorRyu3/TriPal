@@ -6,6 +6,7 @@ from typing import Any, Literal
 import numpy as np
 import requests
 from dotenv import find_dotenv, load_dotenv
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 # ↓ LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
 from pydantic.v1 import BaseModel, Field
@@ -23,11 +24,14 @@ from pydantic.v1 import BaseModel, Field
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # Logの出力
 logger = getLogger(__name__)
+logger.setLevel("ERROR")
+# handlerの設定
 file_handler = FileHandler(filename="../logs/reservations.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-logger.setLevel("INFO")
 file_handler.setLevel("ERROR")
 logger.addHandler(file_handler)
+# Azure App InsightsにLogを送信するための設定
+logger.addHandler(AzureLogHandler())
 
 # 環境変数をロード
 load_dotenv(find_dotenv())
@@ -172,7 +176,7 @@ def _find_matching_props(
     res = requests.get(url + required_param + optional_param, headers=HEADERS)
 
     if 500 <= res.status_code <= 599:
-        logger.error(
+        logger.exception(
             f"[Rakuten Server Error(Keyword Hotel Search)] \n"
             f"status_code: {res.status_code}\n"
             f"error text: {res.text}"
@@ -182,7 +186,7 @@ def _find_matching_props(
     dict_data: dict = json.loads(res.text)
 
     if "error" in dict_data:
-        logger.error(
+        logger.exception(
             f"[Rakuten Error(Keyword Hotel Search)]\n"
             f"error: {dict_data['error']}\n"
             f"error_description: {dict_data['error_description']}"
