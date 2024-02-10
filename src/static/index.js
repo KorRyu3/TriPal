@@ -114,25 +114,39 @@ function addMessage(sender, message) {
   handleNewMessage();
 }
 
+// ユーザーがスクロールしたかどうかを追跡するフラグ
+let userScrolled = false;
+
+// チャットコンテナのスクロールイベントリスナーを追加
+document.getElementById("chatBox").addEventListener("scroll", function () {
+  // ユーザーがスクロールした場合は、自動スクロールを無効にする
+  // ユーザーが最下部にスクロールしたかどうかを確認するための式
+  // +1しているのは計算の精度を上げ、最下部に非常に近い場合にもtrueを返すため
+  userScrolled = this.scrollTop + this.clientHeight + 1 < this.scrollHeight;
+});
+
 // 新しいメッセージが追加された際に自動スクロールする関数
 function handleNewMessage() {
-  // チャットコンテナを取得
-  var chatContainer = document.getElementById("chatBox");
-  // 最後のメッセージ要素を取得
-  var lastMessage = chatContainer.lastElementChild;
-  if (lastMessage) {
-    // 最後のメッセージの位置を取得
-    var lastMessageRect = lastMessage.getBoundingClientRect();
-    // チャットコンテナの高さ
-    var containerHeight = chatContainer.clientHeight;
-    // チャットコンテナ内のスクロール量
-    var scrollTop = chatContainer.scrollTop;
-    // 最後のメッセージが表示されるように自動スクロール
-    if (lastMessageRect.bottom > containerHeight) {
-      chatContainer.scrollTo({
-        top: scrollTop + lastMessageRect.bottom - containerHeight,
-        behavior: "smooth", // スムーズなスクロール
-      });
+  // ユーザーがスクロールしていない場合のみ自動スクロールを実行
+  if (!userScrolled) {
+    // チャットコンテナを取得
+    var chatContainer = document.getElementById("chatBox");
+    // 最後のメッセージ要素を取得
+    var lastMessage = chatContainer.lastElementChild;
+    if (lastMessage) {
+      // 最後のメッセージの位置を取得
+      var lastMessageRect = lastMessage.getBoundingClientRect();
+      // チャットコンテナの高さ
+      var containerHeight = chatContainer.clientHeight;
+      // チャットコンテナ内のスクロール量
+      var scrollTop = chatContainer.scrollTop;
+      // 最後のメッセージが表示されるように自動スクロール
+      if (lastMessageRect.bottom > containerHeight) {
+        chatContainer.scrollTo({
+          top: scrollTop + lastMessageRect.bottom - containerHeight,
+          behavior: "smooth", // スムーズなスクロール
+        });
+      }
     }
   }
 }
