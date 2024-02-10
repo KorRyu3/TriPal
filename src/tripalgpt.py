@@ -53,15 +53,19 @@ class TriPalGPT:
         self._token = hash_token
 
         self._model_16k = AzureChatOpenAI(
-            openai_api_key = os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
-            deployment_name = os.environ.get("AZURE_OPENAI_API_DEPLOYMENT"),  # deployment name
-            azure_endpoint = os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
-            openai_api_version = os.environ.get("AZURE_OPENAI_API_VERSION", default="2023-07-01-preview"),  # API version
-            model_name = "gpt-35-turbo-16k",
-            openai_api_type = "azure",  # API type
-            model_version = "1.0.0",
-            temperature = 1.0,
-            streaming = True,
+            openai_api_key=os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
+            deployment_name=os.environ.get(
+                "AZURE_OPENAI_API_DEPLOYMENT"
+            ),  # deployment name
+            azure_endpoint=os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
+            openai_api_version=os.environ.get(
+                "AZURE_OPENAI_API_VERSION", default="2023-07-01-preview"
+            ),  # API version
+            model_name="gpt-35-turbo-16k",
+            openai_api_type="azure",  # API type
+            model_version="1.0.0",
+            temperature=1.0,
+            streaming=True,
         )
 
         self._prompt = ChatPromptTemplate.from_messages(
