@@ -1,23 +1,20 @@
-// ユーザーからの入力をエスケープする処理
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
-const chatArea = document.querySelector(".chat-area");
-const typingArea = document.querySelector("#typing-area");
-const userInputArea = document.querySelector(".user-inputArea");
-
-// WebSocketを開く
-// ここら辺正直俺もよくわかってない
-// FastAPIのdocsを参考に、とりあえずWebSocketを書く。
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io"
+/*
+デプロイ用WebSocket
+PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
+*/
+const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
 const ws = new WebSocket("wss://" + web_url + "/chat");
+
+/*
+デバッグ用WebSocket
+開発する時は、こっちのWebSocketを使ってください。
+PRする時は、コメントアウトすること
+*/
+// const web_url = "0.0.0.0:8000";
+// const ws = new WebSocket("ws://" + web_url + "/chat");
 
 // Websocketが接続されたときの処理
 ws.onopen = function () {
@@ -43,6 +40,14 @@ ws.onerror = function (err) {
   ws.close();
 };
 
+const chatArea = document.querySelector(".chat-area");
+const typingArea = document.querySelector("#typing-area");
+const userInputArea = document.querySelector(".user-inputArea");
+const sendButton = document.getElementById("submit");
+
+// グローバルスコープまたは関数スコープの外部でカウンタを初期化
+let detailCounter = 0;
+
 // 入力エリアにsubmitイベントリスナーを追加
 typingArea.addEventListener("submit", (event) => {
   // デフォルトのフォーム送信を防止
@@ -56,24 +61,35 @@ typingArea.addEventListener("submit", (event) => {
   // WebSocketにメッセージを送信
   ws.send(safeInput);
 
+  // カウンタをインクリメント
+  detailCounter++;
+
   // TriPalGPTからの返答を受け取る
   // TriPalGPT用の新しいdiv要素を作成
   const chatIOElement = document.createElement("div");
   chatIOElement.classList.add("chat", "ai-response");
   const chatDetailsElement = document.createElement("div");
   chatDetailsElement.className = "details";
-  const messageP = document.createElement("p");
-
-  // メッセージを受け取り、messagePに追加
-  ws.onmessage = function (event) {
-    // += で追加していく
-    messageP.innerHTML += event.data;
-  };
+  // TriPal_details_1という風にidの値が増えていく
+  chatDetailsElement.id = "TriPal_details_" + detailCounter;
 
   // どんどん追加していくよ〜
-  chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
+  // 出力をぶち込む変数を定義
+  let mdParse = "";
+  ws.onmessage = function (event) {
+    // event.dataをinnerHTMLに追加
+    chatDetailsElement.innerHTML += event.data;
+    // 退避用の変数に追加
+    mdParse += event.data;
+    if (event.data.includes("\n")) {
+      // 今まで退避していたmdをパースし、innerHTMLで上書き
+      chatDetailsElement.innerHTML = marked.parse(mdParse);
+    }
+    // 新しいメッセージが追加された際に自動スクロール (返答用)
+    handleNewMessage();
+  };
 });
 
 // メッセージをチャットエリアに追加する関数
@@ -93,4 +109,75 @@ function addMessage(sender, message) {
   chatDetailsElement.appendChild(messageP);
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
+
+  // 新しいメッセージが追加された際に自動スクロール
+  handleNewMessage();
+}
+
+/*
+自動スクロール機能 ここから
+*/
+
+// ユーザーがスクロールしたかどうかを追跡するフラグ
+let userScrolled = false;
+
+// チャットコンテナのスクロールイベントリスナーを追加
+document.getElementById("chatBox").addEventListener("scroll", function () {
+  // ユーザーがスクロールした場合は、自動スクロールを無効にする
+  // ユーザーが最下部にスクロールしたかどうかを確認するための式
+  // +1しているのは計算の精度を上げ、最下部に非常に近い場合にもtrueを返すため
+  userScrolled = this.scrollTop + this.clientHeight + 1 < this.scrollHeight;
+});
+
+// 新しいメッセージが追加された際に自動スクロールする関数
+function handleNewMessage() {
+  // ユーザーがスクロールしていない場合のみ自動スクロールを実行
+  if (!userScrolled) {
+    // チャットコンテナを取得
+    var chatContainer = document.getElementById("chatBox");
+    // 最後のメッセージ要素を取得
+    var lastMessage = chatContainer.lastElementChild;
+    if (lastMessage) {
+      // 最後のメッセージの位置を取得
+      var lastMessageRect = lastMessage.getBoundingClientRect();
+      // チャットコンテナの高さ
+      var containerHeight = chatContainer.clientHeight;
+      // チャットコンテナ内のスクロール量
+      var scrollTop = chatContainer.scrollTop;
+      // 最後のメッセージが表示されるように自動スクロール
+      if (lastMessageRect.bottom > containerHeight) {
+        chatContainer.scrollTo({
+          top: scrollTop + lastMessageRect.bottom - containerHeight,
+          behavior: "smooth", // スムーズなスクロール
+        });
+      }
+    }
+  }
+}
+
+/*
+入力ロック機能
+*/
+
+// submitボタンを押したときに入力をロックする関数
+function lockInput() {
+  sendButton.disabled = true;
+}
+// streaming処理が終わったら入力をアンロックする関数
+function unlockInput() {
+  sendButton.disabled = false;
+}
+
+/*
+エスケープ処理
+*/
+
+// ユーザーからの入力をエスケープする処理
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
