@@ -43,6 +43,7 @@ ws.onerror = function (err) {
 const chatArea = document.querySelector(".chat-area");
 const typingArea = document.querySelector("#typing-area");
 const userInputArea = document.querySelector(".user-inputArea");
+const sendButton = document.getElementById("submit");
 
 // グローバルスコープまたは関数スコープの外部でカウンタを初期化
 let detailCounter = 0;
@@ -75,7 +76,6 @@ typingArea.addEventListener("submit", (event) => {
   // どんどん追加していくよ〜
   chatIOElement.appendChild(chatDetailsElement);
   chatArea.appendChild(chatIOElement);
-
   // 出力をぶち込む変数を定義
   let mdParse = "";
   ws.onmessage = function (event) {
@@ -87,7 +87,6 @@ typingArea.addEventListener("submit", (event) => {
       // 今まで退避していたmdをパースし、innerHTMLで上書き
       chatDetailsElement.innerHTML = marked.parse(mdParse);
     }
-
     // 新しいメッセージが追加された際に自動スクロール (返答用)
     handleNewMessage();
   };
@@ -136,6 +135,15 @@ function handleNewMessage() {
       });
     }
   }
+}
+
+// submitボタンを押したときに入力をロックする関数
+function lockInput() {
+  sendButton.disabled = true;
+}
+// streaming処理が終わったら入力をアンロックする関数
+function unlockInput() {
+  sendButton.disabled = false;
 }
 
 // ユーザーからの入力をエスケープする処理
