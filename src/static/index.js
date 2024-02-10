@@ -114,6 +114,10 @@ function addMessage(sender, message) {
   handleNewMessage();
 }
 
+/*
+自動スクロール機能 ここから
+*/
+
 // ユーザーがスクロールしたかどうかを追跡するフラグ
 let userScrolled = false;
 
@@ -151,6 +155,10 @@ function handleNewMessage() {
   }
 }
 
+/*
+入力ロック機能
+*/
+
 // submitボタンを押したときに入力をロックする関数
 function lockInput() {
   sendButton.disabled = true;
@@ -159,6 +167,10 @@ function lockInput() {
 function unlockInput() {
   sendButton.disabled = false;
 }
+
+/*
+エスケープ処理
+*/
 
 // ユーザーからの入力をエスケープする処理
 function escapeHtml(unsafe) {
