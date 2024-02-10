@@ -150,6 +150,9 @@ td {
   background: #ddd;
   overflow: auto;
 }
+.ai-response .details p {
+  white-space: break-spaces;
+}
 /*
 ========== Markdownスタイル ==========
 */
