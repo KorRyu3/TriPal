@@ -5,9 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TriPal</title>
-  <link rel=stylesheet type=text/css href="{{ url_for('static', path='/style.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-  <script type=text/javascript src="{{ url_for('static', path='/index.js') }}" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <script type="module" src="{{ url_for('static', path='/index.js') }}" defer></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 
       <form id="typing-area">
         <input type="text" class="user-inputArea" name="user_chat" placeholder="こちらにメッセージを入力してください" required />
-        <button type="submit"><i class="fab fa-telegram-plane"></i></button>
+        <button type="submit" id="submit"><i class="fab fa-telegram-plane"></i></button>
       </form>
     </div>
   </div>

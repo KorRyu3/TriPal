@@ -1,93 +1,189 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
-*{
+@font-face {
+  font-family: "LineSeed";
+  font-weight: normal;
+  src: url(/src/static/font/LINESeedJP_OTF_Rg.woff), format("woff");
+  src: url(/src/static/font/LINESeedJP_OTF_Rg.woff2), format("woff2");
+  src: url(/src/static/font/LINESeedSans_W_Rg.woff), format("woff");
+  src: url(/src/static/font/LINESeedSans_W_Rg.woff2), format("woff2");
+}
+@font-face {
+  font-family: "LineSeed";
+  font-weight: bold;
+  src: url(/src/static/font/LINESeedJP_OTF_Bd.woff), format("woff");
+  src: url(/src/static/font/LINESeedJP_OTF_Bd.woff2), format("woff2");
+  src: url(/src/static/font/LINESeedSans_W_Bd.woff), format("woff");
+  src: url(/src/static/font/LINESeedSans_W_Bd.woff2), format("woff2");
+}
+
+* {
   margin: 0;
   padding: 0;
   overflow: hidden;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: "Poppins", sans-serif;
 }
-body{
+body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background: #f7f7f7;
 }
-.chat-container{
+.chat-container {
   background: #fff;
-  width: 750px;
+  width: 900px;
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
-              0 32px 64px -48px rgba(0, 0, 0, 0.5);
+    0 32px 64px -48px rgba(0, 0, 0, 0.5);
 }
 
-:is(.chat-area)::-webkit-scrollbar{
+:is(.chat-area)::-webkit-scrollbar {
   width: 0px;
 }
 
-/* Chat Area CSS Code */
-.chat-box header{
+/*
+========== ヘッダータイトル部分 ==========
+*/
+.chat-box header {
   display: flex;
   justify-content: center;
   padding: 16px 30px;
 }
-.chat-box header h1{
+.chat-box header h1 {
   font-size: 28px;
   padding: 0px 5px;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
 }
-.chat-area{
+.chat-area {
+  font-family: "line-seed";
   height: 500px;
   overflow-y: auto;
   background: #f7f7f7;
   padding: 10px 30px 20px 30px;
+  line-height: 2rem;
   box-shadow: inset 0 32px 32px -32px rgb(0 0 0 / 5%),
-              inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
+    inset 0 -32px 32px -32px rgb(0 0 0 / 5%);
 }
-.chat-area .chat{
-  margin: 15px 0;
+.chat-area .chat {
+  margin: 15px 0; /* テキストエリアの間隔 */
 }
-.chat-area .chat p{
-  word-wrap: break-word;
-  padding: 8px 16px;
-  box-shadow: 0 0 32px rgb(0 0 0 / 8%),
-              0 16px 16px -16px rgb(0 0 0 / 10%);
-}
-.chat-area .user-input{
+/*
+========== ユーザー側 ==========
+*/
+.chat-area .user-input {
   display: flex;
 }
-.user-input .details{
+.user-input .details {
+  background-color: #333;
+  color: #fff;
   margin-left: auto;
+  padding: 8px 16px;
   max-width: calc(100% - 130px);
   border-radius: 18px;
+  word-wrap: break-word;
+  /* box-shadow: 0 0 32px rgb(0 0 0 / 8%), 0 16px 16px -16px rgb(0 0 0 / 10%); */
 }
-.user-input .details p{
-  background: #333;
-  color: #fff;
-}
-.chat-area .ai-response{
+/*
+========== AI側 ==========
+*/
+.chat-area .ai-response {
   display: flex;
   align-items: flex-end;
+  word-wrap: break-word;
 }
-.ai-response .details{
+.ai-response .details {
+  display: inline;
   margin-right: auto;
+  padding: 8px 16px;
   max-width: calc(100% - 130px);
   border-radius: 18px;
-}
-.ai-response .details p{
-  background: #fff;
+  background-color: #fff;
   color: #333;
+  /* box-shadow: 0 0 32px rgb(0 0 0 / 8%), 0 16px 16px -16px rgb(0 0 0 / 10%); */
 }
-.chat-box #typing-area{
+.ai-response .details h1 {
+  margin: 0.5em 0 0.4em 0;
+  font-size: 180%;
+  border: solid #ddd;
+  border-width: 0 0 1px 0;
+}
+.ai-response .details h2 {
+  margin: 0.1em 0 0.5em 0;
+  font-size: 150%;
+  border: solid #ddd;
+  border-width: 0 0 1px 0;
+}
+.ai-response .details h3 {
+  margin: 1.5em 0 0.8em 0;
+  padding: 0 0 0 7px;
+  font-size: 120%;
+  border: solid #ddd;
+  border-width: 0 0 0 5px;
+}
+.ai-response .details h4 {
+  font-size: 100%;
+}
+.ai-response .details h5 {
+  font-size: 90%;
+}
+.ai-response .details h6 {
+  font-size: 80%;
+}
+.ai-response .details table {
+  border-collapse: collapse;
+}
+.ai-response .details th,
+td {
+  border: solid #222 1px;
+  padding: 3px;
+}
+.ai-response .details blockquote {
+  padding: 5px;
+  border: solid #aaa 1px;
+  background: #f5f8ff;
+}
+.ai-response .details pre {
+  margin: 1em 0;
+  padding: 1px;
+  background: #ddd;
+  overflow: auto;
+}
+.ai-response .details p {
+  white-space: break-spaces;
+}
+/*
+========== Markdownスタイル ==========
+*/
+#chatBox ol,
+#chatBox ul {
+  padding-left: 18px;
+}
+
+#chatBox ol li,
+#chatBox ul li {
+  overflow: visible;
+}
+
+#chatBox ol li ul,
+#chatBox ul li ul {
+  padding-left: 18px;
+}
+
+#chatBox ol li ul li,
+#chatBox ul li ul li {
+  overflow: visible;
+}
+/*
+========== 入力画面 ==========
+*/
+.chat-box #typing-area {
   padding: 18px 30px;
   display: flex;
   justify-content: space-between;
 }
-/* Typing Area CSS Code */
-#typing-area input{
+#typing-area input {
   height: 45px;
   width: calc(100% - 58px);
   font-size: 17px;
@@ -96,7 +192,7 @@ body{
   border-radius: 5px;
   outline: none;
 }
-#typing-area button{
+#typing-area button {
   width: 55px;
   border: none;
   outline: none;
@@ -106,7 +202,7 @@ body{
   cursor: pointer;
   border-radius: 0 5px 5px 0;
 }
-#typing-area button i{
+#typing-area button i {
   display: flex;
   justify-content: center;
 }
