@@ -22,6 +22,8 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 # ---------- 初期化処理 ---------- #
 # directoryをfunc_call_toolsに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 環境変数をロード
+load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
 logger.setLevel("ERROR")
@@ -32,9 +34,6 @@ file_handler.setLevel("ERROR")
 logger.addHandler(file_handler)
 # Azure App InsightsにLogを送信するための設定
 logger.addHandler(AzureLogHandler())
-
-# 環境変数をロード
-load_dotenv(find_dotenv())
 
 TRIPADVISOR_API_KEY = os.environ.get("TRIPADVISOR_API_KEY")
 HEADERS = {

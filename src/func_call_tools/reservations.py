@@ -22,6 +22,8 @@ from pydantic.v1 import BaseModel, Field
 # ---------- 初期化処理 ---------- #
 # directoryをfunc_call_toolsに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 環境変数をロード
+load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
 logger.setLevel("ERROR")
@@ -33,8 +35,6 @@ logger.addHandler(file_handler)
 # Azure App InsightsにLogを送信するための設定
 logger.addHandler(AzureLogHandler())
 
-# 環境変数をロード
-load_dotenv(find_dotenv())
 HEADERS = {"accept": "application/json"}
 RAKUTEN_APPLICATION_ID = os.environ.get("RAKUTEN_APPLICATION_ID")
 RAKUTEN_AFFILIATE_ID = os.environ.get("RAKUTEN_AFFILIATE_ID")

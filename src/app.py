@@ -7,6 +7,7 @@ from logging import FileHandler, Formatter, getLogger
 from typing import Annotated
 
 import uvicorn
+from dotenv import find_dotenv, load_dotenv
 from fastapi import (
     Cookie,
     FastAPI,
@@ -26,6 +27,8 @@ from tripalgpt import TriPalGPT
 # --------------- 初期化処理 --------------- #
 # cwdを./srcに変更
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 環境変数をロード
+load_dotenv(find_dotenv())
 # ---FastAPI--- #
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
