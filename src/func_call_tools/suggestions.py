@@ -26,7 +26,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
-logger.setLevel("ERROR")
+logger.setLevel("INFO")
 # handlerの設定
 file_handler = FileHandler(filename="../logs/suggestions.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
@@ -86,6 +86,7 @@ def get_trip_suggestions_info(
     :param loc_search: Text to use for searching based on the name of the location.
     :param category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos".
     """
+    logger.info(f"loc_search: {loc_search}, category: {category}")
 
     language = "ja"
     currency = "JPY"
@@ -95,7 +96,9 @@ def get_trip_suggestions_info(
     if loc_search == "":
         return "検索したい場所を入力してください"
 
-    loc_ids, other_info = get_location_id(loc_search, category, language)
+    loc_ids, other_info = _get_location_id(loc_search, category, language)
+
+    logger.info(f"loc_ids: {loc_ids}, other_info: {other_info}")
 
     if loc_ids == []:
         return (
@@ -113,7 +116,7 @@ def get_trip_suggestions_info(
 
         loc_id = loc_ids[rand_index]
         min_loc_info = other_info[loc_id]
-        loc_info = get_location_info(loc_id, min_loc_info, language, currency)
+        loc_info = _get_location_info(loc_id, min_loc_info, language, currency)
 
         # get_location_info()の中でerrorレスポンスが返ってくると"name"すら返ってこないので、min_loc_infoから取ってきてます。その方が確実
         output[min_loc_info["name"]] = loc_info
@@ -122,7 +125,7 @@ def get_trip_suggestions_info(
 
 
 # ロケーションの検索をし、ロケーションIDを取得する
-def get_location_id(
+def _get_location_id(
     loc_search: str, category: str, language: str
 ) -> Tuple[list[str], dict[str, dict[str, str]]]:
     """
@@ -150,6 +153,8 @@ def get_location_id(
     if 500 <= response.status_code <= 599:
         logger.exception(
             f"[Tripadvisor Server Error(Location Search)] \n"
+            f"search query: {loc_search}\n"
+            f"url: {url + id_param}\n"
             f"status_code: {response.status_code}\n"
             f"error text: {response.text}"
         )
@@ -158,7 +163,12 @@ def get_location_id(
     res_dict: dict = json.loads(response.text)
 
     if "error" in res_dict or "message" in res_dict:
-        logger.exception("[Tripadvisor Error] \n" + f"error text: {res_dict}")
+        logger.exception(
+            f"[Tripadvisor Error] \n"
+            f"search query: {loc_search}\n"
+            f"url: {url + id_param}\n"
+            f"error text: {res_dict}"
+        )
         return [], {"error": "Search Error"}
 
     loc_ids = []
@@ -185,7 +195,7 @@ def get_location_id(
 
 
 # ロケーションIDに基づいた、ロケーションの情報を取得する
-def get_location_info(
+def _get_location_info(
     loc_id: str, min_loc_info: dict, language: str, currency: str
 ) -> dict[str, str]:
     """
@@ -204,6 +214,7 @@ def get_location_info(
     if 500 <= response.status_code <= 599:
         logger.exception(
             f"[Tripadvisor Server Error(Location {loc_id} Details)] \n"
+            f"url: {url + loc_param}\n"
             f"status_code: {response.status_code}\n"
             f"error text: {response.text}"
         )

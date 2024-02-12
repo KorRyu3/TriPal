@@ -30,7 +30,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # ---Logの出力---
 logger = getLogger(__name__)
-logger.setLevel("ERROR")
+logger.setLevel("INFO")
 # handlerの設定
 file_handler = FileHandler(filename="logs/tripalgpt.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))

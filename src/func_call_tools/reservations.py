@@ -26,7 +26,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
-logger.setLevel("ERROR")
+logger.setLevel("INFO")
 # handlerの設定
 file_handler = FileHandler(filename="../logs/reservations.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
@@ -127,6 +127,7 @@ def get_reserve_location(keyword: str, pref_code: str = "") -> dict[str, Any]:
     :param keyword: search keyword. space separated. multiple can be specified
     :param pref_code: prefecture code. romaji
     """
+    logger.info(f"keyword: {keyword}, pref_code: {pref_code}")
 
     res_dict: dict = _find_matching_props(keyword, pref_code)
 
@@ -178,6 +179,7 @@ def _find_matching_props(
     if 500 <= res.status_code <= 599:
         logger.exception(
             f"[Rakuten Server Error(Keyword Hotel Search)] \n"
+            f"keyword: {keyword}, pref_code: {pref_code}\n"
             f"status_code: {res.status_code}\n"
             f"error text: {res.text}"
         )
@@ -188,9 +190,13 @@ def _find_matching_props(
     if "error" in dict_data:
         logger.exception(
             f"[Rakuten Error(Keyword Hotel Search)]\n"
+            f"keyword: {keyword}, pref_code: {pref_code}\n"
             f"error: {dict_data['error']}\n"
             f"error_description: {dict_data['error_description']}"
         )
-        return {"error": "Server Error. Please try another keyword."}
+        return {
+            "Error": "Server Error. Please try another keyword.",
+            "Message to AI": "Failed to get data. Please try another keyword. If multiple keywords are specified by separating them with \"a half-width space\", an AND search is performed.",
+        }
 
     return dict_data
