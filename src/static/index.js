@@ -1,27 +1,24 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
-
+// ------------------------------
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-/*
-デプロイ用WebSocket
-PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
-*/
+
+// フロントエンド開発用兼デプロイ用WebSocket
+// PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
 const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
 const ws = new WebSocket("wss://" + web_url + "/chat");
 
-/*
-デバッグ用WebSocket
-開発する時は、こっちのWebSocketを使ってください。
-PRする時は、コメントアウトすること
-*/
-// const web_url = "0.0.0.0:8000";
+// バックエンド開発用WebSocket
+// フロントエンド開発するなら、こっちはコメントアウトしたままで大丈夫
+// PRする時は、コメントアウトすること
+// const web_url = "127.0.0.1:8000";
 // const ws = new WebSocket("ws://" + web_url + "/chat");
 
-// Websocketが接続されたときの処理
+// ------------------------------
+// WebSocketのイベントハンドラを設定
 ws.onopen = function () {
   console.log("connected websocket main component");
 };
 
-// Websocketが切断されたときの処理
 ws.onclose = function () {
   console.log("disconnected websocket main component");
   addMessage(
@@ -30,7 +27,6 @@ ws.onclose = function () {
   );
 };
 
-// Websocketでエラーが発生したときの処理
 ws.onerror = function (err) {
   console.error("Socket encountered error: ", err.message, "Closing socket");
   addMessage(
@@ -40,92 +36,107 @@ ws.onerror = function (err) {
   ws.close();
 };
 
+// DOM要素を取得
 const chatArea = document.querySelector(".chat-area");
 const typingArea = document.querySelector("#typing-area");
 const userInputArea = document.querySelector(".user-inputArea");
 const sendButton = document.getElementById("submit");
 
-// グローバルスコープまたは関数スコープの外部でカウンタを初期化
+// メッセージ詳細のカウンタを初期化
 let detailCounter = 0;
 
-// 入力エリアにsubmitイベントリスナーを追加
+// typingAreaにsubmitイベントリスナーを追加
 typingArea.addEventListener("submit", (event) => {
-  // デフォルトのフォーム送信を防止
+  // フォームのデフォルトの送信動作をキャンセル
   event.preventDefault();
-  // ユーザーの入力を取得
+
+  // ユーザーの入力を取得し、HTMLエスケープ処理を行う
   const userInput = userInputArea.value;
   const safeInput = escapeHtml(userInput);
+
+  // 入力エリアをクリア
   userInputArea.value = "";
+
+  // ユーザーのメッセージをチャットエリアに追加
   addMessage("You", safeInput);
 
-  // WebSocketにメッセージを送信
+  // メッセージをWebSocketを通じてサーバーに送信
   ws.send(safeInput);
 
-  // カウンタをインクリメント
+  // メッセージ詳細のカウンタをインクリメント
   detailCounter++;
 
-  // TriPalGPTからの返答を受け取る
-  // TriPalGPT用の新しいdiv要素を作成
+  // メッセージを表示するためのdiv要素を作成し、クラスとIDを設定
   const chatIOElement = document.createElement("div");
   chatIOElement.classList.add("chat", "ai-response");
   const chatDetailsElement = document.createElement("div");
   chatDetailsElement.className = "details";
-  // TriPal_details_1という風にidの値が増えていく
   chatDetailsElement.id = "TriPal_details_" + detailCounter;
 
-  // どんどん追加していくよ〜
+  // chatIOElementの子要素としてchatDetailsElementを追加
   chatIOElement.appendChild(chatDetailsElement);
+
+  // chatAreaの子要素としてchatIOElementを追加
   chatArea.appendChild(chatIOElement);
-  // 出力をぶち込む変数を定義
+
+  // Markdownパース用の変数を初期化
   let mdParse = "";
+
+  // WebSocketからメッセージを受信したときの処理
   ws.onmessage = function (event) {
-    // event.dataをinnerHTMLに追加
+    // 受信したメッセージをchatDetailsElementに追加
     chatDetailsElement.innerHTML += event.data;
-    // 退避用の変数に追加
+
+    // Markdownパース用の変数に受信したメッセージを追加
     mdParse += event.data;
+
+    // 受信したメッセージに改行が含まれている場合、Markdownパースを行う
     if (event.data.includes("\n")) {
-      // 今まで退避していたmdをパースし、innerHTMLで上書き
       chatDetailsElement.innerHTML = marked.parse(mdParse);
     }
-    // 新しいメッセージが追加された際に自動スクロール (返答用)
+
+    // 新しいメッセージが追加されたので、handleNewMessage関数を呼び出す
     handleNewMessage();
   };
 });
 
 // メッセージをチャットエリアに追加する関数
 function addMessage(sender, message) {
-  // 送信者に基づいてクラス名を決定
+  // senderが"TriPalGPT"なら"ai-response"、それ以外なら"user-input"をclassIONameに設定
   const classIOName = sender === "TriPalGPT" ? "ai-response" : "user-input";
 
-  // おしゃべり用の新しいdiv要素を作成
+  // メッセージを表示するためのdiv要素を作成
   const chatIOElement = document.createElement("div");
+  // 作成したdiv要素に"chat"とclassIONameをクラスとして追加
   chatIOElement.classList.add("chat", classIOName);
+
+  // メッセージ詳細を表示するためのdiv要素を作成
   const chatDetailsElement = document.createElement("div");
+  // 作成したdiv要素に"details"をクラスとして設定
   chatDetailsElement.className = "details";
+
+  // メッセージ本文を表示するためのp要素を作成
   const messageP = document.createElement("p");
+  // 作成したp要素のinnerHTMLにメッセージを設定
   messageP.innerHTML = message;
 
-  // どんどん追加していくよ〜
+  // chatDetailsElementの子要素としてmessagePを追加
   chatDetailsElement.appendChild(messageP);
+  // chatIOElementの子要素としてchatDetailsElementを追加
   chatIOElement.appendChild(chatDetailsElement);
+  // chatAreaの子要素としてchatIOElementを追加
   chatArea.appendChild(chatIOElement);
 
-  // 新しいメッセージが追加された際に自動スクロール
+  // 新しいメッセージが追加されたので、handleNewMessage関数を呼び出す
   handleNewMessage();
 }
-
-/*
-自動スクロール機能 ここから
-*/
 
 // ユーザーがスクロールしたかどうかを追跡するフラグ
 let userScrolled = false;
 
-// チャットコンテナのスクロールイベントリスナーを追加
+// スクロールイベントリスナーを追加
+// ユーザーがスクロールした場合、userScrolledフラグを更新
 document.getElementById("chatBox").addEventListener("scroll", function () {
-  // ユーザーがスクロールした場合は、自動スクロールを無効にする
-  // ユーザーが最下部にスクロールしたかどうかを確認するための式
-  // +1しているのは計算の精度を上げ、最下部に非常に近い場合にもtrueを返すため
   userScrolled = this.scrollTop + this.clientHeight + 1 < this.scrollHeight;
 });
 
@@ -133,46 +144,41 @@ document.getElementById("chatBox").addEventListener("scroll", function () {
 function handleNewMessage() {
   // ユーザーがスクロールしていない場合のみ自動スクロールを実行
   if (!userScrolled) {
-    // チャットコンテナを取得
-    var chatContainer = document.getElementById("chatBox");
-    // 最後のメッセージ要素を取得
-    var lastMessage = chatContainer.lastElementChild;
+    // チャットコンテナのDOM要素を取得
+    const chatContainer = document.getElementById("chatBox");
+    // チャットコンテナの最後のメッセージ要素を取得
+    const lastMessage = chatContainer.lastElementChild;
+
+    // 最後のメッセージが存在する場合のみ自動スクロールを実行
     if (lastMessage) {
-      // 最後のメッセージの位置を取得
-      var lastMessageRect = lastMessage.getBoundingClientRect();
-      // チャットコンテナの高さ
-      var containerHeight = chatContainer.clientHeight;
-      // チャットコンテナ内のスクロール量
-      var scrollTop = chatContainer.scrollTop;
-      // 最後のメッセージが表示されるように自動スクロール
+      // 最後のメッセージの位置情報を取得
+      const lastMessageRect = lastMessage.getBoundingClientRect();
+      // チャットコンテナの高さを取得
+      const containerHeight = chatContainer.clientHeight;
+      // チャットコンテナの現在のスクロール位置を取得
+      const scrollTop = chatContainer.scrollTop;
+
+      // 最後のメッセージがチャットコンテナの表示領域を超えている場合、そのメッセージが見えるようにスクロール
       if (lastMessageRect.bottom > containerHeight) {
         chatContainer.scrollTo({
           top: scrollTop + lastMessageRect.bottom - containerHeight,
-          behavior: "smooth", // スムーズなスクロール
+          behavior: "smooth",
         });
       }
     }
   }
 }
 
-/*
-入力ロック機能
-*/
-
-// submitボタンを押したときに入力をロックする関数
+// 入力をロック/アンロックする関数
 function lockInput() {
   sendButton.disabled = true;
 }
-// streaming処理が終わったら入力をアンロックする関数
+
 function unlockInput() {
   sendButton.disabled = false;
 }
 
-/*
-エスケープ処理
-*/
-
-// ユーザーからの入力をエスケープする処理
+// ユーザーからの入力をエスケープする関数
 function escapeHtml(unsafe) {
   return unsafe
     .replace(/&/g, "&amp;")
