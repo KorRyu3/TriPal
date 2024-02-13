@@ -1,23 +1,17 @@
 import json
+import logging
 import os
 import random
-from logging import FileHandler, Formatter, getLogger
+from logging import FileHandler, Formatter, StreamHandler, getLogger
 from typing import Literal, Tuple
 
 import requests
 from dotenv import find_dotenv, load_dotenv
-from opencensus.ext.azure.log_exporter import AzureLogHandler
 
-# from pydantic import BaseModel, Field
-# Fieldの使い方は下記を参照
-# https://docs.pydantic.dev/latest/concepts/fields/
-#
-# ↓ LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
+# LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
 from langchain_core.pydantic_v1 import BaseModel, Field
 
-# v1Fieldの使い方は下記を参照
-# https://docs.pydantic.dev/1.10/usage/schema/
-
+from log_setup import common_logger
 
 # ---------- 初期化処理 ---------- #
 # directoryをfunc_call_toolsに変更
@@ -26,14 +20,18 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
-logger.setLevel("INFO")
+logger.setLevel(logging.ERROR)
 # handlerの設定
+# StreamHandler
+stream_handler = StreamHandler()
+stream_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
+stream_handler.setLevel(logging.ERROR)
+logger.addHandler(stream_handler)
+# FileHandler
 file_handler = FileHandler(filename="../logs/suggestions.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-file_handler.setLevel("ERROR")
+file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
-# Azure App InsightsにLogを送信するための設定
-logger.addHandler(AzureLogHandler())
 
 TRIPADVISOR_API_KEY = os.environ.get("TRIPADVISOR_API_KEY")
 HEADERS = {
@@ -86,7 +84,7 @@ def get_trip_suggestions_info(
     :param loc_search: Text to use for searching based on the name of the location.
     :param category: Filters result set based on property type. Valid options are "", "hotels", "attractions", "restaurants", and "geos".
     """
-    logger.info(f"loc_search: {loc_search}, category: {category}")
+    common_logger.info(f"loc_search: {loc_search}, category: {category}")
 
     language = "ja"
     currency = "JPY"
@@ -98,7 +96,7 @@ def get_trip_suggestions_info(
 
     loc_ids, other_info = _get_location_id(loc_search, category, language)
 
-    logger.info(f"loc_ids: {loc_ids}, other_info: {other_info}")
+    common_logger.info(f"loc_ids: {loc_ids}, other_info: {other_info}")
 
     if loc_ids == []:
         return (

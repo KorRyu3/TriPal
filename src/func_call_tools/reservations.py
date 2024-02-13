@@ -1,23 +1,17 @@
 import json
+import logging
 import os
-from logging import FileHandler, Formatter, getLogger
+from logging import FileHandler, Formatter, StreamHandler, getLogger
 from typing import Any, Literal
 
 import numpy as np
 import requests
 from dotenv import find_dotenv, load_dotenv
-from opencensus.ext.azure.log_exporter import AzureLogHandler
 
-# ↓ LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
+# LangChainが利用しているpydanticのバージョンが古いため、v1を利用する
 from pydantic.v1 import BaseModel, Field
 
-# from pydantic import BaseModel, Field
-# Fieldの使い方は下記を参照
-# https://docs.pydantic.dev/latest/concepts/fields/
-
-# v1Fieldの使い方は下記を参照
-# https://docs.pydantic.dev/1.10/usage/schema/
-
+from log_setup import common_logger
 
 # ---------- 初期化処理 ---------- #
 # directoryをfunc_call_toolsに変更
@@ -26,14 +20,18 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # Logの出力
 logger = getLogger(__name__)
-logger.setLevel("INFO")
+logger.setLevel(logging.ERROR)
 # handlerの設定
+# StreamHandler
+stream_handler = StreamHandler()
+stream_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
+stream_handler.setLevel(logging.ERROR)
+logger.addHandler(stream_handler)
+# FileHandler
 file_handler = FileHandler(filename="../logs/reservations.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-file_handler.setLevel("ERROR")
+file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
-# Azure App InsightsにLogを送信するための設定
-logger.addHandler(AzureLogHandler())
 
 HEADERS = {"accept": "application/json"}
 RAKUTEN_APPLICATION_ID = os.environ.get("RAKUTEN_APPLICATION_ID")
@@ -127,11 +125,11 @@ def get_reserve_location(keyword: str, pref_code: str = "") -> dict[str, Any]:
     :param keyword: search keyword. space separated. multiple can be specified
     :param pref_code: prefecture code. romaji
     """
-    logger.info(f"keyword: {keyword}, pref_code: {pref_code}")
+    common_logger.info(f"keyword: {keyword}, pref_code: {pref_code}")
 
     res_dict: dict = _find_matching_props(keyword, pref_code)
 
-    if res_dict.get("error"):
+    if res_dict.get("Error"):
         return res_dict
 
     # 取得した情報の数を調べる
@@ -183,7 +181,7 @@ def _find_matching_props(
             f"status_code: {res.status_code}\n"
             f"error text: {res.text}"
         )
-        return {"error": "Server Error"}
+        return {"Error": "Server Error"}
 
     dict_data: dict = json.loads(res.text)
 
@@ -196,7 +194,7 @@ def _find_matching_props(
         )
         return {
             "Error": "Server Error. Please try another keyword.",
-            "Message to AI": "Failed to get data. Please try another keyword. If multiple keywords are specified by separating them with \"a half-width space\", an AND search is performed.",
+            "Message to AI": 'Failed to get data. Please try another keyword. If multiple keywords are specified by separating them with "a half-width space", an AND search is performed.',
         }
 
     return dict_data

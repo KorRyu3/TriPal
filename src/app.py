@@ -1,9 +1,10 @@
 import asyncio
 import hashlib
+import logging
 import os
 import random
 import string
-from logging import FileHandler, Formatter, getLogger
+from logging import FileHandler, Formatter, StreamHandler, getLogger
 from typing import Annotated
 
 from dotenv import find_dotenv, load_dotenv
@@ -19,7 +20,6 @@ from fastapi import (
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 from tripalgpt import TriPalGPT
 
@@ -37,14 +37,18 @@ templates = Jinja2Templates(directory="templates")
 
 # ---Logの出力--- #
 logger = getLogger(__name__)
-logger.setLevel("ERROR")
+logger.setLevel(logging.ERROR)
 # handlerの設定
+# StreamHandler
+stream_handler = StreamHandler()
+stream_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
+stream_handler.setLevel(logging.ERROR)
+logger.addHandler(stream_handler)
+# FileHandler
 file_handler = FileHandler(filename="logs/app.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
-file_handler.setLevel("ERROR")
+file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
-# Azure App InsightsにLogを送信するための設定
-logger.addHandler(AzureLogHandler())
 # ----------------------------------------- #
 
 
@@ -144,5 +148,5 @@ async def chat(
 #         port=8000,
 #         proxy_headers=True,
 #         forwarded_allow_ips="*",
-#         # reload=True,
+#         reload=True,
 #     )

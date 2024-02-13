@@ -1,5 +1,6 @@
+import logging
 import os
-from logging import FileHandler, Formatter, getLogger
+from logging import FileHandler, Formatter, StreamHandler, getLogger
 from typing import AsyncGenerator, AsyncIterator
 
 from dotenv import find_dotenv, load_dotenv
@@ -12,7 +13,6 @@ from langchain_core.tools import StructuredTool, ToolException
 from langchain_core.tracers import RunLogPatch
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import AzureChatOpenAI
-from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 from func_call_tools.reservations import TravelReservationSchema, get_reserve_location
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
@@ -30,14 +30,18 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(find_dotenv())
 # ---Logの出力---
 logger = getLogger(__name__)
-logger.setLevel("INFO")
+logger.setLevel(logging.ERROR)
 # handlerの設定
+# StreamHandler
+stream_handler = StreamHandler()
+stream_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s"))
+stream_handler.setLevel(logging.ERROR)
+logger.addHandler(stream_handler)
+# FileHandler
 file_handler = FileHandler(filename="logs/tripalgpt.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
-file_handler.setLevel("ERROR")
+file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
-# Azure App InsightsにLogを送信するための設定
-logger.addHandler(AzureLogHandler())
 # ------------------------------- #
 
 
@@ -252,7 +256,7 @@ class TriPalGPT:
 
 # import asyncio
 # async def main():
-#     async for output in TriPalGPT().get_async_generator_output(user_input="北海道のアクティビティを教えて"):
+#     async for output in TriPalGPT("aaaaa").get_async_generator_output(user_input="北海道のアクティビティを教えて"):
 #         print(output, end="")
 
 # if __name__ == "__main__":
