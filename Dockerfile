@@ -24,4 +24,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["bash", "-c", "cd ./src && mkdir logs && uvicorn app:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'" ]
+CMD ["bash", "-c", "cd ./src && uvicorn app:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'" ]
