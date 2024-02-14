@@ -139,17 +139,17 @@ async def chat(
         )
 
 
-# 開発用
-if __name__ == "__main__":
-    import uvicorn
-    # Static directoryの読み込みをHTTPSに強制する
-    # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
-    # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
-    uvicorn.run(
-        "app:app",
-        host="127.0.0.1",
-        port=8000,
-        proxy_headers=True,
-        forwarded_allow_ips="*",
-        reload=True,
-    )
+# # 開発用
+# if __name__ == "__main__":
+#     import uvicorn
+#     # Static directoryの読み込みをHTTPSに強制する
+#     # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
+#     # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
+#     uvicorn.run(
+#         "app:app",
+#         host="127.0.0.1",
+#         port=8000,
+#         proxy_headers=True,
+#         forwarded_allow_ips="*",
+#         reload=True,
+#     )
