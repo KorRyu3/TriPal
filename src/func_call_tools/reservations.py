@@ -14,8 +14,9 @@ from pydantic.v1 import BaseModel, Field
 from log_setup import common_logger
 
 # ---------- 初期化処理 ---------- #
-# directoryをfunc_call_toolsに変更
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# 現在のdirectoryを取得し、directoryをsrcに変更
+cwd = os.getcwd()
+cwd = cwd if cwd.endswith("src") else os.path.join(cwd, "src")
 # 環境変数をロード
 load_dotenv(find_dotenv())
 # Logの出力
@@ -28,7 +29,7 @@ stream_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s %(message)s")
 stream_handler.setLevel(logging.ERROR)
 logger.addHandler(stream_handler)
 # FileHandler
-file_handler = FileHandler(filename="../logs/reservations.log")
+file_handler = FileHandler(filename=f"{cwd}/logs/reservations.log")
 file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message)s"))
 file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
