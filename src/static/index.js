@@ -1,7 +1,6 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 // ------------------------------
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-
 // フロントエンド開発用兼デプロイ用WebSocket
 // PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
 const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
