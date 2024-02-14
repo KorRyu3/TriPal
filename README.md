@@ -111,19 +111,27 @@ The file should be placed in `src/` directory.
 Also, the contents of `.env` are as follows:
 ```bash
 # .env
+
+# Azure
+# Azure SQL Database
+AZURE_SQL_SERVER="<Server name>"
+AZURE_SQL_DATABASE="<Database name>"
+AZURE_SQL_USERNAME="<Username>"
+AZURE_SQL_PASSWORD="<Password>"
+
 # Azure OpenAI API
-AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAI's deployment name"
-AZURE_OPENAI_API_KEY="Azure OpenAI's API key"
-AZURE_OPENAI_API_BASE="Azure OpenAI's endpoint (base URL)"
-AZURE_OPENAI_API_VERSION="Azure OpenAI's version"
+AZURE_OPENAI_API_DEPLOYMENT="<Deployment name>"
+AZURE_OPENAI_API_KEY="<API key>"
+AZURE_OPENAI_API_BASE="<Endpoint (base URL)>"
+AZURE_OPENAI_API_VERSION="<Azure OpenAI's Version>"
+
 
 # TripAdvisor API
-TRIPADVISOR_API_KEY="Tripadvisor's API key"
+TRIPADVISOR_API_KEY="<Tripadvisor's API key>"
 
 # Rakuten API
-RAKUTEN_APPLICATION_ID="Rakuten Developer's application ID"
-RAKUTEN_APPLICATION_SECRET="Rakuten Developer's application secret"
-RAKUTEN_AFFILIATE_ID="Rakuten Developer's affiliate ID"
+RAKUTEN_APPLICATION_ID="<Rakuten Developer's Application ID>"
+RAKUTEN_AFFILIATE_ID="<Rakuten Developer's Affiliate ID>"
 ```
 
 ### Contribution Guide
