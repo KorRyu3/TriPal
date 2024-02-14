@@ -21,6 +21,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from azure_sql_db import connecte_db, insert_token
 from tripalgpt import TriPalGPT
 
 # --------------- 初期化処理 --------------- #
@@ -68,6 +69,7 @@ def random_name(n: int) -> str:
 # HTMLをレンダリングするだけの関数
 @app.get("/")
 def index(request: Request) -> HTMLResponse:
+    connecte_db()
     return templates.TemplateResponse(
         request=request,
         name="index.html",
@@ -105,8 +107,9 @@ async def chat(
     token = f"{sec_websocket_key}{session_id}"
     hash_token = hashlib.sha1(token.encode("utf-8")).hexdigest()
 
+    token_id = insert_token(hash_token)
     # LLMの初期化
-    tripal_gpt = TriPalGPT(hash_token)
+    tripal_gpt = TriPalGPT(token_id)
 
     try:
         # Websocketの接続が切れるまで、ユーザーの入力を受け取る
@@ -136,17 +139,17 @@ async def chat(
         )
 
 
-# # 開発用
-# if __name__ == "__main__":
-#     import uvicorn
-#     # Static directoryの読み込みをHTTPSに強制する
-#     # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
-#     # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
-#     uvicorn.run(
-#         "app:app",
-#         host="127.0.0.1",
-#         port=8000,
-#         proxy_headers=True,
-#         forwarded_allow_ips="*",
-#         reload=True,
-#     )
+# 開発用
+if __name__ == "__main__":
+    import uvicorn
+    # Static directoryの読み込みをHTTPSに強制する
+    # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
+    # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
+    uvicorn.run(
+        "app:app",
+        host="127.0.0.1",
+        port=8000,
+        proxy_headers=True,
+        forwarded_allow_ips="*",
+        reload=True,
+    )
