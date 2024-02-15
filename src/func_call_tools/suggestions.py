@@ -108,12 +108,14 @@ def get_trip_suggestions_info(
     output = {}
 
     # APIコールのお金節約のため、ロケーションIDをランダムにinfo_count個選ぶ
-    info_count = 5
-    ls = range(0, 10)
-    rand_ls = list(random.sample(ls, info_count))
-    for rand_index in rand_ls:
-
-        loc_id = loc_ids[rand_index]
+    # We are始まるから制限一時撤廃！
+    # info_count = 5
+    # ls = range(0, 10)
+    # rand_ls = list(random.sample(ls, info_count))
+    # for rand_index in rand_ls:
+    random.shuffle(loc_ids)  # ロケーションIDをランダムに
+    for loc_id in loc_ids:
+        # loc_id = loc_ids[rand_index]
         min_loc_info = other_info[loc_id]
         loc_info = _get_location_info(loc_id, min_loc_info, language, currency)
 
