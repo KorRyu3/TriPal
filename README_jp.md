@@ -111,19 +111,27 @@ envファイルは`src/`に配置してください。
 また、`.env`の中身は以下のようになっています。
 ```bash
 # .env
+
+# Azure
+# Azure SQL Database
+AZURE_SQL_SERVER="<Server name>"
+AZURE_SQL_DATABASE="<Database name>"
+AZURE_SQL_USERNAME="<Username>"
+AZURE_SQL_PASSWORD="<Password>"
+
 # Azure OpenAI API
-AZURE_OPENAI_API_DEPLOYMENT="Azure OpenAIのデプロイメント名"
-AZURE_OPENAI_API_KEY="Azure OpenAIのAPIキー"
-AZURE_OPENAI_API_BASE="Azure OpenAIのエンドポイント (base URL)"
-AZURE_OPENAI_API_VERSION="Azure OpenAIのバージョン指定"
+AZURE_OPENAI_API_DEPLOYMENT="<Deployment name>"
+AZURE_OPENAI_API_KEY="<API key>"
+AZURE_OPENAI_API_BASE="<Endpoint (base URL)>"
+AZURE_OPENAI_API_VERSION="<Azure OpenAI's Version>"
+
 
 # TripAdvisor API
-TRIPADVISOR_API_KEY="TripadvisorのAPI key"
+TRIPADVISOR_API_KEY="<Tripadvisor's API key>"
 
 # Rakuten API
-RAKUTEN_APPLICATION_ID="楽天デベロッパーのアプリケーションID"
-RAKUTEN_APPLICATION_SECRET="楽天デベロッパーのアプリケーションシークレット"
-RAKUTEN_AFFILIATE_ID="楽天デベロッパーのアフィリエイトID"
+RAKUTEN_APPLICATION_ID="<Rakuten Developer's Application ID>"
+RAKUTEN_AFFILIATE_ID="<Rakuten Developer's Affiliate ID>"
 ```
 
 ### コントリビューター向けのガイドライン
