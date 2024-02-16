@@ -139,6 +139,13 @@ async def chat(
         )
 
 
+@app.get("/we-are/demo")
+def we_are_demo(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(
+        request=request,
+        name="we-are-demo.html",
+    )
+
 # # 開発用
 # if __name__ == "__main__":
 #     import uvicorn
