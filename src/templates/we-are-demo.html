@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TriPal</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <script type="module" src="{{ url_for('static', path='/index.js') }}" defer></script>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-box">
+            <header>
+                <h1>TriPal</h1>
+            </header>
+
+            <div class="chat-area" id="chatBox">
+                <div class="chat user-input">
+                    <div class="details">
+                        <p>こんにちは！</p>
+                    </div>
+                </div>
+                <div class="chat ai-response">
+                    <div class="details" id="TriPal_details_1">こんにちは！どのような旅行プランをご希望ですか？行き先や日程、予算、その他の情報など、教えていただけると具体的な提案をさせていただきます。</div>
+                </div>
+                <div class="chat user-input">
+                    <div class="details">
+                        <p>北海道に行きたいです！</p>
+                    </div>
+                </div>
+                <div class="chat ai-response">
+                    <div class="details" id="TriPal_details_2">素晴らしいです！北海道は美しい自然や美食が楽しめる場所ですね。具体的な日程や予算、お好みのアクティビティや興味ある場所はありますか？それによって、より具体的な旅行プランを提案することができます。</div>
+                </div>
+                <div class="chat user-input"><div class="details">
+                    <p>一人で沢山観光したいので、二泊三日でお願い！</p>
+                </div>
+            </div>
+            <div class="chat ai-response">
+                <div class="details" id="TriPal_details_3">
+                    <p>素敵な計画ですね！北海道では、自然景観や観光スポットを存分に楽しむことができます。以下に、北海道での二泊三日の旅行プランを提案します。</p>
+                    <h3>日程</h3>
+                    <ul>
+                        <li><p>Day 1:</p>
+                            <ul>
+                                <li>札幌に到着後、札幌市内を観光しましょう。大通り公園や時計台、さっぽろテレビ塔など、札幌の有名な観光スポットを散策しましょう。</li>
+                                <li>夕食は居酒屋やラーメン店など、北海道の美食を楽しんでください。</li>
+                            </ul>
+                        </li>
+                        <li><p>Day 2:</p>
+                            <ul>
+                                <li>早朝、十勝岳や大雪山などの美しい山岳地帯へプライベートガイド付きのハイキングツアーに参加しましょう。大自然の中でリフレッシュし、絶景を楽しむことができます。</li>
+                                <li>昼食は道産食材を使った美味しいランチを堪能しましょう。</li>
+                                <li>夜は、知名度の高い温泉地「登別温泉」でゆっくりと温泉を楽しみましょう。</li>
+                            </ul>
+                        </li>
+                        <li><p>Day 3:</p>
+                            <ul>
+                                <li>朝食後、小樽へ向かいましょう。小樽運河や音楽堂、ガラス工房など、小樽の観光スポットを巡りましょう。</li>
+                                <li>昼食は海鮮丼や洋菓子など、小樽のグルメを堪能してください。</li>
+                                <li>午後は、電車で札幌に戻り、最後の買い物や散策を楽しんでください。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    このプランは自然を満喫しながら、札幌と小樽の観光も楽しめるバランスの取れた旅行プランです。予算やアレルギーなどの制約がありましたら、教えていただければより具体的なプランを提案させていただきます。</div></div><div class="chat user-input"><div class="details"><p>予算は十万円くらいで考えています！</p></div></div><div class="chat ai-response"><div class="details" id="TriPal_details_4"><p>予算内での宿泊先の候補をいくつかご紹介いたします：</p>
+                    <ol>
+                        <li><p><a href="https://hb.afl.rakuten.co.jp/hgc/g0190ddf.6rs4l470.g0190ddf.6rs4m262/?pc=https%3A%2F%2Fimg.travel.rakuten.co.jp%2Fimage%2Ftr%2Fapi%2Fkw%2FJBe8h%2F%3Ff_no%3D142926">湯の川温泉 大黒屋旅館</a></p>
+                            <ul>
+                                <li>住所: 北海道函館市湯川町3-25-10</li>
+                                <li>電話番号: 0138-59-2743</li>
+                                <li>アクセス: ＪＲ函館駅よりお車にて15分</li>
+                                <li>1泊あたりの最低料金: 4,693円</li>
+                            </ul>
+                        </li>
+                        <li><p><a href="https://hb.afl.rakuten.co.jp/hgc/g0190ddf.6rs4l470.g0190ddf.6rs4m262/?pc=https%3A%2F%2Fimg.travel.rakuten.co.jp%2Fimage%2Ftr%2Fapi%2Fkw%2FJBe8h%2F%3Ff_no%3D180833">山鼻温泉 屯田湯旅館</a></p>
+                            <ul>
+                                <li>住所: 北海道札幌市中央区南9条西8-1-17</li>
+                                <li>電話番号: 011-374-4638</li>
+                                <li>アクセス: 市電山鼻9条駅より徒歩4分（350m）</li>
+                                <li>1泊あたりの最低料金: 6,058円</li>
+                            </ul>
+                        </li>
+                        <li><p><a href="https://hb.afl.rakuten.co.jp/hgc/g0190ddf.6rs4l470.g0190ddf.6rs4m262/?pc=https%3A%2F%2Fimg.travel.rakuten.co.jp%2Fimage%2Ftr%2Fapi%2Fkw%2FJBe8h%2F%3Ff_no%3D149007">くりやま旅館</a></p>
+                            <ul>
+                                <li>住所: 北海道夕張郡栗山町中央2-98</li>
+                                <li>電話番号: 0123-72-1454</li>
+                                <li>アクセス: ＪＲ栗山駅より徒歩約5分</li>
+                                <li>1泊あたりの最低料金: 4,000円</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>これらの旅館は予算内で宿泊することができ、北海道の観光地にもアクセスが良いです。詳細な情報やプランはリンク先をご確認ください。</p>
+                    また、他にもさまざまな宿泊施設がありますので、ご希望や条件に合わせてさらにおすすめの宿泊先をご提案いたします。</div></div><div class="chat user-input"><div class="details"><p>どれも良いですね。「湯の川温泉 大黒屋旅館」が気になるので、そこに泊まりたいと思います！</p></div></div><div class="chat ai-response"><div class="details" id="TriPal_details_5"><p>「湯の川温泉 大黒屋旅館」についての詳細情報をお伝えいたします。</p>
+                    <ul>
+                        <li>ホテル名: 湯の川温泉 大黒屋旅館</li>
+                        <li>住所: 北海道函館市湯川町3-25-10</li>
+                        <li><a href="https://hb.afl.rakuten.co.jp/hgc/g0190ddf.6rs4l470.g0190ddf.6rs4m262/?pc=https%3A%2F%2Fimg.travel.rakuten.co.jp%2Fimage%2Ftr%2Fapi%2Fkw%2FJBe8h%2F%3Ff_no%3D142926">ホテルの詳細情報はこちら</a></li>
+                        <li><a href="https://hb.afl.rakuten.co.jp/hgc/g0190ddf.6rs4l470.g0190ddf.6rs4m262/?pc=https%3A%2F%2Fimg.travel.rakuten.co.jp%2Fimage%2Ftr%2Fapi%2Fkw%2F3VTwt%2F%3Ff_no%3D142926%26f_flg%3DPLAN">プランの一覧はこちら</a></li>
+                        <li>1泊の最低料金: 4,693円</li>
+                        <li>特徴: 四季の彩りを味わえる料理や、ゆったりと過ごせる温泉など、お客様一人ひとりの満足度を重視しています。</li>
+                        <li>アクセス: ＪＲ函館駅からお車で約15分の距離です。</li>
+                    </ul>
+                    上記の情報を参考に、湯の川温泉 大黒屋旅館での滞在をお楽しみください。詳細なプランや予約手続きはリンク先でご確認いただけます。何かご質問やその他の旅行プランについてのご要望がありましたら、お知らせください。</div></div><div class="chat user-input"><div class="details"><p>それらを組み合わせた旅行プランを考えてください！</p></div></div><div class="chat ai-response"><div class="details" id="TriPal_details_6"><p>北海道での旅行プランに以下の観光スポットを組み合わせることをおすすめします：</p>
+                    <ol>
+                        <li><p>北海道開拓の村:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.kaitaku.or.jp/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道札幌市厚別区厚別町小野幌50-1</li>
+                                <li>営業時間: 火曜日から日曜日の9:00から16:30</li>
+                            </ul>
+                        </li>
+                        <li><p>ファーム富田:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.farm-tomita.co.jp/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道空知郡中富良野町基線北15号</li>
+                                <li>営業時間: 10:00から16:30</li>
+                            </ul>
+                        </li>
+                        <li><p>円山公園:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.sapporo.travel/find/nature-and-parks/maruyama_park/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道札幌市中央区宮ヶ丘</li>
+                            </ul>
+                        </li>
+                        <li><p>二条市場:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.sapporo.travel/find/shops/nijo_fish_market/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道札幌市中央区南3条東1</li>
+                            </ul>
+                        </li>
+                        <li><p>洞爺湖:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.town.toyako.hokkaido.jp/tourism/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道洞爺湖町</li>
+                            </ul>
+                        </li>
+                        <li><p>白い恋人パーク:</p>
+                            <ul>
+                                <li>詳細な情報は<a href="http://www.shiroikoibitopark.jp/">こちら</a>からご確認いただけます。</li>
+                                <li>住所: 北海道札幌市西区宮の沢2-2-11-36</li>
+                                <li>営業時間: 10:00から17:00</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>また、北海道での食事や買い物の楽しみも忘れずに取り入れることをおすすめします。北海道の美食やお土産は二条市場などで楽しむことができます。</p>
+                    このプランは北海道の自然や観光スポットを訪れながら、地元の文化や食事を楽しむことができるバランスのとれた旅行プランです。ぜひ楽しい旅行をお過ごしください！</div></div><div class="chat user-input"><div class="details"><p>それらを組み合わせて作ってほしいです！日程毎にいく場所を決めてほしいな</p></div></div><div class="chat ai-response"><div class="details" id="TriPal_details_7"><p>以下は、北海道での旅行プランの一例です：</p>
+                    <p><strong>Day 1: 札幌市内観光</strong></p>
+                    <ul>
+                        <li>札幌に到着後、札幌市内の観光スポットを巡ります。
+                            <ul>
+                                <li>朝食: 大黒屋旅館での朝食</li>
+                                <li>札幌時計台: 歴史的な建物で、写真撮影や歩き回ることができます。</li>
+                                <li>大通公園: 巨大な公園で、散歩やピクニックが楽しめます。</li>
+                                <li>狸小路商店街: 地元のお土産や食べ物を楽しめる商店街です。</li>
+                                <li>夕食: 札幌名物のラーメンや海鮮料理を楽しんでください。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Day 2: 函館市観光</strong></p>
+                    <ul>
+                        <li>札幌から函館へ移動します（おすすめの移動手段: 新幹線・高速バス・レンタカーなど）。</li>
+                        <li>函館観光スポットを巡ります。
+                            <ul>
+                                <li>函館山: ロープウェイで山頂に登り、函館の美しい景色を楽しむことができます。</li>
+                                <li>五稜郭タワー: 函館市内を一望できる展望台です。</li>
+                                <li>函館朝市: 新鮮な海産物やグルメが楽しめる市場です。</li>
+                                <li>夕食: 函館の海鮮料理を味わってください。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Day 3: 小樽観光</strong></p>
+                    <ul>
+                        <li>札幌から小樽へ移動します（おすすめの移動手段: 電車・バス・レンタカーなど）。</li>
+                        <li>小樽観光スポットを巡ります。
+                            <ul>
+                                <li>小樽運河: ロマンチックな運河沿いにはレストランやカフェがあります。</li>
+                                <li>小樽オルゴール堂: 可愛らしいオルゴールが展示されています。</li>
+                                <li>小樽ガラスの森美術館: 美しいガラス工芸品を鑑賞できます。</li>
+                                <li>夕食: 小樽の海鮮料理や洋食を楽しんでください。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    このプランは北海道の観光名所を訪れ、地元のグルメを楽しむことができるものです。各日程の移動手段や食事の詳細については、旅館や観光地の情報を参考にしてください。また、プランの変更や追加の希望がありましたらお知らせください。
+                </div>
+            </div>
+        </div>
+
+        <form id="typing-area">
+            <input type="text" class="user-inputArea" name="user_chat" placeholder="こちらにメッセージを入力してください" required="">
+            <button type="submit" id="submit"><i class="fab fa-telegram-plane"></i></button>
+        </form>
+    </div>
+</body>
+
+</html>
