@@ -52,7 +52,7 @@ $ pip install -r requirements.txt
 ```
 
 ### Step3: Microsoft ODBC Driver for SQL Serverのインストール
-※ [Usage](#usage②-dockerで実行)でDockerを使用する場合は不要です。
+※ [Usage](#usage-dockerで実行)でDockerを使用する場合は不要です。
 ```bash
 # macOS
 https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16

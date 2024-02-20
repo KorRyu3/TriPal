@@ -52,7 +52,7 @@ $ pip install -r requirements.txt
 ```
 
 ### Step3: Install Microsoft ODBC Driver for SQL Server
-※ Not required if you use Docker in [Usage](#usage②-run-with-docker).
+※ Not required if you use Docker in [Usage](#usage-run-with-docker).
 ```bash
 # macOS
 https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16
