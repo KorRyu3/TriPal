@@ -51,8 +51,33 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
+### Step3: Microsoft ODBC Driver for SQL Serverのインストール
+※ [Usage](#usage②-dockerで実行)でDockerを使用する場合は不要です。
+```bash
+# macOS
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16
+
+# Homebrewがない場合
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+# Microsoft ODBC Driver for SQL Serverのインストール
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew update
+HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
+
+
+# Windows
+# CPUアーキテクチャに合わせてインストーラを選択してください
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+
+
+# Linux
+# Linuxディストリビューションに合わせてインストーラを選択してください
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver16&tabs=alpine18-install%2Calpine17-install%2Cdebian8-install%2Credhat7-13-install%2Crhel7-offline
+```
 
 ## Usage
+アプリの起動方法は、ローカルのPython環境で実行する方法と、Dockerで実行する方法の2つがあります。
+## Usage①: ローカルのPython環境で実行
 ### Step0: 仮想環境の有効化
 ```bash
 # Windows
@@ -69,38 +94,58 @@ $ python3 src/app.py
 ### Step2: アプリへのアクセス
 `http://127.0.0.1:8000/`にアクセスすると、アプリが起動します。
 
+## Usage②: Dockerで実行
+### Step0: Dockerコンテナのビルドと実行
+```bash
+$ docker-compose up --build
+```
+
+### Step1: アプリへのアクセス
+`http://127.0.0.1:8000/`にアクセスすると、アプリが起動します。
 
 ## ディレクトリ構成
 ```bash
 TriPal
-├── GitRule_README.md
-├── README.md
-├── .gitignore
 ├── .dockerignore
+├── .gitignore
+├── CONTRIBUTING.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── README.md
+├── README_jp.md
 ├── requirements.txt
+├── .github
+│   └── ...
 ├── .venv
 │   └── ...
 ├── drawio
 │   ├── architecture.drawio
 │   ├── first_design.drawio
+│   ├── log_ER.drawio
 │   └── work-flow.drawio
 └── src
-    ├── .env
     ├── __init__.py
+    ├── .env
     ├── app.py
+    ├── azure_sql_db.py
     ├── dalle3.py
     ├── llm_prompts.py
+    ├── log_setup.py
     ├── tripalgpt.py
     ├── func_call_tools
     │   ├── reservations.py
     │   └── suggestions.py
-    ├── templates
-    │   └── index.html
-    └── static
-        ├── style.css
-        └── index.js
+    ├── logs
+    │   ├── .gitingore
+    │   └── ...
+    ├── static
+    │   ├── font
+    │   │   └── ...
+    │   ├── index.js
+    │   └── style.css
+    └── templates
+        ├── index.html
+        └── we-are-demo.html
 ```
 
 ## 開発者向け情報

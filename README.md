@@ -51,8 +51,33 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
+### Step3: Install Microsoft ODBC Driver for SQL Server
+※ Not required if you use Docker in [Usage](#usage②-run-with-docker).
+```bash
+# macOS
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16
+
+# If you don't have Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+# Install Microsoft ODBC Driver for SQL Server
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
+brew update
+HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
+
+
+# Windows
+# Select an installer for your CPU architecture
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
+
+# Linux
+# Select an installer for your Linux distribution
+https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver16&tabs=alpine18-install%2Calpine17-install%2Cdebian8-install%2Credhat7-13-install%2Crhel7-offline
+```
 
 ## Usage
+There are two ways to run the app: with a local Python environment and with Docker.
+
+## Usage①: Run with Local Python Environment
 ### Step0: Activate Environment
 ```bash
 # Windows
@@ -70,37 +95,58 @@ $ python3 src/app.py
 Open your browser and access to `http://127.0.0.1:8000/`.
 
 
+## Usage②: Run with Docker
+### Step0: Build and Run Docker Container
+```bash
+$ docker-compose up --build
+```
+
+### Step1: Access to the App
+Open your browser and access to `http://127.0.0.1:8000/`.
+
 ## Directory Structure
 ```bash
 TriPal
-├── GitRule_README.md
-├── README.md
-├── .gitignore
 ├── .dockerignore
+├── .gitignore
+├── CONTRIBUTING.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── README.md
+├── README_jp.md
 ├── requirements.txt
+├── .github
+│   └── ...
 ├── .venv
 │   └── ...
 ├── drawio
 │   ├── architecture.drawio
 │   ├── first_design.drawio
+│   ├── log_ER.drawio
 │   └── work-flow.drawio
 └── src
-    ├── .env
     ├── __init__.py
+    ├── .env
     ├── app.py
+    ├── azure_sql_db.py
     ├── dalle3.py
     ├── llm_prompts.py
+    ├── log_setup.py
     ├── tripalgpt.py
     ├── func_call_tools
     │   ├── reservations.py
     │   └── suggestions.py
-    ├── templates
-    │   └── index.html
-    └── static
-        ├── style.css
-        └── index.js
+    ├── logs
+    │   ├── .gitingore
+    │   └── ...
+    ├── static
+    │   ├── font
+    │   │   └── ...
+    │   ├── index.js
+    │   └── style.css
+    └── templates
+        ├── index.html
+        └── we-are-demo.html
 ```
 
 ## Developers Information
