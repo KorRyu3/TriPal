@@ -139,6 +139,7 @@ async def chat(
         )
 
 
+# demoページ
 @app.get("/we-are/demo")
 def we_are_demo(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
@@ -146,17 +147,23 @@ def we_are_demo(request: Request) -> HTMLResponse:
         name="we-are-demo.html",
     )
 
-# # 開発用
-# if __name__ == "__main__":
-#     import uvicorn
-#     # Static directoryの読み込みをHTTPSに強制する
-#     # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
-#     # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
-#     uvicorn.run(
-#         "app:app",
-#         host="127.0.0.1",
-#         port=8000,
-#         proxy_headers=True,
-#         forwarded_allow_ips="*",
-#         reload=True,
-#     )
+
+# ----------------------------- #
+if __name__ == "__main__":
+    # 環境変数 `DOCKER_CONTAINER` が設定されていれば、Dockerでの実行とみなす
+    if os.environ.get("DOCKER_CONTAINER"):
+        # ここでは何もしない
+        pass
+    else:
+        import uvicorn
+        # Static directoryの読み込みをHTTPSに強制する
+        # proxy_headers=Trueにすることで、HTTPをHTTPSに強制する
+        # forwarded_allow_ips="*"にすることで、IPアドレスを強制する
+        uvicorn.run(
+            "app:app",
+            host="127.0.0.1",
+            port=8000,
+            proxy_headers=True,
+            forwarded_allow_ips="*",
+            reload=True,
+        )

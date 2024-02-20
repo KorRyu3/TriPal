@@ -19,7 +19,8 @@ RUN apt-get update \
 ENV LANG=ja_JP.UTF-8 \
     LANGUAGE=ja_JP:ja \
     LC_ALL=ja_JP.UTF-8 \
-    TZ=JST-9
+    TZ=JST-9 \
+    DOCKER_CONTAINER=true
 
 WORKDIR /app
 
