@@ -3,7 +3,7 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
 
 // LocalとAzureでURLを切り替える
-const WebSocketURL = window.location.hostname === "127.0.0.1" ? "ws://127.0.0.1:8000" : "wss://tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
+const WebSocketURL = window.location.hostname === "127.0.0.1" || window.location.hostname === "0.0.0.0" ? "ws://127.0.0.1:8000" : "wss://tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
 const ws = new WebSocket(WebSocketURL + "/chat");
 
 console.log("WebSocketURL: ", WebSocketURL);
