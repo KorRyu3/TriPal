@@ -24,6 +24,7 @@
 </p>
 
 ## インストール
+※ [Usage②](#usage-dockerで実行)のDockerを使用する場合は、[Step0](#step0-リポジトリのクローン)のみでOKです。
 ### Step0: リポジトリのクローン
 ```bash
 $ git clone https://github.com/KorRyu3/TriPal
@@ -52,7 +53,6 @@ $ pip install -r requirements.txt
 ```
 
 ### Step3: Microsoft ODBC Driver for SQL Serverのインストール
-※ [Usage](#usage-dockerで実行)でDockerを使用する場合は不要です。
 ```bash
 # macOS
 https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16

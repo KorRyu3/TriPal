@@ -24,6 +24,7 @@ TriPal is an AI service that **proposes travel plans** and provides **reservatio
 </p>
 
 ## Installation
+※ If using Docker as described in [Usage②](#usage-run-with-docker), only [Step0](#step0-clone-this-repository) is necessary.
 ### Step0: Clone this repository
 ```bash
 $ git clone https://github.com/KorRyu3/TriPal
@@ -52,7 +53,6 @@ $ pip install -r requirements.txt
 ```
 
 ### Step3: Install Microsoft ODBC Driver for SQL Server
-※ Not required if you use Docker in [Usage](#usage-run-with-docker).
 ```bash
 # macOS
 https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16
