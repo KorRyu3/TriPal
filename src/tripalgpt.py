@@ -60,7 +60,7 @@ class TriPalGPT:
             ),  # deployment name
             azure_endpoint=os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
             openai_api_version=os.environ.get(
-                "AZURE_OPENAI_API_VERSION", default="2023-07-01-preview"
+                "AZURE_OPENAI_API_VERSION", default="2024-02-15-preview"
             ),  # API version
             model_name="gpt-35-turbo-16k",
             openai_api_type="azure",  # API type
