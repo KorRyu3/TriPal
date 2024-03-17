@@ -52,28 +52,6 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
-### Step3: Install Microsoft ODBC Driver for SQL Server
-```bash
-# macOS
-https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/install-microsoft-odbc-driver-sql-server-macos?view=sql-server-ver16
-
-# If you don't have Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-# Install Microsoft ODBC Driver for SQL Server
-brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
-brew update
-HOMEBREW_ACCEPT_EULA=Y brew install msodbcsql18 mssql-tools18
-
-
-# Windows
-# Select an installer for your CPU architecture
-https://learn.microsoft.com/ja-jp/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16
-
-# Linux
-# Select an installer for your Linux distribution
-https://learn.microsoft.com/ja-jp/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver16&tabs=alpine18-install%2Calpine17-install%2Cdebian8-install%2Credhat7-13-install%2Crhel7-offline
-```
-
 ## Usage
 There are two ways to run the app: with a local Python environment and with Docker.
 
@@ -128,7 +106,6 @@ TriPal
     ├── __init__.py
     ├── .env
     ├── app.py
-    ├── azure_sql_db.py
     ├── dalle3.py
     ├── llm_prompts.py
     ├── log_setup.py
@@ -159,18 +136,17 @@ Also, the contents of `.env` are as follows:
 # .env
 
 # Azure
-# Azure SQL Database
-AZURE_SQL_SERVER="<Server name>"
-AZURE_SQL_DATABASE="<Database name>"
-AZURE_SQL_USERNAME="<Username>"
-AZURE_SQL_PASSWORD="<Password>"
-
 # Azure OpenAI API
 AZURE_OPENAI_API_DEPLOYMENT="<Deployment name>"
 AZURE_OPENAI_API_KEY="<API key>"
 AZURE_OPENAI_API_BASE="<Endpoint (base URL)>"
 AZURE_OPENAI_API_VERSION="<Azure OpenAI's Version>"
 
+# LangSmith
+LANGCHAIN_API_KEY="<LangChain's API key>"
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT="<Project name>"
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 
 # TripAdvisor API
 TRIPADVISOR_API_KEY="<Tripadvisor's API key>"

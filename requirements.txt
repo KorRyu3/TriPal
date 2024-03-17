@@ -44,9 +44,7 @@ openai==1.10.0
 packaging==23.2
 pydantic==2.6.0
 pydantic_core==2.16.1
-pyodbc==5.1.0
 python-dotenv==1.0.1
-pytz==2024.1
 PyYAML==6.0.1
 regex==2023.12.25
 requests==2.31.0
