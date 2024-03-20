@@ -24,6 +24,7 @@
 </p>
 
 ## インストール
+※ [Usage②](#usage-dockerで実行)のDockerを使用する場合は、[Step0](#step0-リポジトリのクローン)のみでOKです。
 ### Step0: リポジトリのクローン
 ```bash
 $ git clone https://github.com/KorRyu3/TriPal
@@ -53,6 +54,8 @@ $ pip install -r requirements.txt
 
 
 ## Usage
+アプリの起動方法は、ローカルのPython環境で実行する方法と、Dockerで実行する方法の2つがあります。
+## Usage①: ローカルのPython環境で実行
 ### Step0: 仮想環境の有効化
 ```bash
 # Windows
@@ -69,38 +72,57 @@ $ python3 src/app.py
 ### Step2: アプリへのアクセス
 `http://127.0.0.1:8000/`にアクセスすると、アプリが起動します。
 
+## Usage②: Dockerで実行
+### Step0: Dockerコンテナのビルドと実行
+```bash
+$ docker-compose up --build
+```
+
+### Step1: アプリへのアクセス
+`http://127.0.0.1:8000/`にアクセスすると、アプリが起動します。
 
 ## ディレクトリ構成
 ```bash
 TriPal
-├── GitRule_README.md
-├── README.md
-├── .gitignore
 ├── .dockerignore
+├── .gitignore
+├── CONTRIBUTING.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── README.md
+├── README_jp.md
 ├── requirements.txt
+├── .github
+│   └── ...
 ├── .venv
 │   └── ...
 ├── drawio
 │   ├── architecture.drawio
 │   ├── first_design.drawio
+│   ├── log_ER.drawio
 │   └── work-flow.drawio
 └── src
-    ├── .env
     ├── __init__.py
+    ├── .env
     ├── app.py
     ├── dalle3.py
     ├── llm_prompts.py
+    ├── log_setup.py
     ├── tripalgpt.py
     ├── func_call_tools
     │   ├── reservations.py
     │   └── suggestions.py
-    ├── templates
-    │   └── index.html
-    └── static
-        ├── style.css
-        └── index.js
+    ├── logs
+    │   ├── .gitingore
+    │   └── ...
+    ├── static
+    │   ├── font
+    │   │   └── ...
+    │   ├── index.js
+    │   └── style.css
+    └── templates
+        ├── index.html
+        └── we-are-demo.html
 ```
 
 ## 開発者向け情報
@@ -113,18 +135,17 @@ envファイルは`src/`に配置してください。
 # .env
 
 # Azure
-# Azure SQL Database
-AZURE_SQL_SERVER="<Server name>"
-AZURE_SQL_DATABASE="<Database name>"
-AZURE_SQL_USERNAME="<Username>"
-AZURE_SQL_PASSWORD="<Password>"
-
 # Azure OpenAI API
 AZURE_OPENAI_API_DEPLOYMENT="<Deployment name>"
 AZURE_OPENAI_API_KEY="<API key>"
 AZURE_OPENAI_API_BASE="<Endpoint (base URL)>"
 AZURE_OPENAI_API_VERSION="<Azure OpenAI's Version>"
 
+# LangSmith
+LANGCHAIN_API_KEY="<LangChain's API key>"
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT="<Project name>"
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 
 # TripAdvisor API
 TRIPADVISOR_API_KEY="<Tripadvisor's API key>"

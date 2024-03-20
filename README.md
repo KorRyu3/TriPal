@@ -24,6 +24,7 @@ TriPal is an AI service that **proposes travel plans** and provides **reservatio
 </p>
 
 ## Installation
+※ If using Docker as described in [Usage②](#usage-run-with-docker), only [Step0](#step0-clone-this-repository) is necessary.
 ### Step0: Clone this repository
 ```bash
 $ git clone https://github.com/KorRyu3/TriPal
@@ -51,8 +52,10 @@ $ deactivate
 $ pip install -r requirements.txt
 ```
 
-
 ## Usage
+There are two ways to run the app: with a local Python environment and with Docker.
+
+## Usage①: Run with Local Python Environment
 ### Step0: Activate Environment
 ```bash
 # Windows
@@ -70,37 +73,57 @@ $ python3 src/app.py
 Open your browser and access to `http://127.0.0.1:8000/`.
 
 
+## Usage②: Run with Docker
+### Step0: Build and Run Docker Container
+```bash
+$ docker-compose up --build
+```
+
+### Step1: Access to the App
+Open your browser and access to `http://127.0.0.1:8000/`.
+
 ## Directory Structure
 ```bash
 TriPal
-├── GitRule_README.md
-├── README.md
-├── .gitignore
 ├── .dockerignore
+├── .gitignore
+├── CONTRIBUTING.md
 ├── docker-compose.yml
 ├── Dockerfile
+├── README.md
+├── README_jp.md
 ├── requirements.txt
+├── .github
+│   └── ...
 ├── .venv
 │   └── ...
 ├── drawio
 │   ├── architecture.drawio
 │   ├── first_design.drawio
+│   ├── log_ER.drawio
 │   └── work-flow.drawio
 └── src
-    ├── .env
     ├── __init__.py
+    ├── .env
     ├── app.py
     ├── dalle3.py
     ├── llm_prompts.py
+    ├── log_setup.py
     ├── tripalgpt.py
     ├── func_call_tools
     │   ├── reservations.py
     │   └── suggestions.py
-    ├── templates
-    │   └── index.html
-    └── static
-        ├── style.css
-        └── index.js
+    ├── logs
+    │   ├── .gitingore
+    │   └── ...
+    ├── static
+    │   ├── font
+    │   │   └── ...
+    │   ├── index.js
+    │   └── style.css
+    └── templates
+        ├── index.html
+        └── we-are-demo.html
 ```
 
 ## Developers Information
@@ -113,18 +136,17 @@ Also, the contents of `.env` are as follows:
 # .env
 
 # Azure
-# Azure SQL Database
-AZURE_SQL_SERVER="<Server name>"
-AZURE_SQL_DATABASE="<Database name>"
-AZURE_SQL_USERNAME="<Username>"
-AZURE_SQL_PASSWORD="<Password>"
-
 # Azure OpenAI API
 AZURE_OPENAI_API_DEPLOYMENT="<Deployment name>"
 AZURE_OPENAI_API_KEY="<API key>"
 AZURE_OPENAI_API_BASE="<Endpoint (base URL)>"
 AZURE_OPENAI_API_VERSION="<Azure OpenAI's Version>"
 
+# LangSmith
+LANGCHAIN_API_KEY="<LangChain's API key>"
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT="<Project name>"
+LANGCHAIN_ENDPOINT="https://api.smith.langchain.com"
 
 # TripAdvisor API
 TRIPADVISOR_API_KEY="<Tripadvisor's API key>"

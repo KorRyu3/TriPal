@@ -1,17 +1,12 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 // ------------------------------
 // https://fastapi.tiangolo.com/ja/advanced/websockets/
-// フロントエンド開発用兼デプロイ用WebSocket
-// PRするときは、下のデバッグ用をコメントアウトし、こっちを有効化してください。
-const web_url = "tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
-const ws = new WebSocket("wss://" + web_url + "/chat");
 
-// バックエンド開発用WebSocket
-// フロントエンド開発するなら、こっちはコメントアウトしたままで大丈夫
-// PRする時は、コメントアウトすること
-// const web_url = "127.0.0.1:8000";
-// const ws = new WebSocket("ws://" + web_url + "/chat");
+// LocalとAzureでURLを切り替える
+const WebSocketURL = window.location.hostname === "127.0.0.1" || window.location.hostname === "0.0.0.0" ? "ws://127.0.0.1:8000" : "wss://tripal-ca.greenbay-9762fead.japaneast.azurecontainerapps.io";
+const ws = new WebSocket(WebSocketURL + "/chat");
 
+console.log("WebSocketURL: ", WebSocketURL);
 // ------------------------------
 // WebSocketのイベントハンドラを設定
 ws.onopen = function () {

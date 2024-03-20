@@ -1,10 +1,8 @@
 import logging
 import os
-from datetime import datetime
 from logging import FileHandler, Formatter, StreamHandler, getLogger
 from typing import AsyncGenerator, AsyncIterator
 
-import pytz
 from dotenv import find_dotenv, load_dotenv
 from langchain.agents import AgentExecutor
 from langchain.agents.format_scratchpad import format_to_openai_function_messages
@@ -16,7 +14,6 @@ from langchain_core.tracers import RunLogPatch
 from langchain_core.utils.function_calling import convert_to_openai_function
 from langchain_openai import AzureChatOpenAI
 
-from azure_sql_db import insert_conversation_history
 from func_call_tools.reservations import TravelReservationSchema, get_reserve_location
 from func_call_tools.suggestions import TravelProposalSchema, get_trip_suggestions_info
 from llm_prompts import (
@@ -46,8 +43,6 @@ file_handler.setFormatter(Formatter("[%(levelname)s] %(asctime)s\n" + "%(message
 file_handler.setLevel(logging.ERROR)
 logger.addHandler(file_handler)
 
-# Time Zoneを設定
-TOKYO_TIMEZONE = pytz.timezone("Asia/Tokyo")
 # ------------------------------- #
 
 
@@ -56,8 +51,7 @@ class TriPalGPT:
     Azure Chat OpenAI による旅行の計画を提案するクラス
     """
 
-    def __init__(self, token_id: int) -> None:
-        self._token_id = token_id
+    def __init__(self) -> None:
 
         self._model_16k = AzureChatOpenAI(
             openai_api_key=os.environ.get("AZURE_OPENAI_API_KEY"),  # API key
@@ -66,7 +60,7 @@ class TriPalGPT:
             ),  # deployment name
             azure_endpoint=os.environ.get("AZURE_OPENAI_API_BASE"),  # endpoint (URL)
             openai_api_version=os.environ.get(
-                "AZURE_OPENAI_API_VERSION", default="2023-07-01-preview"
+                "AZURE_OPENAI_API_VERSION", default="2024-02-15-preview"
             ),  # API version
             model_name="gpt-35-turbo-16k",
             openai_api_type="azure",  # API type
@@ -254,17 +248,6 @@ class TriPalGPT:
                 final_output = format_res["final_output"]
                 # 履歴を保存
                 self._save_memory(user_input, final_output)
-
-                # 現在の日時を東京タイムゾーンで取得
-                current_timestamp = datetime.now(TOKYO_TIMEZONE)
-
-                # 履歴を保存
-                insert_conversation_history(
-                    token_id=self._token_id,
-                    input_text=user_input,
-                    output_text=final_output,
-                    conversation_timestamp=current_timestamp,
-                )
 
                 break
 
