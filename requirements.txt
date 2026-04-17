@@ -35,7 +35,7 @@ langchain-community==0.0.28
 langchain-core==0.1.32
 langchain-openai==0.0.5
 langchain-text-splitters==0.0.1
-langsmith==0.1.27
+langsmith==0.7.31
 MarkupSafe==2.1.4
 marshmallow==3.20.2
 multidict==6.0.4
